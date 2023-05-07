@@ -12,9 +12,9 @@ public class App {
 
         System.out.println(myName.toUpperCase()); 
         System.out.println(myName.toLowerCase());
-        System.out.println("Length of string (contain spacing)"+myName.length());
+        System.out.println("Length of string (contain spacing) "+myName.length());
         // System.out.println(myName.toTitleCase()); Java version > 11
-
+        System.out.println("========================");
         System.out.println("Hello, First Java!");
         System.out.println("Tui là Toàn nè");
         
