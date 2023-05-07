@@ -1,3 +1,5 @@
+import com.learn.j50_javabasic.s10.NewDevcampApp;
+
 public class App {
     public static void main(String[] args) throws Exception {
         // String type
@@ -14,7 +16,9 @@ public class App {
         // System.out.println(myName.toTitleCase()); Java version > 11
 
         System.out.println("Hello, First Java!");
-        System.out.println("Tao là Toàn nè");
+        System.out.println("Tui là Toàn nè");
         
+
+        NewDevcampApp.name("Hoan", 24);
     }
 }
