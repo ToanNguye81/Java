@@ -1,3 +1,4 @@
+// import class
 import com.learn.j50_javabasic.s10.NewDevcampApp;
 
 public class App {
