@@ -38,6 +38,7 @@ public class ArrayToArrayList {
         arrayList2.add(116);
         Integer[] results = arrayList.stream().toArray(size -> new Integer[size]);
         Integer[] results2 = arrayList2.stream().toArray(Integer[]::new);// the same
+        int[] results3 = arrayList.stream().mapToInt(i -> i).toArray();
         for (Integer i : results) {
             System.out.println(i + " ");
             /*
@@ -52,6 +53,15 @@ public class ArrayToArrayList {
              * 11
              * 14
              * 116
+             */
+        }
+        for (Integer i : results3) {
+            System.out.println(" result 3 :" + i);
+
+            /*
+             * result 3 :1
+             * result 3 :4
+             * result 3 :16
              */
         }
     }
