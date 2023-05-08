@@ -19,8 +19,18 @@ public class ArrayToArrayList {
         System.out.println(arrList);
     }
 
+    public static void arrayToArrayList2() {
+        Integer[] arr = { 0, 3, 5, 6, 6, 32 };
+        ArrayList<Integer> arrList3 = new ArrayList<>();
+        for (Integer i : arr) {
+            arrList3.add(i);
+        }
+        System.out.println(arrList3);
+    }
+
     public static void main(String[] args) {
         arrayToArrayListExample();
         arrayToArrayList1();
+        arrayToArrayList2();
     }
 }
