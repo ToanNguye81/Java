@@ -35,12 +35,12 @@ public class ArrayToArrayList {
         Integer[] results = arrayList.stream().toArray(size -> new Integer[size]);
         for (Integer i : results) {
             System.out.println(i + " ");
+            /*
+             * 1
+             * 4
+             * 16
+             */
         }
-        /*
-         * 1
-         * 4
-         * 16
-         */
     }
 
     public static void main(String[] args) {
