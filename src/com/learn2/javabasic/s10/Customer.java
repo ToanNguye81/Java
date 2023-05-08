@@ -5,14 +5,14 @@ public class Customer {
     int myNum;
     float myFloatNum;
     char myLetter;
-    boolean MyBool;
+    boolean myBool;
     String myName;
 
     public Customer() {
         myNum = 5;
         myFloatNum = 5.99f;
         myLetter = 'H'; // char ''
-        MyBool = true;
+        myBool = true;
         myName = "ToanGL";
     }
 
@@ -20,8 +20,24 @@ public class Customer {
         myNum = num;
         myFloatNum = floatNum;
         myLetter = letter; // char ''
-        MyBool = bool;
+        myBool = bool;
         myName = name;
+    }
+
+    public static void main(String[] args) {
+        Customer customer = new Customer();
+        System.out.println(customer.myNum);
+        System.out.println(customer.myFloatNum);
+        System.out.println(customer.myLetter);
+        System.out.println(customer.myBool);
+        System.out.println(customer.myNum);
+
+        customer = new Customer(1, 33.31f, 'T', false, "Fullstack Developer");
+        System.out.println(customer.myNum);
+        System.out.println(customer.myFloatNum);
+        System.out.println(customer.myLetter);
+        System.out.println(customer.myBool);
+        System.out.println(customer.myName);
     }
 
 }
