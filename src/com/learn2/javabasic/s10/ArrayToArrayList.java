@@ -29,16 +29,29 @@ public class ArrayToArrayList {
 
     public static void ToArray() {
         ArrayList<Integer> arrayList = new ArrayList<>();
+        ArrayList<Integer> arrayList2 = new ArrayList<>();
         arrayList.add(1);
         arrayList.add(4);
         arrayList.add(16);
+        arrayList2.add(11);
+        arrayList2.add(14);
+        arrayList2.add(116);
         Integer[] results = arrayList.stream().toArray(size -> new Integer[size]);
+        Integer[] results2 = arrayList2.stream().toArray(Integer[]::new);// the same
         for (Integer i : results) {
             System.out.println(i + " ");
             /*
              * 1
              * 4
              * 16
+             */
+        }
+        for (Integer i : results2) {
+            System.out.println(i + " ");
+            /*
+             * 11
+             * 14
+             * 116
              */
         }
     }
