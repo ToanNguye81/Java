@@ -3,10 +3,14 @@
 import java.lang.String;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.swing.text.DateFormatter;
 
@@ -50,11 +54,20 @@ public class App {
 
         App app = new App();
         System.out.println(app.niceDay());
+        System.out.println(app.getVietNamDate());
+
     }
 
     public String niceDay() {
         DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
         Date now = new Date();
         return String.format("Have a nice day. It is %s!.", dateFormat.format(now));
+    }
+
+    public String getVietNamDate() {
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE,dd-MMMM-yyyy")
+                .localizedBy(Locale.forLanguageTag("vi"));
+        LocalDate today = LocalDate.now(ZoneId.systemDefault());
+        return String.format("Hôm nay là %s là ngày con khỉ leo cây.", myFormatObj.format(today));
     }
 }
