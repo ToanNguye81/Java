@@ -2,10 +2,10 @@ package com.learn.j50;
 
 public class NewDevcampApp {
     public static void main(String[] args) {
-        System.out.println("test class trong package!");
+        System.out.println("test class on package!");
         NewDevcampApp text = new NewDevcampApp();
         text.name1();
-        System.out.println("Hello, World! My name is " + text.name2("HieuHN! ").length());
+        System.out.println("Hello, World! My name is " + text.name2("ToanGL! ").length());
     }
 
     public void name1() {
