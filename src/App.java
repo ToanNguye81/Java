@@ -1,25 +1,33 @@
+
 // import class
-import com.learn.j50_javabasic.s10.NewDevcampApp;
+import java.lang.String;
+import java.util.ArrayList;
+import com.learn.j50.NewDevcampApp;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        // String type
-        // System.out.println = "sout" + tab
-        // Check error = F5
-        // Run not check error = Ctrl + F5
-        String myName = "Nguyen tran quoc Toan";
-        
-        System.out.println("My name is"+myName);
+        // // String type
+        // // System.out.println = "sout" + tab
+        // // Check error = F5
+        // // Run not check error = Ctrl + F5
+        // String myName = "Nguyen tran quoc Toan";
 
-        System.out.println(myName.toUpperCase()); 
-        System.out.println(myName.toLowerCase());
-        System.out.println("Length of string (contain spacing) "+myName.length());
-        // System.out.println(myName.toTitleCase()); Java version > 11
-        System.out.println("========================");
-        System.out.println("Hello, First Java!");
-        System.out.println("Tui là Toàn nè");
-        
+        // System.out.println("My name is" + myName);
 
-        NewDevcampApp.name("Hoan", 24);
+        // System.out.println(myName.toUpperCase());
+        // System.out.println(myName.toLowerCase());
+        // System.out.println("Length of string (contain spacing) " + myName.length());
+        // // System.out.println(myName.toTitleCase()); Java version > 11
+        // System.out.println("========================");
+        // System.out.println("Hello, First Java!");
+        // System.out.println("Tui là Toàn nè");
+        // NewDevcampApp.name("Hoan", 24);
+
+        ArrayList abc = new ArrayList();
+        NewDevcampApp text = new NewDevcampApp();
+        System.out.println(
+                "Hello, World! My name is " + text.name4(" TOAN ", 20, "toan@gmail.com").toUpperCase().toLowerCase());
+        System.out.println("Hello, World! My name is " + text.name3(" TOAN", 20).toUpperCase().toLowerCase());
+        System.out.println("Hello, World! My name is " + text.name2(" TOAN ").length());
     }
 }

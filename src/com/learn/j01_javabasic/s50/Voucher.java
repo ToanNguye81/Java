@@ -4,19 +4,26 @@ public class Voucher {
     public String voucherCode = "CODE_1";
 
     public String getVoucherCode() {
+        // returns the voucher code stored in the instance variable voucherCode
         return voucherCode;
     };
 
     public void setVoucherCode(String voucherCode) {
+        // sets the value of the instance variable voucherCode to the given value.
         this.voucherCode = voucherCode;
     };
 
     public void showVoucher() {
+        // prints the voucher code stored in the instance variable voucherCode to the
+        // console
         System.out.println("Voucher Code is: " + this.voucherCode);
     }
 
     public void showVoucher(String voucherCode) {
+        // takes a voucher code as an argument, and prints both the instance variable
+        // voucherCode
         System.out.println("This voucher code : " + this.voucherCode);
+        // and the voucher code passed as an argument to the console.
         System.out.println("This voucher code too : " + voucherCode);
     };
 
