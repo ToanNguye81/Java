@@ -1,9 +1,9 @@
 package com.learn2.javabasic.s10;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
+import java.util.Collection;
+import java.util.Collections;
 
 public class ArrayToArrayList {
     public static void arrayToArrayListExample() {
@@ -12,7 +12,15 @@ public class ArrayToArrayList {
         System.out.println(arrayList);
     }
 
+    public static void arrayToArrayList1() {
+        Integer[] arr = { 1, 2, 3, 4, 5, 89 };
+        ArrayList<Integer> arrList = new ArrayList<>();
+        Collections.addAll(arrList, arr);
+        System.out.println(arrList);
+    }
+
     public static void main(String[] args) {
         arrayToArrayListExample();
+        arrayToArrayList1();
     }
 }
