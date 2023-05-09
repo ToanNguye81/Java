@@ -16,6 +16,7 @@ import java.util.Locale;
 import javax.swing.text.DateFormatter;
 
 import com.learn.j50.NewDevcampApp;
+import com.learn3.javabasic.s10.Order;
 import com.learn3.javabasic.s10.Person;
 
 public class App {
@@ -46,37 +47,58 @@ public class App {
         // System.out.println("Hello, World! My name is " + text.name2(" TOAN
         // ").length());
 
-        LocalDateTime myDateObj = LocalDateTime.now();
-        System.out.println("Before formatting : " + myDateObj);
+        // ==============================================
+        // // Learn 3.1
+        // LocalDateTime myDateObj = LocalDateTime.now();
+        // System.out.println("Before formatting : " + myDateObj);
 
-        DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm:ss");
+        // DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy
+        // HH:mm:ss");
 
-        String formattedDate = myDateObj.format(myFormatter);
-        System.out.println("After formatting : " + formattedDate);
+        // String formattedDate = myDateObj.format(myFormatter);
+        // System.out.println("After formatting : " + formattedDate);
 
-        App app = new App();
-        System.out.println(app.niceDay());
-        System.out.println(app.getVietNamDate());
+        // App app = new App();
+        // System.out.println(app.niceDay());
+        // System.out.println(app.getVietNamDate());
 
-        ArrayList<Person> arrayList3 = new ArrayList<>();
-        // Khởi tạo các tham số
-        Person person0 = new Person();
-        Person person1 = new Person("Toan");
-        Person person2 = new Person("Toàn2", 55, 23.4);
-        Person person3 = new Person("Nam", 44, 332.5, 3440505, new String[] { "Monkey", "Dog" });
-        Person person4 = new Person("Hải", 44, 332.5, 438333, new String[] { "Cat", "Dog", "Snake" });
+        // ArrayList<Person> arrayList3 = new ArrayList<>();
+        // // Khởi tạo các tham số
+        // Person person0 = new Person();
+        // Person person1 = new Person("Toan");
+        // Person person2 = new Person("Toàn2", 55, 23.4);
+        // Person person3 = new Person("Nam", 44, 332.5, 3440505, new String[] {
+        // "Monkey", "Dog" });
+        // Person person4 = new Person("Hải", 44, 332.5, 438333, new String[] { "Cat",
+        // "Dog", "Snake" });
 
-        // Add person obj to Array list
-        arrayList3.add(person0);
-        arrayList3.add(person1);
-        arrayList3.add(person2);
-        arrayList3.add(person3);
-        arrayList3.add(person3);
-        arrayList3.add(person4);
+        // // Add person obj to Array list
+        // arrayList3.add(person0);
+        // arrayList3.add(person1);
+        // arrayList3.add(person2);
+        // arrayList3.add(person3);
+        // arrayList3.add(person3);
+        // arrayList3.add(person4);
 
-        // Print to creen
-        for (Person person : arrayList3) {
-            System.out.println(person);
+        // // Print to creen
+        // for (Person person : arrayList3) {
+        // System.out.println(person);
+        // }
+
+        // Lean 3.2
+        ArrayList<Order> orderArrayList = new ArrayList<>();
+        Order order1 = new Order();
+        Order order2 = new Order("Nguyen");
+        Order order3 = new Order(1, "Toàn", 4334322);
+        Order order4 = new Order(33, "Tran", 398239, new Date(), false, new String[] { "hot dog", "Bugerking" });
+
+        orderArrayList.add(order1);
+        orderArrayList.add(order2);
+        orderArrayList.add(order3);
+        orderArrayList.add(order4);
+
+        for (Order order : orderArrayList) {
+            System.out.println(order);
         }
 
     }
