@@ -24,6 +24,7 @@ public class Person {
         this.age = age;
         this.weight = weight;
         this.salary = salary;
+        this.pets = pets;
 
     };
 

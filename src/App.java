@@ -63,11 +63,21 @@ public class App {
         Person person0 = new Person();
         Person person1 = new Person("Toan");
         Person person2 = new Person("Toàn2", 55, 23.4);
-        Person person3 = new Person();
+        Person person3 = new Person("Nam", 44, 332.5, 3440505, new String[] { "Monkey", "Dog" });
+        Person person4 = new Person("Hải", 44, 332.5, 438333, new String[] { "Cat", "Dog", "Snake" });
+
+        // Add person obj to Array list
         arrayList3.add(person0);
-        System.out.println(arrayList3.get(0));
-        System.out.println(person0);
-        System.out.println(person1);
+        arrayList3.add(person1);
+        arrayList3.add(person2);
+        arrayList3.add(person3);
+        arrayList3.add(person3);
+        arrayList3.add(person4);
+
+        // Print to creen
+        for (Person person : arrayList3) {
+            System.out.println(person);
+        }
 
     }
 
