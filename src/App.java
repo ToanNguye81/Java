@@ -1,6 +1,7 @@
 
 // import class
 import java.lang.String;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.util.Locale;
 import javax.swing.text.DateFormatter;
 
 import com.learn.j50.NewDevcampApp;
+import com.learn3.javabasic.s10.Person;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -56,6 +58,17 @@ public class App {
         System.out.println(app.niceDay());
         System.out.println(app.getVietNamDate());
 
+        ArrayList<Person> arrayList3 = new ArrayList<>();
+        // Khởi tạo các tham số
+        Person person0 = new Person();
+        Person person1 = new Person("Toan");
+        Person person2 = new Person("Toàn2", 55, 23.4);
+        Person person3 = new Person();
+        arrayList3.add(person0);
+        System.out.println(arrayList3.get(0));
+        System.out.println(person0);
+        System.out.println(person1);
+
     }
 
     public String niceDay() {
@@ -70,4 +83,5 @@ public class App {
         LocalDate today = LocalDate.now(ZoneId.systemDefault());
         return String.format("Hôm nay là %s là ngày con khỉ leo cây.", myFormatObj.format(today));
     }
+
 }
