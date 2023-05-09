@@ -1,5 +1,6 @@
 package com.learn3.javabasic.s10;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Person {
@@ -38,19 +39,20 @@ public class Person {
         this(name, age, weight, 2000000, new String[] { "Cat", "Dog", "Snake" });
     }
 
-    // public static void main(String[] args) throws Exception {
-    // ArrayList<Person> arrayList = new ArrayList<>();
-    // // Khởi tạo các Person
-    // Person person1 = new Person();
-    // Person person2 = new Person("Toand");
-    // Person person3 = new Person();
-    // Person person4 = new Person();
-    // Person person5 = new Person();
-    // arrayList.add(person1);
-    // System.out.println(arrayList);
-    // System.out.println(person2);
+    public static void main(String[] args) throws Exception {
+        ArrayList<Person> arrayList = new ArrayList<>();
+        // Khởi tạo các Person
+        Person person1 = new Person();
+        Person person2 = new Person("Toand");
+        Person person3 = new Person("Nád", 55, 343.4);
+        Person person4 = new Person("Nád", 55, 343.4, 1214334, new String[] { "car", "toyora", "tokyo" });
+        System.out.println(arrayList);
+        System.out.println(person1);
+        System.out.println(person2);
+        System.out.println(person3);
+        System.out.println(person4);
 
-    // }
+    }
 
     @Override
     public String toString() {
