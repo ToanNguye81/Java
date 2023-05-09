@@ -27,15 +27,20 @@ public class ArrayToArrayList {
         System.out.println(arrList3);// [0, 3, 5, 6, 6, 32]
     }
 
-    public static void ToArray() {
+    public static void toArray() {
         ArrayList<Integer> arrayList = new ArrayList<>();
         ArrayList<Integer> arrayList2 = new ArrayList<>();
+
         arrayList.add(1);
         arrayList.add(4);
         arrayList.add(16);
+
         arrayList2.add(11);
+        arrayList2.add(116);
         arrayList2.add(14);
         arrayList2.add(116);
+        arrayList2.add(118);
+
         Integer[] results = arrayList.stream().toArray(size -> new Integer[size]);
         Integer[] results2 = arrayList2.stream().toArray(Integer[]::new);// the same
         int[] results3 = arrayList.stream().mapToInt(i -> i).toArray();
@@ -57,19 +62,54 @@ public class ArrayToArrayList {
         }
         for (Integer i : results3) {
             System.out.println(" result 3 :" + i);
-
             /*
              * result 3 :1
              * result 3 :4
              * result 3 :16
              */
         }
+
+        // Get last index of 116
+        System.out.println(arrayList2.lastIndexOf(116));// 3
+
+        // add element to index
+        arrayList2.add(1, 125);
+        arrayList2.add(127);
+        System.out.println(arrayList2);// [11, 125, 116, 14, 116, 118, 127]
+
+        // Remove element at index
+        arrayList2.remove(3);
+        System.out.println(arrayList2);// [11, 125, 116, 116, 118, 127]
+
+        // Update element at index
+        arrayList2.set(2, 66);
+        System.out.println(arrayList2);// [11, 125, 116, 116, 118, 127]
+
+        // GEt index of element
+        arrayList2.add(127);
+        arrayList2.add(127);
+        System.out.println(arrayList2);// [11, 125, 66, 116, 118, 127, 127, 127]
+        System.out.println(arrayList2.indexOf(127));// 5
+
+        // Get element of index
+        System.out.println(arrayList2.get(4));// 118
+
+        // Get quantity element in array
+        System.out.println(arrayList2.size());// 8
+
+        // Check element in array list?
+        System.out.println(arrayList2.contains(111));// false
+        System.out.println(arrayList2.contains(127));// true
+
+        // Clear all element
+        arrayList2.clear();
+        System.out.println(arrayList2);// []
     }
 
     public static void main(String[] args) {
         arrayToArrayListExample();
         arrayToArrayList1();
         arrayToArrayList2();
-        ToArray();
+        toArray();
     }
 }
