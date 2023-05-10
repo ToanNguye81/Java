@@ -44,31 +44,22 @@ public class Person {
         // Khởi tạo các Person
         Person person1 = new Person();
         Person person2 = new Person("Toand");
-        Person person3 = new Person("Nád", 55, 343.4);
-        Person person4 = new Person("Nád", 55, 343.4, 1214334, new String[] { "car", "toyora", "tokyo" });
-        System.out.println(arrayList);
-        System.out.println(person1);
-        System.out.println(person2);
-        System.out.println(person3);
-        System.out.println(person4);
+        Person person3 = new Person("Some", 55, 343.4);
+        Person person4 = new Person("Luu", 55, 343.4, 1214334, new String[] { "car", "toyora", "tokyo" });
 
+        arrayList.add(person1);
+        arrayList.add(person2);
+        arrayList.add(person3);
+        arrayList.add(person4);
+        System.out.println(arrayList);
     }
 
     @Override
     public String toString() {
-        // String petStr = "[";
-        // for (int i = 0; i < pets.length; i++) {
-        // petStr += pets[i];
-        // if (i < pets.length - 1) {
-        // petStr += ", ";
-        // }
-        // }
-
-        return "Person [name=" + name
+        return "Person = [name=" + name
                 + ", age=" + age
                 + ", weight=" + weight
                 + ", salary=" + salary
-                // + ", pets=" + petStr + "]";
                 + ", pets=" + Arrays.toString(pets) + "]";
     }
 }

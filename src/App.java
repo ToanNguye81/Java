@@ -80,7 +80,7 @@ public class App {
         // arrayList3.add(person3);
         // arrayList3.add(person4);
 
-        // // Print to creen
+        // // Print to screen
         // for (Person person : arrayList3) {
         // System.out.println(person);
         // }
@@ -89,8 +89,8 @@ public class App {
         ArrayList<Order> orderArrayList = new ArrayList<>();
         Order order1 = new Order();
         Order order2 = new Order("Nguyen");
-        Order order3 = new Order(1, "Toàn", 4334322);
-        Order order4 = new Order(33, "Tran", 398239, new Date(), false, new String[] { "hot dog", "Bugerking" });
+        Order order3 = new Order(1, "Toan", 4334322);
+        Order order4 = new Order(33, "Tran", 398239, new Date(), false, new String[] { "Hot Dog", "Bugerking" });
 
         orderArrayList.add(order1);
         orderArrayList.add(order2);
