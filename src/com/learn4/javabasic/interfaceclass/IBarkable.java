@@ -1,4 +1,4 @@
-package com.learn4.javabasic.s10;
+package com.learn4.javabasic.interfaceclass;
 
 /*   Đây là một interface có tên là "IBarkable", có chứa hai phương thức "bark()"
  * và "barkBark()". Các lớp có implements interface này sẽ phải định nghĩa lại

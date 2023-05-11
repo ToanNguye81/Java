@@ -1,4 +1,4 @@
-package com.learn4.javabasic.s10;
+package com.learn4.javabasic.interfaceclass;
 
 public interface IFlyable {
     void fly();
