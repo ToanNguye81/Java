@@ -18,6 +18,11 @@ import javax.swing.text.DateFormatter;
 import com.learn.j50.NewDevcampApp;
 import com.learn3.javabasic.s10.Order;
 import com.learn3.javabasic.s10.Person;
+import com.learn4.javabasic.s10.CAnimal;
+import com.learn4.javabasic.s10.CBird;
+import com.learn4.javabasic.s10.CFish;
+import com.learn4.javabasic.s10.CPerson;
+import com.learn4.javabasic.s10.CPet;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -101,6 +106,18 @@ public class App {
             System.out.println(order);
         }
 
+        // Learn 4.1
+        CAnimal nameA2 = new CFish();
+        CPet nameP2 = new CBird();
+
+        CPerson namePerson = new CPerson();
+        namePerson.setAge(40);
+        namePerson.setFirstName("Tokuda");
+        ArrayList<CPet> petsList = new ArrayList();
+        petsList.add(nameP2);
+        petsList.add((CPet) nameA2);
+        namePerson.setPets(petsList);
+        System.out.println(namePerson);
     }
 
     public String niceDay() {

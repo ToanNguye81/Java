@@ -1,5 +1,7 @@
 package com.learn4.javabasic.s10;
 
+import com.learn4.javabasic.interfaceclass.Iswimable;
+
 public class CFish extends CPet implements Iswimable {
     @Override
     public void swim() {

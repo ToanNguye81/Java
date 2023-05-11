@@ -1,6 +1,9 @@
 package com.learn4.javabasic.s10;
 
+import com.learn4.javabasic.interfaceclass.IFlyable;
+
 public class CBird extends CPet implements IFlyable {
+
     @Override
     public void fly() {
         System.out.println("Bird flying");
