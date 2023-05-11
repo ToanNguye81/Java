@@ -55,7 +55,6 @@ public class Order2 {
         this.price = price;
         this.orderDate = orderDate;
         this.confirm = confirm;
-
     }
 
     @Override
@@ -68,7 +67,7 @@ public class Order2 {
         sb.append("Khách hàng: ").append(this.customerName).append("\n");
         sb.append("Tổng giá tiền: ").append(currencyFormat.format(this.price)).append("\n");
         sb.append("Ngày thực hiện order: ").append(dateFormat.format(this.orderDate)).append("\n");
-        sb.append("Đã xác nhận: ").append(this.confirm ? "Có" : "Không").append("\n");
+        sb.append("Đã xác nhận: ").append(this.confirm ? "True" : "False").append("\n");
         sb.append("Danh sách mặt hàng đã mua:\n");
         for (String item : this.items) {
             sb.append("- ").append(item).append("\n");
@@ -96,22 +95,8 @@ public class Order2 {
         orderList.add(order4);
 
         // In thông tin của các đối tượng trong orderList
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày tháng
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN")); // Định dạng tiền tệ
         for (Order2 order : orderList) {
-            System.out.println("ID: " + order.id);
-            System.out.println("Khách hàng: " + order.customerName);
-            System.out.println("Tổng giá tiền: " + currencyFormat.format(order.price));
-            System.out.println("Ngày thực hiện order: " +
-                    dateFormat.format(order.orderDate));
-            System.out.println("Đã xác nhận: " + (order.confirm ? "Có" : "Không"));
-            System.out.println("Danh sách mặt hàng đã mua:");
-            for (String item : order.items) {
-                System.out.println("- " + item);
-            }
-            if (order.buyer != null) {
-                System.out.println("Người mua: " + order.buyer);
-            }
+            System.out.println(order.toString());
             System.out.println("---------------------------");
         }
 
