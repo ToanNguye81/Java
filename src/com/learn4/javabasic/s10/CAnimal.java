@@ -1,19 +1,31 @@
 package com.learn4.javabasic.s10;
 
+/*
+ * Từ khóa "abstract" trước class CAnimal xác định rằng CAnimal là một abstract
+ * class, nghĩa là không thể tạo ra một đối tượng CAnimal trực tiếp, mà chỉ có
+ * thể tạo ra các đối tượng từ các lớp con của nó.
+ */
 public abstract class CAnimal {
     /*
-     * Trong lập trình hướng đối tượng, một abstract class (lớp trừu tượng) là một
-     * lớp mà không thể được khởi tạo thành đối tượng, nhưng được sử dụng để định
-     * nghĩa các phương thức và thuộc tính cơ bản mà các lớp con có thể kế thừa và
-     * triển khai. Abstract class được sử dụng để xác định một bộ các phương thức và
-     * thuộc tính chung cho các lớp con và đảm bảo rằng chúng triển khai các phương
-     * thức đó một cách đồng nhất.
+     * public AnimalClass animClass là một thuộc tính (property) của CAnimal. Trong
+     * trường hợp này, nó được khai báo public, có nghĩa là bất kỳ lớp nào có thể
+     * truy cập trực tiếp đến thuộc tính này.
      */
-
     public AnimalClass animClass;
 
+    /*
+     * abstract public void animalSound() là một phương thức trừu tượng (abstract
+     * method). Trong trường hợp này, nó được khai báo abstract và không có cài đặt
+     * phương thức. Điều này có nghĩa là các lớp con của CAnimal phải triển khai
+     * phương thức này.
+     */
     abstract public void animalSound();
 
+    /*
+     * public void eat() và public void drink() là hai phương thức định nghĩa trong
+     * CAnimal. Chúng không được khai báo là abstract, vì vậy chúng được triển khai
+     * bên trong CAnimal và có thể được gọi trực tiếp từ các lớp con của nó.
+     */
     public void eat() {
         System.out.println("Animal eating...");
     }
