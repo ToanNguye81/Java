@@ -37,7 +37,7 @@ public class CCat extends CPet implements Irunable, Other {
 
     @Override
     public String toString() {
-        return "{name: Im cat}";
+        return "CCat={age:" + age + "," +
+                "name:" + name + "}";
     }
-
 }

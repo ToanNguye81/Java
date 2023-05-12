@@ -6,6 +6,9 @@ import com.learn4.javabasic.interfaceclass.Other;
 
 public class CDog extends CPet implements IBarkable, Irunable, Other {
 
+    private int age;
+    private String name;
+
     public CDog(int age, String name) {
         super();
         this.age = age;
@@ -49,7 +52,8 @@ public class CDog extends CPet implements IBarkable, Irunable, Other {
 
     @Override
     public String toString() {
-        return "{name: Im Dog}";
+        return "CDog={age:" + age + "," +
+                "name:" + name + "}";
     }
 
 }
