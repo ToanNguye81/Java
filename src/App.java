@@ -20,6 +20,7 @@ import com.learn3.javabasic.s10.Order;
 import com.learn3.javabasic.s10.Person;
 import com.learn4.javabasic.s10.CAnimal;
 import com.learn4.javabasic.s10.CBird;
+import com.learn4.javabasic.s10.CDog;
 import com.learn4.javabasic.s10.CFish;
 import com.learn4.javabasic.s10.CPerson;
 import com.learn4.javabasic.s10.CPet;
@@ -109,6 +110,7 @@ public class App {
         // Learn 4.1
         CAnimal nameA2 = new CFish();
         CPet nameP2 = new CBird();
+        CPet dog2 = new CDog(4, "Lucky");
 
         CPerson namePerson = new CPerson();
         namePerson.setAge(40);
