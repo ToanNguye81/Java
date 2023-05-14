@@ -21,8 +21,22 @@ public class App {
         System.out.println(account1);
         System.out.println(account2);
 
+        // Date
         Date nowDate = new Date(2, 13, 5645);
         System.out.println(nowDate);
+
+        // Time
+        Time time1 = new Time(10, 30, 59);
+        Time time2 = new Time(21, 15, 59);
+
+        System.out.println("Time 1: " + time1.toString());
+        System.out.println("Time 2: " + time2.toString());
+
+        time1.nextSecond();
+        time2.previousSecond();
+
+        System.out.println("Time 1 after nextSecond(): " + time1.toString());
+        System.out.println("Time 2 after previousSecond(): " + time2.toString());
     }
 
 }
