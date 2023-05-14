@@ -44,6 +44,10 @@ public class App {
 
         System.out.println("Time 1 after nextSecond(): " + time1.toString());
         System.out.println("Time 2 after previousSecond(): " + time2.toString());
+        // Author
+
+        Author author = new Author("nullsâ", "dss", 'f');
+        System.out.println(author);
     }
 
 }
