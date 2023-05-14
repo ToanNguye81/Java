@@ -19,14 +19,14 @@ public class App {
         // Account
         Account account = new Account(null, null);
         Account account1 = new Account("232", "Đại gia");
-        Account account2 = new Account("232", "Đại gia", 5000);
-
-        account2.transferTo(45, account1);
         account1.credit(12222);
-        account2.debit(1276);
         System.out.println(account);
         System.out.println(account1);
-        System.out.println(account2);
+
+        Account account2 = new Account("232", "Đại gia", 5000);// ver1
+        account2.transferTo(45, account1);// ver1
+        account2.debit(1276);// ver1
+        System.out.println(account2);// ver1
 
         // Date
         Date nowDate = new Date(2, 13, 5645);
