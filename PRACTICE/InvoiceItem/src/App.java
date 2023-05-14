@@ -65,6 +65,9 @@ public class App {
         System.out.println(customer);
         System.out.println(invoice);
 
+        // Person
+        Person person = new Person("person-ti", "gia lai");
+        System.out.println(person);
     }
 
 }
