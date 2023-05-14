@@ -79,6 +79,8 @@ public class App {
         accountVer2.deposit(12);
         accountVer2.withdraw(122);
         System.out.println(accountVer2);
+        System.out.println(accountVer2.getCustomerName());
+        System.out.println(accountVer2.getCustomer());
     }
 
 }

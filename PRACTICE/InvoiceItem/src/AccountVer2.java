@@ -53,7 +53,7 @@ public class AccountVer2 {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "Account[id=" + id + ",customer=" + customer + ",balance=" + balance + "]";
+        return "Account[id=" + id + "," + customer + ",balance=" + balance + "]";
     }
 
 }
