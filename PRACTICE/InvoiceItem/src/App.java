@@ -49,6 +49,15 @@ public class App {
         Author author = new Author("dsdnull", "sdfsd@fsma", 'f');
         Book book = new Book("chiến tranh", author, 76000, 44);
         System.out.println(book);
+
+        // Circle
+        Circle circle = new Circle(2, "red");
+        System.out.println(circle);
+
+        // Cylinder
+        Cylinder cylinder = new Cylinder(2, 4, "green");
+        System.out.println(cylinder);
+
     }
 
 }
