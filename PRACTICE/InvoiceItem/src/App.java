@@ -67,7 +67,9 @@ public class App {
 
         // Person
         Person person = new Person("person-ti", "gia lai");
+        Student student = new Student("Tokyo", "Japan", "dev back", "2019", 2000000);
         System.out.println(person);
+        System.out.println(student);
     }
 
 }
