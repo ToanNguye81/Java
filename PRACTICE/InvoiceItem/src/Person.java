@@ -9,11 +9,11 @@ public class Person {
         this.address = address;
     }
 
-    public void setAdrress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getAdrress() {
+    public String getAddress() {
         return address;
     }
 

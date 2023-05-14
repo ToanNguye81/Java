@@ -37,8 +37,7 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return "Student[" + super.toString() + ",program=" + program + ", year=" + year + ", fee=" + fee + "]";
+        return "Student[" + super.toString() + ", program=" + program + ", year=" + year + ", fee=" + fee + "]";
     }
 
 }
