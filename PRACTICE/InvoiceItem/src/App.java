@@ -1,5 +1,12 @@
 public class App {
     public static void main(String[] args) throws Exception {
+
+        // Employee
+        Employee employee = new Employee(0, null, null, 0);
+        System.out.println(employee);
+        Employee employee1 = new Employee(1, "Toàn", "Nguyễn", 20000);
+        System.out.println(employee1);
+
         // Invoice item
         InvoiceItem invoiceItem = new InvoiceItem(null, null, 0, 0);
         InvoiceItem invoiceItem2 = new InvoiceItem("4", "hẹn mai gặp", 3, 32);
