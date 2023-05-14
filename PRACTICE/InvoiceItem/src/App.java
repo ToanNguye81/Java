@@ -50,13 +50,20 @@ public class App {
         Book book = new Book("chiến tranh", author, 76000, 44);
         System.out.println(book);
 
+        // Quan hệ kế thừa
         // Circle
         Circle circle = new Circle(2, "red");
         System.out.println(circle);
-
         // Cylinder
-        Cylinder cylinder = new Cylinder(2, 4, "green");
+        Circle cylinder = new Cylinder(4, 4, "green");
         System.out.println(cylinder);
+
+        // Customer
+        Customer customer = new Customer(22, "customer", 20);
+        Invoice invoice = new Invoice(3, customer, 4.3);
+
+        System.out.println(customer);
+        System.out.println(invoice);
 
     }
 
