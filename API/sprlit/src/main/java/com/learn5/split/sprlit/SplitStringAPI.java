@@ -51,4 +51,34 @@ public class SplitStringAPI {
         return employeeArrayList;
     }
 
+    @GetMapping("/circle-area")
+    public ArrayList<Circle> circle() {
+        // Circle
+        Circle circle1 = new Circle(2, "red");
+        Circle circle2 = new Circle(2, "green");
+        Circle circle3 = new Circle(2, "blue");
+        ArrayList<Circle> circleArrayList = new ArrayList<>();
+
+        circleArrayList.add(circle1);
+        circleArrayList.add(circle2);
+        circleArrayList.add(circle3);
+        return circleArrayList;
+
+    }
+
+    @GetMapping("/invoice-item")
+    public ArrayList<InvoiceItem> invoice() {
+        // InvoiceItem
+        InvoiceItem invoiceItem1 = new InvoiceItem("1", "success", 10, 700.43);
+        InvoiceItem invoiceItem2 = new InvoiceItem("2", "waiting", 10, 800.2);
+        InvoiceItem invoiceItem3 = new InvoiceItem("5", "delivery", 10, 900.43);
+        ArrayList<InvoiceItem> invoiceItemArrayList = new ArrayList<>();
+
+        invoiceItemArrayList.add(invoiceItem1);
+        invoiceItemArrayList.add(invoiceItem2);
+        invoiceItemArrayList.add(invoiceItem3);
+        return invoiceItemArrayList;
+
+    }
+
 }
