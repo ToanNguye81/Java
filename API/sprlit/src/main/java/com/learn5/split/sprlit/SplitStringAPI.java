@@ -81,4 +81,25 @@ public class SplitStringAPI {
 
     }
 
+    @GetMapping("/account")
+    public ArrayList<Account> account() {
+        // Account
+        Account account1 = new Account("1", "Hải", 12000);
+        Account account2 = new Account("2", "Tuấn", 14000);
+        Account account3 = new Account("4", "Triều", 15000);
+        ArrayList<Account> accountArrayList = new ArrayList<>();
+
+        accountArrayList.add(account1);
+        accountArrayList.add(account2);
+        accountArrayList.add(account3);
+        return accountArrayList;
+    }
+
+    @GetMapping("/length")
+    public int length() {
+        String newString = "Nguyễn Trần Quốc Toàn";
+        int length = newString.length();
+        return length;
+    }
+
 }
