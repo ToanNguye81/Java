@@ -9,6 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SplitStringAPI {
 
+    @GetMapping("/split")
+    public ArrayList<Character> split() {
+        String newString = "Nguyễn Trần Quốc Toàn";
+        char[] charArray = newString.toCharArray();
+
+        ArrayList<Character> arrayList = new ArrayList<>();
+        for (char ch : charArray) {
+            arrayList.add(ch);
+        }
+        return arrayList;
+    }
+
     @CrossOrigin
     @GetMapping("/rainbow")
     public ArrayList<Rainbow> rainbows() {
@@ -20,18 +32,6 @@ public class SplitStringAPI {
             rainbowColorList.add(rainbowColor);
         }
         return rainbowColorList;
-    }
-
-    @GetMapping("/split")
-    public ArrayList<Character> split() {
-        String newString = "Nguyễn Trần Quốc Toàn";
-        char[] charArray = newString.toCharArray();
-
-        ArrayList<Character> arrayList = new ArrayList<>();
-        for (char ch : charArray) {
-            arrayList.add(ch);
-        }
-        return arrayList;
     }
 
     @GetMapping("/employee")
