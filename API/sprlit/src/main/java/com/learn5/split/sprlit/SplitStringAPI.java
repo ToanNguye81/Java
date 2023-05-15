@@ -102,4 +102,19 @@ public class SplitStringAPI {
         return length;
     }
 
+    @GetMapping("/checknumber")
+    public ArrayList checknumber() {
+        int number1 = 1;
+        int number2 = 2;
+        String result1 = new OddEvenChecker(number1).isEven();
+        String result2 = new OddEvenChecker(number2).isEven();
+
+        ArrayList<String> resultList = new ArrayList<>();
+        resultList.add(result1);
+        resultList.add(result2);
+
+        return resultList;
+
+    }
+
 }
