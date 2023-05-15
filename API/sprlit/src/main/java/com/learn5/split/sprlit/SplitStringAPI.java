@@ -12,7 +12,7 @@ public class SplitStringAPI {
     @CrossOrigin
     @GetMapping("/rainbow")
     public ArrayList<Rainbow> rainbows() {
-        String[] colorList = { "red", "orange", "yellow", "green", "blue", "indigo", "violet" };
+        String[] colorList = { "red", "orange", "blue", "indigo", "violet", "yellow", "green" };
         ArrayList<Rainbow> rainbowColorList = new ArrayList<>();
 
         for (String color : colorList) {
@@ -22,8 +22,15 @@ public class SplitStringAPI {
         return rainbowColorList;
     }
 
-    // @GetMapping("/split")
-    // public ArrayList<> first() {
-    // return String.format("Nguyễn Trần Quốc Toàn");
-    // }
+    @GetMapping("/split")
+    public ArrayList<Character> split() {
+        String newString = "Nguyễn Trần Quốc Toàn";
+        char[] charArray = newString.toCharArray();
+
+        ArrayList<Character> arrayList = new ArrayList<>();
+        for (char ch : charArray) {
+            arrayList.add(ch);
+        }
+        return arrayList;
+    }
 }
