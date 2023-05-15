@@ -33,4 +33,22 @@ public class SplitStringAPI {
         }
         return arrayList;
     }
+
+    @GetMapping("/employee")
+    public ArrayList<Employee> employee() {
+        Employee employee1 = new Employee(1, "Thái", "Nguyễn", 120000);
+        Employee employee2 = new Employee(2, "Tuấn", "Trần", 14000);
+        Employee employee3 = new Employee(3, "Nam", "Lê", 1100000);
+
+        employee1.raiseSalary(10);
+        employee2.raiseSalary(20);
+
+        ArrayList<Employee> employeeArrayList = new ArrayList<>();
+        employeeArrayList.add(employee1);
+        employeeArrayList.add(employee2);
+        employeeArrayList.add(employee3);
+
+        return employeeArrayList;
+    }
+
 }
