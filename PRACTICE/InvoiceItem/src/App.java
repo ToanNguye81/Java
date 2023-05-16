@@ -73,14 +73,15 @@ public class App {
         System.out.println(student);
         System.out.println(staff);
 
-        // Acount ver 2
-
+        // Account ver 2
         AccountVer2 accountVer2 = new AccountVer2("s-ver", customer, 123500);
         accountVer2.deposit(12);
         accountVer2.withdraw(122);
         System.out.println(accountVer2);
         System.out.println(accountVer2.getCustomerName());
         System.out.println(accountVer2.getCustomer());
+
+        // Invoide-Customer
     }
 
 }

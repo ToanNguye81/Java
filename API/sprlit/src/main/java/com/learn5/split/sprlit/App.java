@@ -40,4 +40,25 @@ public class App {
         countries.get(0).addCountry(new Region("Hồ Chí Minh", "HCM"));
         return countries;
     }
+
+    @GetMapping("/customer-invoice")
+    public ArrayList<Invoice> customerInvoice() {
+        Customer customer1 = new Customer(1, "Tuấn", 12);
+        Customer customer2 = new Customer(2, "Hải", 20);
+        Customer customer3 = new Customer(3, "Tiển", 15);
+
+        Invoice invoice1 = new Invoice(12, customer1, 120000);
+        Invoice invoice2 = new Invoice(13, customer2, 150000);
+        Invoice invoice3 = new Invoice(12, customer3, 170000);
+        Invoice invoice4 = new Invoice(12, new Customer(1, "special", 12), 199000);
+
+        ArrayList<Invoice> invoiceList = new ArrayList<>();
+        invoiceList.add(invoice1);
+        invoiceList.add(invoice2);
+        invoiceList.add(invoice3);
+        invoiceList.add(invoice4);
+
+        return invoiceList;
+    }
+
 }

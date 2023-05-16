@@ -1,3 +1,5 @@
+package com.learn5.split.sprlit;
+
 public class Invoice {
     private int id;
     private Customer customer;
@@ -46,7 +48,7 @@ public class Invoice {
     }
 
     public double getAmountAfterDiscountr(double discount) {
-        this.amount = amount - discount;
+        this.amount = amount * (100 - discount) / 100;
         return this.amount;
     }
 
