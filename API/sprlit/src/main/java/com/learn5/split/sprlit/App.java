@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -215,6 +216,36 @@ public class App {
 
     @GetMapping("/tourist")
     public ArrayList<Visit> getTouristById(@RequestParam(value = "id", required = false) String vId) {
+        Tourist tourist1 = new Tourist("1", "Tròn");
+        Tourist tourist2 = new Tourist("2", "Tam giác");
+        Tourist tourist3 = new Tourist("2", "Vuông");
+
+        ArrayList<Visit> visitList = new ArrayList<>();
+        visitList.add(new Visit(tourist1, new Date()));
+        visitList.add(new Visit(tourist2, new Date()));
+        visitList.add(new Visit(tourist3, new Date()));
+
+        ArrayList<Visit> matchingVisits = new ArrayList<>();
+
+        if (vId != null) {
+            for (Visit visit : visitList) {
+                if (visit.getTourist().getId().equals(vId)) {
+                    matchingVisits.add(visit);
+                }
+            }
+            if (matchingVisits.isEmpty()) {
+                throw new IllegalArgumentException("Tourist with ID " + vId + " not found");
+            }
+        } else {
+            matchingVisits = visitList;
+        }
+
+        return matchingVisits;
+    }
+
+    @GetMapping("/tourist/{id}")
+    public ArrayList<Visit> getTouristVariable(@PathVariable(name = "id") String vId) {
+        // public ArrayList<Visit> getTouristParam(@PathVariable String id) {
         Tourist tourist1 = new Tourist("1", "Tròn");
         Tourist tourist2 = new Tourist("2", "Tam giác");
         Tourist tourist3 = new Tourist("2", "Vuông");
