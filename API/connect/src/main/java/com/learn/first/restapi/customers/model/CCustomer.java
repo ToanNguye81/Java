@@ -9,14 +9,17 @@ public class CCustomer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "ma_customer")
-    private String maDrink;
+    @Column(name = "ho_va_ten")
+    private String hoTen;
 
-    @Column(name = "phan_tram_giam_gia")
-    private String phanTramGiamGia;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "ghi_chu")
-    private String ghiChu;
+    @Column(name = "so_dien_thoai")
+    private String soDienThoai;
+
+    @Column(name = "dia_chi")
+    private String diaChi;
 
     @Column(name = "ngay_tao")
     private long ngayTao;
@@ -29,12 +32,14 @@ public class CCustomer {
         // TODO Auto-generated constructor stub
     }
 
-    public CCustomer(long id, String maDrink, String phanTramGiamGia, String ghiChu, long ngayTao, long ngayCapNhat) {
+    public CCustomer(long id, String hoTen, String email, String soDienThoai, String diaChi, long ngayTao,
+            long ngayCapNhat) {
         super();
         this.id = id;
-        this.maDrink = maDrink;
-        this.phanTramGiamGia = phanTramGiamGia;
-        this.ghiChu = ghiChu;
+        this.hoTen = hoTen;
+        this.email = email;
+        this.soDienThoai = soDienThoai;
+        this.diaChi = diaChi;
         this.ngayTao = ngayTao;
         this.ngayCapNhat = ngayCapNhat;
     }
@@ -43,24 +48,28 @@ public class CCustomer {
         this.id = id;
     }
 
-    public void setMaDrink(String maDrink) {
-        this.maDrink = maDrink;
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
     }
 
     public String getPhanTramGiamGia() {
-        return phanTramGiamGia;
-    }
-
-    public void setPhanTramGiamGia(String phanTramGiamGia) {
-        this.phanTramGiamGia = phanTramGiamGia;
-    }
-
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
+        return email;
     }
 
     public void setNgayTao(long ngayTao) {
         this.ngayTao = ngayTao;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.hoTen = hoTen;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
     }
 
     public void setNgayCapNhat(long ngayCapNhat) {
@@ -71,14 +80,6 @@ public class CCustomer {
         return id;
     }
 
-    public String getMaDrink() {
-        return maDrink;
-    }
-
-    public String getGhiChu() {
-        return ghiChu;
-    }
-
     public long getNgayTao() {
         return ngayTao;
     }
@@ -87,4 +88,19 @@ public class CCustomer {
         return ngayCapNhat;
     }
 
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return hoTen;
+    }
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
 }
