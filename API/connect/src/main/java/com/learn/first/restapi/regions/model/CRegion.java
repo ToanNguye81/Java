@@ -10,46 +10,37 @@ import com.learn.first.restapi.countries.model.CCountry;
 public class CRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @Column(name = "region_id", unique = true)
+    private int region_id;
 
-    @Column(name = "region_code")
+    @Column(name = "region_code", unique = true)
     private String regionCode;
 
     @Column(name = "region_name")
     private String regionName;
 
-    @Column(name = "ngay_tao")
-    private long ngayTao;
-
-    @Column(name = "ngay_cap_nhat")
-    private long ngayCapNhat;
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    @JsonManagedReference
-    private CCountry country;
+    @ManyToOne // mỗi CRegion thuộc về một CCountry duy nhất.
+    @JoinColumn(name = "country_id")
+    // quan hệ giữa CRegion và CCountry là một quan hệ quản lý
+    // @JsonManagedReference
+    private CCountry country;// CRegion sẽ được liên kết với CCountry dựa trên khóa chính country
 
     public CRegion() {
-        super();
         // TODO Auto-generated constructor stub
     }
 
-    public CRegion(int id, String regionCode, String regionName, long ngayTao, long ngayCapNhat) {
-        super();
-        this.id = id;
+    public CRegion(int region_id, String regionCode, String regionName) {
         this.regionCode = regionCode;
         this.regionName = regionName;
-        this.ngayTao = ngayTao;
-        this.ngayCapNhat = ngayCapNhat;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int region_id) {
+        this.region_id = region_id;
     }
 
-    public void setCountry(CCountry country) {
-        this.country = country;
-    }
+    // public void setCountry(CCountry country) {
+    // this.country = country;
+    // }
 
     public void setRegionCode(String regionCode) {
         this.regionCode = regionCode;
@@ -59,29 +50,13 @@ public class CRegion {
         this.regionName = regionName;
     }
 
-    public void setNgayTao(long ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
-    public void setNgayCapNhat(long ngayCapNhat) {
-        this.ngayCapNhat = ngayCapNhat;
-    }
-
     public long getId() {
-        return id;
+        return region_id;
     }
 
-    public long getNgayTao() {
-        return ngayTao;
-    }
-
-    public long getNgayCapNhat() {
-        return ngayCapNhat;
-    }
-
-    public CCountry getCountry() {
-        return country;
-    }
+    // public CCountry getCountry() {
+    // return country;
+    // }
 
     public String getRegionCode() {
         return regionCode;

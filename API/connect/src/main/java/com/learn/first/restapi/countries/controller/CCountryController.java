@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.learn.first.restapi.countries.model.CCountry;
 import com.learn.first.restapi.countries.repository.ICountryRepository;
+import com.learn.first.restapi.regions.repository.IRegionRepository;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 @CrossOrigin
@@ -22,33 +24,52 @@ public class CCountryController {
     @Autowired
     ICountryRepository pICountryRepository;
 
+    @Autowired
+    IRegionRepository pRegionRepository;
+
+    // @GetMapping("/countries")
+    // public ResponseEntity<List<CCountry>> getAllCountries() {
+
+    // try {
+    // List<CCountry> pCountries = new ArrayList<CCountry>();
+
+    // pICountryRepository.findAll().forEach(pCountries::add);
+
+    // return new ResponseEntity<>(pCountries, HttpStatus.OK);
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
+
     @GetMapping("/countries")
-    public ResponseEntity<List<CCountry>> getAllCountrys() {
-
+    public ResponseEntity<List<CCountry>> getAllVouchers() {
         try {
-            List<CCountry> pCountrys = new ArrayList<CCountry>();
-            pICountryRepository.findAll().forEach(pCountrys::add);
-            return new ResponseEntity<>(pCountrys, HttpStatus.OK);
+            List<CCountry> pCountries = new ArrayList<CCountry>();
+
+            pICountryRepository.findAll().forEach(pCountries::add);
+
+            return new ResponseEntity<>(pCountries, HttpStatus.OK);
         } catch (Exception e) {
-            // TODO: handle exception
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/voucher5")
-    public ResponseEntity<List<CCountry>> getCountrys(
-            @RequestParam(value = "page", defaultValue = "1") String page,
-            @RequestParam(value = "size", defaultValue = "5") String size) {
+    // @GetMapping("/country5")
+    // public ResponseEntity<List<CCountry>> getCountries(
+    // @RequestParam(value = "page", defaultValue = "1") String page,
+    // @RequestParam(value = "size", defaultValue = "5") String size) {
 
-        try {
-            Pageable pageWithFiveElements = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size));
-            List<CCountry> pCountrys = new ArrayList<CCountry>();
-            pICountryRepository.findAll(pageWithFiveElements).forEach(pCountrys::add);
-            return new ResponseEntity<>(pCountrys, HttpStatus.OK);
-        } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    // try {
+    // Pageable pageWithFiveElements = PageRequest.of(Integer.parseInt(page),
+    // Integer.parseInt(size));
+    // List<CCountry> pCountries = new ArrayList<CCountry>();
+    // pICountryRepository.findAll(pageWithFiveElements).forEach(pCountries::add);
+    // return new ResponseEntity<>(pCountries, HttpStatus.OK);
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
 
 }

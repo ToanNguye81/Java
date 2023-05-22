@@ -11,41 +11,38 @@ import java.util.Set;
 public class CCountry {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int country_id;
 
-    @Column(name = "country_code")
+    @Column(name = "country_code", unique = true)
     private String countryCode;
 
     @Column(name = "country_name")
     private String countryName;
 
-    @Column(name = "ngay_tao")
-    private long ngayTao;
-
-    @Column(name = "ngay_cap_nhat")
-    private long ngayCapNhat;
-
+    /*
+     * một đến nhiều => Mỗi CCountry có thể có nhiều CRegion liên quan.
+     * mappedBy = "country" : CRegion là trường nắm giữ quan hệ với thực thể
+     * CCountry. Điều này liên kết các CRegion với
+     * CCountry tương ứng.
+     * cascade = CascadeType.ALL chỉ định rằng tất cả các hoạt động CRUD trên
+     * CCountry sẽ được áp dụng cho các thực thể CRegion
+     * liên quan. Nghĩa là nếu bạn thực hiện một hoạt động CRUD trên một CCountry,
+     * các thực thể CRegion liên quan cũng sẽ được tác động theo.
+     */
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<CRegion> regions;
 
     public CCountry() {
-        super();
     }
 
-    public CCountry(int id, String countryCode, String countryName, long ngayTao, long ngayCapNhat,
-            Set<CRegion> regions) {
-        super();
-        this.id = id;
+    public CCountry(int country_id, String countryCode, String countryName, Set<CRegion> regions) {
         this.countryCode = countryCode;
         this.countryName = countryName;
-        this.ngayTao = ngayTao;
-        this.ngayCapNhat = ngayCapNhat;
-        this.regions = regions;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int country_id) {
+        this.country_id = country_id;
     }
 
     public void setCountryCode(String countryCode) {
@@ -56,28 +53,12 @@ public class CCountry {
         this.countryName = countryName;
     }
 
-    public void setNgayTao(long ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
-    public void setNgayCapNhat(long ngayCapNhat) {
-        this.ngayCapNhat = ngayCapNhat;
-    }
-
     public int getId() {
-        return id;
+        return country_id;
     }
 
     public String getCountryCode() {
         return countryCode;
-    }
-
-    public long getNgayTao() {
-        return ngayTao;
-    }
-
-    public long getNgayCapNhat() {
-        return ngayCapNhat;
     }
 
     public String getCountryName() {
