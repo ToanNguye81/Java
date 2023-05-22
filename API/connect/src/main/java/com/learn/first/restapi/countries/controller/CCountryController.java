@@ -27,23 +27,9 @@ public class CCountryController {
     @Autowired
     IRegionRepository pRegionRepository;
 
-    // @GetMapping("/countries")
-    // public ResponseEntity<List<CCountry>> getAllCountries() {
-
-    // try {
-    // List<CCountry> pCountries = new ArrayList<CCountry>();
-
-    // pICountryRepository.findAll().forEach(pCountries::add);
-
-    // return new ResponseEntity<>(pCountries, HttpStatus.OK);
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
-
     @GetMapping("/countries")
-    public ResponseEntity<List<CCountry>> getAllVouchers() {
+    public ResponseEntity<List<CCountry>> getAllCountries() {
+
         try {
             List<CCountry> pCountries = new ArrayList<CCountry>();
 
@@ -51,25 +37,9 @@ public class CCountryController {
 
             return new ResponseEntity<>(pCountries, HttpStatus.OK);
         } catch (Exception e) {
+            // TODO: handle exception
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    // @GetMapping("/country5")
-    // public ResponseEntity<List<CCountry>> getCountries(
-    // @RequestParam(value = "page", defaultValue = "1") String page,
-    // @RequestParam(value = "size", defaultValue = "5") String size) {
-
-    // try {
-    // Pageable pageWithFiveElements = PageRequest.of(Integer.parseInt(page),
-    // Integer.parseInt(size));
-    // List<CCountry> pCountries = new ArrayList<CCountry>();
-    // pICountryRepository.findAll(pageWithFiveElements).forEach(pCountries::add);
-    // return new ResponseEntity<>(pCountries, HttpStatus.OK);
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
 
 }

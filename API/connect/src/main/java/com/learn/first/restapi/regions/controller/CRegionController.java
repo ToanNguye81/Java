@@ -32,21 +32,4 @@ public class CRegionController {
         }
     }
 
-    // @GetMapping("/country5")
-    // public ResponseEntity<List<CRegion>> getRegions(
-    // @RequestParam(value = "page", defaultValue = "1") String page,
-    // @RequestParam(value = "size", defaultValue = "5") String size) {
-
-    // try {
-    // Pageable pageWithFiveElements = PageRequest.of(Integer.parseInt(page),
-    // Integer.parseInt(size));
-    // List<CRegion> pRegions = new ArrayList<CRegion>();
-    // pIRegionRepository.findAll(pageWithFiveElements).forEach(pRegions::add);
-    // return new ResponseEntity<>(pRegions, HttpStatus.OK);
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
-
 }
