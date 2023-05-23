@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/")
 public class CCountryController {
     @Autowired
-    ICountryRepository pICountryRepository;
-
-    @Autowired
-    IRegionRepository pRegionRepository;
+    ICountryRepository pCountryRepository;
 
     @GetMapping("/countries")
     public ResponseEntity<List<CCountry>> getAllCountries() {
@@ -33,7 +30,7 @@ public class CCountryController {
         try {
             List<CCountry> pCountries = new ArrayList<CCountry>();
 
-            pICountryRepository.findAll().forEach(pCountries::add);
+            pCountryRepository.findAll().forEach(pCountries::add);
 
             return new ResponseEntity<>(pCountries, HttpStatus.OK);
         } catch (Exception e) {

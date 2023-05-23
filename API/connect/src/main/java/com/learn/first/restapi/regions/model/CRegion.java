@@ -38,10 +38,6 @@ public class CRegion {
         this.region_id = region_id;
     }
 
-    // public void setCountry(CCountry country) {
-    // this.country = country;
-    // }
-
     public void setRegionCode(String regionCode) {
         this.regionCode = regionCode;
     }
@@ -53,10 +49,6 @@ public class CRegion {
     public long getId() {
         return region_id;
     }
-
-    // public CCountry getCountry() {
-    // return country;
-    // }
 
     public String getRegionCode() {
         return regionCode;
