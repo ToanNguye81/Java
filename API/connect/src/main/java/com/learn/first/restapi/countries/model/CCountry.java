@@ -29,6 +29,7 @@ public class CCountry {
      * liên quan. Nghĩa là nếu bạn thực hiện một hoạt động CRUD trên một CCountry,
      * các thực thể CRegion liên quan cũng sẽ được tác động theo.
      */
+    @Column(name = "regions")
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<CRegion> regions;
