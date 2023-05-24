@@ -1,7 +1,6 @@
 package com.learn.first.restapi.regions.controller;
 
 import org.springframework.http.HttpStatus;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,19 +26,6 @@ public class CRegionController {
     IRegionRepository pIRegionRepository;
     @Autowired
     ICountryRepository pICountryRepository;
-
-    // @GetMapping("/regions")
-    // public ResponseEntity<List<CRegion>> getAllRegions() {
-
-    // try {
-    // List<CRegion> pRegions = new ArrayList<CRegion>();
-    // pIRegionRepository.findAll().forEach(pRegions::add);
-    // return new ResponseEntity<>(pRegions, HttpStatus.OK);
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
 
     /*
      * ResponseEntity: Là một lớp trong Spring Framework được sử dụng để đóng gói
