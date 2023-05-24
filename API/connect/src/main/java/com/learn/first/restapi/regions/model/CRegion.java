@@ -2,6 +2,7 @@ package com.learn.first.restapi.regions.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.learn.first.restapi.countries.model.CCountry;
 
@@ -21,8 +22,7 @@ public class CRegion {
 
     @ManyToOne // mỗi CRegion thuộc về một CCountry duy nhất.
     @JoinColumn(name = "country_id")
-    // quan hệ giữa CRegion và CCountry là một quan hệ quản lý
-    // @JsonManagedReference
+    // quan hệ giữa CRegion và CCountry là một quan hệ quản lý bỏ trên 1 trong 2
     private CCountry country;// CRegion sẽ được liên kết với CCountry dựa trên khóa chính country
 
     public CRegion() {

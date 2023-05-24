@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name = "countries")
 public class CCountry {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) // tự động sinh ra giá trị cho trường country_id
     private int country_id;
 
     @Column(name = "country_code", unique = true)
@@ -36,7 +36,7 @@ public class CCountry {
     public CCountry() {
     }
 
-    public CCountry(int country_id, String countryCode, String countryName, Set<CRegion> regions) {
+    public CCountry(String countryCode, String countryName) {
         this.countryCode = countryCode;
         this.countryName = countryName;
     }
