@@ -29,14 +29,20 @@ public class CDistrict {
     @JsonManagedReference
     private Set<CWard> wards;
 
+    public CDistrict() {
+    }
+
     public CDistrict(int district_id, String districtName, String districtPrefix) {
-        this.district_id = district_id;
         this.districtName = districtName;
         this.districtPrefix = districtPrefix;
     }
 
     public void setDistrictName(String districtName) {
         this.districtName = districtName;
+    }
+
+    public void setDistrictId(int district_id) {
+        this.district_id = district_id;
     }
 
     public void setDistrictPrefix(String districtPrefix) {
@@ -69,6 +75,10 @@ public class CDistrict {
 
     public CProvince getProvince() {
         return province;
+    }
+
+    public int getDistrictId() {
+        return district_id;
     }
 
     public Set<CWard> getWard() {

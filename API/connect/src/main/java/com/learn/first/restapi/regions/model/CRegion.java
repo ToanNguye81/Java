@@ -2,8 +2,6 @@ package com.learn.first.restapi.regions.model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.learn.first.restapi.countries.model.CCountry;
 
 @Entity
@@ -29,7 +27,7 @@ public class CRegion {
         // TODO Auto-generated constructor stub
     }
 
-    public CRegion(int region_id, String regionCode, String regionName) {
+    public CRegion(String regionCode, String regionName) {
         this.regionCode = regionCode;
         this.regionName = regionName;
     }

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -22,11 +23,14 @@ public class CProvince {
     private String provinceCode;
 
     @OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonIgnoreProperties("province")
     private Set<CDistrict> districts;
 
-    public CProvince(int province_id, String provinceName) {
-        this.province_id = province_id;
+    public CProvince() {
+    }
+
+    public CProvince(String provinceCode, String provinceName) {
+        this.provinceCode = provinceCode;
         this.provinceName = provinceName;
     }
 
@@ -36,6 +40,10 @@ public class CProvince {
 
     public void setProvinceCode(String provinceCode) {
         this.provinceCode = provinceCode;
+    }
+
+    public void setProvinceId(int province_id) {
+        this.province_id = province_id;
     }
 
     public void setDistricts(Set<CDistrict> districts) {
@@ -50,7 +58,7 @@ public class CProvince {
         return provinceName;
     }
 
-    public int getProvince_id() {
+    public int getProvinceId() {
         return province_id;
     }
 
