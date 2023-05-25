@@ -1,6 +1,8 @@
 package com.learn.first.restapi.regions.controller;
 
 import org.springframework.http.HttpStatus;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.first.restapi.countries.model.CCountry;
 import com.learn.first.restapi.countries.repository.ICountryRepository;
+import com.learn.first.restapi.regions.model.CProvince;
 import com.learn.first.restapi.regions.model.CRegion;
+import com.learn.first.restapi.regions.repository.IProvinceRepository;
 import com.learn.first.restapi.regions.repository.IRegionRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,10 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/")
 public class CRegionController {
+
     @Autowired
     IRegionRepository pIRegionRepository;
     @Autowired
     ICountryRepository pICountryRepository;
+    @Autowired
+    IProvinceRepository pProvinceRepository;
 
     /*
      * ResponseEntity: Là một lớp trong Spring Framework được sử dụng để đóng gói
@@ -61,6 +68,33 @@ public class CRegionController {
                 }
             }
 
+        } catch (Exception e) {
+            // TODO: handle exception
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // @GetMapping("/provinces")
+    // public ResponseEntity<List<CProvince>> getAllProvinces() {
+
+    // try {
+    // List<CProvince> pProvinces = new ArrayList<CProvince>();
+
+    // pIProvinceRepository.findAll().forEach(pProvinces::add);
+
+    // return new ResponseEntity<>(pProvinces, HttpStatus.OK);
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
+
+    @GetMapping("/provinces")
+    public ResponseEntity<List<CProvince>> getAllProvinces() {
+        try {
+            List<CProvince> pProvinces = new ArrayList<CProvince>();
+            pProvinceRepository.findAll().forEach(pProvinces::add);
+            return new ResponseEntity<>(pProvinces, HttpStatus.OK);
         } catch (Exception e) {
             // TODO: handle exception
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

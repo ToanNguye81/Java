@@ -3,7 +3,7 @@ package com.learn.first.restapi.regions.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ward")
+@Table(name = "wards")
 public class CWard {
 
     @Id
