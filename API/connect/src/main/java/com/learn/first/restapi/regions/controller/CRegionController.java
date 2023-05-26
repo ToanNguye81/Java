@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.first.restapi.countries.model.CCountry;
 import com.learn.first.restapi.countries.repository.ICountryRepository;
+import com.learn.first.restapi.regions.model.CDistrict;
 import com.learn.first.restapi.regions.model.CProvince;
 import com.learn.first.restapi.regions.model.CRegion;
+import com.learn.first.restapi.regions.repository.IDistrictRepository;
 import com.learn.first.restapi.regions.repository.IProvinceRepository;
 import com.learn.first.restapi.regions.repository.IRegionRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,8 @@ public class CRegionController {
     ICountryRepository pICountryRepository;
     @Autowired
     IProvinceRepository pProvinceRepository;
+    @Autowired
+    IDistrictRepository pDistrictRepository;
 
     /*
      * ResponseEntity: Là một lớp trong Spring Framework được sử dụng để đóng gói
@@ -100,5 +104,17 @@ public class CRegionController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @GetMapping("/districts")
+    public ResponseEntity<List<CDistrict>> getAllDistricts() {
+        try {
+            List<CDistrict> pDistricts = new ArrayList<CDistrict>();
+            pDistrictRepository.findAll().forEach(pDistricts::add);
+            return new ResponseEntity<>(pDistricts, HttpStatus.OK);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
