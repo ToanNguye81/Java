@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -21,10 +23,25 @@ public class CDistrict {
     @Column(name = "district_prefix", unique = true)
     private String districtPrefix;
 
+    // @ManyToOne
+    // @JoinColumn(name = "province_id")
+    // private CProvince province;
+
+    // @JsonBackReference
+    // @ManyToOne
+    // @JoinColumn(name = "province_id")
+    // private CProvince province;
+
+    // @ManyToOne
+    // @JoinColumn(name = "province_id")
+    // @JsonManagedReference
+    // private CProvince province;
+
     @ManyToOne
     @JoinColumn(name = "province_id")
     private CProvince province;
 
+    @Column(name = "wards")
     @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<CWard> wards;
@@ -73,15 +90,15 @@ public class CDistrict {
         return districtPrefix;
     }
 
-    public CProvince getProvince() {
-        return province;
-    }
+    // public CProvince getProvince() {
+    // return province;
+    // }
 
     public int getDistrictId() {
         return district_id;
     }
 
-    public Set<CWard> getWard() {
-        return wards;
-    }
+    // public Set<CWard> getWard() {
+    // return wards;
+    // }
 }

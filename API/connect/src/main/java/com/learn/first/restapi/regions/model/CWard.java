@@ -21,14 +21,17 @@ public class CWard {
     @JoinColumn(name = "district_id")
     private CDistrict district;
 
-    public CWard(int ward_id, String wardName, String wardPrefix) {
+    public CWard() {
+    }
+
+    public CWard(String wardName, String wardPrefix) {
         this.wardName = wardName;
         this.wardPrefix = wardPrefix;
     }
 
-    public CDistrict getDistrict() {
-        return district;
-    }
+    // public CDistrict getDistrict() {
+    // return district;
+    // }
 
     public String getWardName() {
         return wardName;
@@ -38,11 +41,11 @@ public class CWard {
         return wardPrefix;
     }
 
-    public int getWard_id() {
+    public int getWardId() {
         return ward_id;
     }
 
-    public void setWard_id(int ward_id) {
+    public void setWardId(int ward_id) {
         this.ward_id = ward_id;
     }
 
