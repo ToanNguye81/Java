@@ -23,20 +23,6 @@ public class CDistrict {
     @Column(name = "district_prefix", unique = true)
     private String districtPrefix;
 
-    // @ManyToOne
-    // @JoinColumn(name = "province_id")
-    // private CProvince province;
-
-    // @JsonBackReference
-    // @ManyToOne
-    // @JoinColumn(name = "province_id")
-    // private CProvince province;
-
-    // @ManyToOne
-    // @JoinColumn(name = "province_id")
-    // @JsonManagedReference
-    // private CProvince province;
-
     @ManyToOne
     @JoinColumn(name = "province_id")
     private CProvince province;
@@ -78,10 +64,6 @@ public class CDistrict {
         this.wards = wards;
     }
 
-    public Set<CWard> getWards() {
-        return wards;
-    }
-
     public String getDistrictName() {
         return districtName;
     }
@@ -90,15 +72,11 @@ public class CDistrict {
         return districtPrefix;
     }
 
-    // public CProvince getProvince() {
-    // return province;
-    // }
-
     public int getDistrictId() {
         return district_id;
     }
 
-    // public Set<CWard> getWard() {
-    // return wards;
-    // }
+    public Set<CWard> getWards() {
+        return wards;
+    }
 }

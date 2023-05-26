@@ -55,5 +55,4 @@ public class CRegion {
     public String getRegionName() {
         return regionName;
     }
-
 }

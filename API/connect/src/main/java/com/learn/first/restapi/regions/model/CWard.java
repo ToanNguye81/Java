@@ -29,10 +29,6 @@ public class CWard {
         this.wardPrefix = wardPrefix;
     }
 
-    // public CDistrict getDistrict() {
-    // return district;
-    // }
-
     public String getWardName() {
         return wardName;
     }

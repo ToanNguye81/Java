@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -51,9 +50,9 @@ public class CProvince {
         this.districts = districts;
     }
 
-    // public Set<CDistrict> getDistricts() {
-    // return districts;
-    // }
+    public Set<CDistrict> getDistricts() {
+        return districts;
+    }
 
     public String getProvinceName() {
         return provinceName;
@@ -66,4 +65,5 @@ public class CProvince {
     public String getProvinceCode() {
         return provinceCode;
     }
+
 }
