@@ -18,9 +18,12 @@ import com.learn.first.restapi.countries.repository.ICountryRepository;
 import com.learn.first.restapi.regions.model.CDistrict;
 import com.learn.first.restapi.regions.model.CProvince;
 import com.learn.first.restapi.regions.model.CRegion;
+import com.learn.first.restapi.regions.model.CWard;
 import com.learn.first.restapi.regions.repository.IDistrictRepository;
 import com.learn.first.restapi.regions.repository.IProvinceRepository;
 import com.learn.first.restapi.regions.repository.IRegionRepository;
+import com.learn.first.restapi.regions.repository.IWardRepository;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,6 +40,8 @@ public class CRegionController {
     IProvinceRepository pProvinceRepository;
     @Autowired
     IDistrictRepository pDistrictRepository;
+    @Autowired
+    IWardRepository pWardRepository;
 
     /*
      * ResponseEntity: Là một lớp trong Spring Framework được sử dụng để đóng gói
@@ -112,6 +117,18 @@ public class CRegionController {
             List<CDistrict> pDistricts = new ArrayList<CDistrict>();
             pDistrictRepository.findAll().forEach(pDistricts::add);
             return new ResponseEntity<>(pDistricts, HttpStatus.OK);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/wards")
+    public ResponseEntity<List<CWard>> getAllWards() {
+        try {
+            List<CWard> pWards = new ArrayList<CWard>();
+            pWardRepository.findAll().forEach(pWards::add);
+            return new ResponseEntity<>(pWards, HttpStatus.OK);
         } catch (Exception e) {
             // TODO: handle exception
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
