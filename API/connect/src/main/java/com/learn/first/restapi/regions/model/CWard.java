@@ -3,19 +3,19 @@ package com.learn.first.restapi.regions.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "wards")
+@Table(name = "ward")
 public class CWard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ward_id", unique = true)
-    private int ward_id;
+    @Column(name = "id", unique = true)
+    private int id;
 
-    @Column(name = "ward_name")
-    private String wardName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "ward_prefix")
-    private String wardPrefix;
+    @Column(name = "prefix")
+    private String prefix;
 
     @ManyToOne
     @JoinColumn(name = "district_id")
@@ -24,37 +24,37 @@ public class CWard {
     public CWard() {
     }
 
-    public CWard(String wardName, String wardPrefix) {
-        this.wardName = wardName;
-        this.wardPrefix = wardPrefix;
+    public CWard(String name, String prefix) {
+        this.name = name;
+        this.prefix = prefix;
     }
 
     public String getWardName() {
-        return wardName;
+        return name;
     }
 
     public String getWardPrefix() {
-        return wardPrefix;
+        return prefix;
     }
 
     public int getWardId() {
-        return ward_id;
+        return id;
     }
 
-    public void setWardId(int ward_id) {
-        this.ward_id = ward_id;
+    public void setWardId(int id) {
+        this.id = id;
     }
 
     public void setDistrict(CDistrict district) {
         this.district = district;
     }
 
-    public void setWardName(String wardName) {
-        this.wardName = wardName;
+    public void setWardName(String name) {
+        this.name = name;
     }
 
-    public void setWardPrefix(String wardPrefix) {
-        this.wardPrefix = wardPrefix;
+    public void setWardPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
 }
