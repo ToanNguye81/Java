@@ -10,13 +10,13 @@ public class CRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "region_id", unique = true)
-    private int region_id;
+    private int id;
 
     @Column(name = "region_code", unique = true)
-    private String regionCode;
+    private String code;
 
     @Column(name = "region_name")
-    private String regionName;
+    private String name;
 
     @ManyToOne // mỗi CRegion thuộc về một CCountry duy nhất.
     @JoinColumn(name = "country_id") // quan hệ giữa CRegion và CCountry là một quan hệ quản lý bỏ trên 1 trong 2
@@ -26,32 +26,32 @@ public class CRegion {
         // TODO Auto-generated constructor stub
     }
 
-    public CRegion(String regionCode, String regionName) {
-        this.regionCode = regionCode;
-        this.regionName = regionName;
+    public CRegion(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public void setId(int region_id) {
-        this.region_id = region_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
+    public void setRegionCode(String code) {
+        this.code = code;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
+    public void setRegionName(String name) {
+        this.name = name;
     }
 
     public long getId() {
-        return region_id;
+        return id;
     }
 
     public String getRegionCode() {
-        return regionCode;
+        return code;
     }
 
     public String getRegionName() {
-        return regionName;
+        return name;
     }
 }
