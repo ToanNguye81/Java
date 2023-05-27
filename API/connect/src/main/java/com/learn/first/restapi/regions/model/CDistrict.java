@@ -4,24 +4,22 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "districts")
+@Table(name = "district")
 public class CDistrict {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "district_id", unique = true)
-    private int district_id;
+    @Column(name = "id", unique = true)
+    private int id;
 
-    @Column(name = "district_name")
-    private String districtName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "district_prefix", unique = true)
-    private String districtPrefix;
+    @Column(name = "prefix")
+    private String prefix;
 
     @ManyToOne
     @JoinColumn(name = "province_id")
@@ -35,21 +33,21 @@ public class CDistrict {
     public CDistrict() {
     }
 
-    public CDistrict(int district_id, String districtName, String districtPrefix) {
-        this.districtName = districtName;
-        this.districtPrefix = districtPrefix;
+    public CDistrict(int id, String name, String prefix) {
+        this.name = name;
+        this.prefix = prefix;
     }
 
-    public void setDistrictName(String districtName) {
-        this.districtName = districtName;
+    public void setDistrictName(String name) {
+        this.name = name;
     }
 
-    public void setDistrictId(int district_id) {
-        this.district_id = district_id;
+    public void setDistrictId(int id) {
+        this.id = id;
     }
 
-    public void setDistrictPrefix(String districtPrefix) {
-        this.districtPrefix = districtPrefix;
+    public void setDistrictPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
     public void setProvince(CProvince province) {
@@ -65,18 +63,18 @@ public class CDistrict {
     }
 
     public String getDistrictName() {
-        return districtName;
+        return name;
     }
 
     public String getDistrictPrefix() {
-        return districtPrefix;
+        return prefix;
     }
 
     public int getDistrictId() {
-        return district_id;
+        return id;
     }
 
-    public Set<CWard> getWards() {
-        return wards;
-    }
+    // public Set<CWard> getWards() {
+    // return wards;
+    // }
 }
