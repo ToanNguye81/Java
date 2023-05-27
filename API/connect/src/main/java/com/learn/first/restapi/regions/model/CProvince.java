@@ -7,19 +7,19 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "provinces")
+@Table(name = "province")
 public class CProvince {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "province_id", unique = true)
-    private int province_id;
+    @Column(name = "id", unique = true)
+    private int id;
 
-    @Column(name = "province_name", unique = true)
-    private String provinceName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "province_code", unique = true)
-    private String provinceCode;
+    @Column(name = "code", unique = true)
+    private String code;
 
     @Column(name = "districts")
     @OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
@@ -29,41 +29,41 @@ public class CProvince {
     public CProvince() {
     }
 
-    public CProvince(String provinceCode, String provinceName) {
-        this.provinceCode = provinceCode;
-        this.provinceName = provinceName;
+    public CProvince(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public void setProvinceName(String provinceName) {
-        this.provinceName = provinceName;
+    public void setProvinceName(String name) {
+        this.name = name;
     }
 
-    public void setProvinceCode(String provinceCode) {
-        this.provinceCode = provinceCode;
+    public void setProvinceCode(String code) {
+        this.code = code;
     }
 
-    public void setProvinceId(int province_id) {
-        this.province_id = province_id;
+    public void setProvinceId(int id) {
+        this.id = id;
     }
 
     public void setDistricts(Set<CDistrict> districts) {
         this.districts = districts;
     }
 
-    public Set<CDistrict> getDistricts() {
-        return districts;
-    }
+    // public Set<CDistrict> getDistricts() {
+    // return districts;
+    // }
 
     public String getProvinceName() {
-        return provinceName;
+        return name;
     }
 
     public int getProvinceId() {
-        return province_id;
+        return id;
     }
 
     public String getProvinceCode() {
-        return provinceCode;
+        return code;
     }
 
 }
