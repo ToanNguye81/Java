@@ -60,4 +60,8 @@ public class CWard {
         this.prefix = prefix;
     }
 
+    public CDistrict getDistrict() {
+        return district;
+    }
+
 }

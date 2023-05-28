@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "district")
@@ -29,6 +30,7 @@ public class CDistrict {
     @Column(name = "wards")
     @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
     // @JsonManagedReference
+    @JsonIgnore
     private Set<CWard> wards;
 
     public CDistrict() {
@@ -75,7 +77,11 @@ public class CDistrict {
         return id;
     }
 
-    // public Set<CWard> getWards() {
-    // return wards;
-    // }
+    public Set<CWard> getWards() {
+        return wards;
+    }
+
+    public CProvince getProvince() {
+        return province;
+    }
 }
