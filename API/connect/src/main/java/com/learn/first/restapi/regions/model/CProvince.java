@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -23,7 +24,9 @@ public class CProvince {
 
     @Column(name = "districts")
     @OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    /* Có dòng này khi load province sẽ lấy tất cả thông tin quận huyện kèm theo */
+    // @JsonManagedReference
+    @JsonIgnore
     private Set<CDistrict> districts;
 
     public CProvince() {
@@ -50,9 +53,9 @@ public class CProvince {
         this.districts = districts;
     }
 
-    // public Set<CDistrict> getDistricts() {
-    // return districts;
-    // }
+    public Set<CDistrict> getDistricts() {
+        return districts;
+    }
 
     public String getProvinceName() {
         return name;

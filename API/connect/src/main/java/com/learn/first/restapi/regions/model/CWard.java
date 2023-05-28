@@ -2,6 +2,8 @@ package com.learn.first.restapi.regions.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "ward")
 public class CWard {
@@ -18,6 +20,7 @@ public class CWard {
     private String prefix;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "district_id")
     private CDistrict district;
 

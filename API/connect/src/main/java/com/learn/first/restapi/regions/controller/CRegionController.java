@@ -37,7 +37,7 @@ public class CRegionController {
     @Autowired
     ICountryRepository pICountryRepository;
     @Autowired
-    IProvinceRepository pProvinceRepository;
+    IProvinceRepository pIProvinceRepository;
     @Autowired
     IDistrictRepository pDistrictRepository;
     @Autowired
@@ -102,7 +102,7 @@ public class CRegionController {
     public ResponseEntity<List<CProvince>> getAllProvinces() {
         try {
             List<CProvince> pProvinces = new ArrayList<CProvince>();
-            pProvinceRepository.findAll().forEach(pProvinces::add);
+            pIProvinceRepository.findAll().forEach(pProvinces::add);
             return new ResponseEntity<>(pProvinces, HttpStatus.OK);
         } catch (Exception e) {
             // TODO: handle exception
@@ -111,17 +111,47 @@ public class CRegionController {
 
     }
 
-    @GetMapping("/districts")
-    public ResponseEntity<List<CDistrict>> getAllDistricts() {
+    @GetMapping(value = "/districts")
+    public ResponseEntity<Set<CDistrict>> getDistrictByCode(
+            @RequestParam(value = "provinceCode", required = false) String provinceCode) {
         try {
-            List<CDistrict> pDistricts = new ArrayList<CDistrict>();
-            pDistrictRepository.findAll().forEach(pDistricts::add);
-            return new ResponseEntity<>(pDistricts, HttpStatus.OK);
+            if (provinceCode != null) {
+                // find Province base on provinceCode
+                CProvince vProvince = pIProvinceRepository.findByCode(provinceCode);
+                // Return regions list
+                return new ResponseEntity<>(vProvince.getDistricts(), HttpStatus.OK);
+            } else {
+                {
+                    // find all regions
+                    Set<CDistrict> allDistricts = new HashSet<>();
+                    List<CProvince> provinces = pIProvinceRepository.findAll();
+
+                    // create list
+                    for (CProvince province : provinces) {
+                        allDistricts.addAll(province.getDistricts());
+                    }
+                    // Return regions list
+                    return new ResponseEntity<>(allDistricts, HttpStatus.OK);
+                }
+            }
+
         } catch (Exception e) {
             // TODO: handle exception
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // @GetMapping("/districts")
+    // public ResponseEntity<List<CDistrict>> getAllDistricts() {
+    // try {
+    // List<CDistrict> pDistricts = new ArrayList<CDistrict>();
+    // pDistrictRepository.findAll().forEach(pDistricts::add);
+    // return new ResponseEntity<>(pDistricts, HttpStatus.OK);
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
 
     @GetMapping("/wards")
     public ResponseEntity<List<CWard>> getAllWards() {

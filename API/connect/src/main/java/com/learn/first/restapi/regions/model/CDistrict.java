@@ -4,7 +4,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "district")
@@ -22,12 +22,13 @@ public class CDistrict {
     private String prefix;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "province_id")
     private CProvince province;
 
     @Column(name = "wards")
     @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    // @JsonManagedReference
     private Set<CWard> wards;
 
     public CDistrict() {
