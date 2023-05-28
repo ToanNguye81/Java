@@ -41,15 +41,15 @@ public class CDistrict {
         this.prefix = prefix;
     }
 
-    public void setDistrictName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setDistrictId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setDistrictPrefix(String prefix) {
+    public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
 
@@ -65,15 +65,15 @@ public class CDistrict {
         this.wards = wards;
     }
 
-    public String getDistrictName() {
+    public String getName() {
         return name;
     }
 
-    public String getDistrictPrefix() {
+    public String getPrefix() {
         return prefix;
     }
 
-    public int getDistrictId() {
+    public int getId() {
         return id;
     }
 
@@ -83,5 +83,11 @@ public class CDistrict {
 
     public CProvince getProvince() {
         return province;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return getWards().toString();
     }
 }

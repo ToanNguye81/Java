@@ -64,4 +64,10 @@ public class CWard {
         return district;
     }
 
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "{" + getWardId() + "," + getWardPrefix().toString() + "," + getWardName().toString() + "}";
+    }
+
 }
