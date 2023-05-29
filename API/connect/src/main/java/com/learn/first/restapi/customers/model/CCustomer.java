@@ -35,7 +35,7 @@ public class CCustomer {
 
     @Column(name = "orders")
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    // @JsonIgnore
+    @JsonIgnore
     private Set<COrder> orders;
 
     public CCustomer() {
