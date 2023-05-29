@@ -1,106 +1,117 @@
 package com.learn.first.restapi.customers.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.learn.first.restapi.orders.model.COrder;
 
 @Entity
 @Table(name = "customers")
 public class CCustomer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     private long id;
 
-    @Column(name = "ho_va_ten")
-    private String hoTen;
+    @Column(name = "full_name")
+    private String fullName;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "so_dien_thoai")
-    private String soDienThoai;
+    @Column(name = "phone")
+    private String phone;
 
-    @Column(name = "dia_chi")
-    private String diaChi;
+    @Column(name = "address")
+    private String address;
 
-    @Column(name = "ngay_tao")
-    private long ngayTao;
+    @Column(name = "create_at")
+    private long createAt;
 
-    @Column(name = "ngay_cap_nhat")
-    private long ngayCapNhat;
+    @Column(name = "update_at")
+    private long updateAt;
+
+    @Column(name = "orders")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    // @JsonIgnore
+    private Set<COrder> orders;
 
     public CCustomer() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public CCustomer(long id, String hoTen, String email, String soDienThoai, String diaChi, long ngayTao,
-            long ngayCapNhat) {
+    public CCustomer(long id, String fullName, String email, String phone, String address, long createAt,
+            long updateAt, Set<COrder> orders) {
         super();
         this.id = id;
-        this.hoTen = hoTen;
+        this.fullName = fullName;
         this.email = email;
-        this.soDienThoai = soDienThoai;
-        this.diaChi = diaChi;
-        this.ngayTao = ngayTao;
-        this.ngayCapNhat = ngayCapNhat;
+        this.phone = phone;
+        this.orders = orders;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
-    }
-
-    public String getPhanTramGiamGia() {
-        return email;
-    }
-
-    public void setNgayTao(long ngayTao) {
-        this.ngayTao = ngayTao;
+    public void setCreateAt(long createAt) {
+        this.createAt = createAt;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setName(String name) {
-        this.hoTen = hoTen;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
+    public void setOrders(Set<COrder> orders) {
+        this.orders = orders;
     }
 
-    public void setNgayCapNhat(long ngayCapNhat) {
-        this.ngayCapNhat = ngayCapNhat;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public long getId() {
-        return id;
+    public void setUpdateAt(long updateAt) {
+        this.updateAt = updateAt;
     }
 
-    public long getNgayTao() {
-        return ngayTao;
+    public String getAddress() {
+        return address;
     }
 
-    public long getNgayCapNhat() {
-        return ngayCapNhat;
-    }
-
-    public String getDiaChi() {
-        return diaChi;
+    public long getCreateAt() {
+        return createAt;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getName() {
-        return hoTen;
+    public String getFullName() {
+        return fullName;
     }
 
-    public String getSoDienThoai() {
-        return soDienThoai;
+    public long getId() {
+        return id;
+    }
+
+    public Set<COrder> getOrders() {
+        return orders;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public long getUpdateAt() {
+        return updateAt;
     }
 }
