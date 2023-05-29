@@ -2,89 +2,88 @@ package com.learn.first.restapi.products.model;
 
 import javax.persistence.*;
 
+import com.learn.first.restapi.orders.model.COrder;
+
 @Entity
 @Table(name = "products")
 public class CProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     private long id;
 
-    @Column(name = "ma_product")
-    private String maProduct;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "phan_tram_giam_gia")
-    private String phanTramGiamGia;
+    @Column(name = "type")
+    private String type;
 
-    @Column(name = "ghi_chu")
-    private String ghiChu;
+    @Column(name = "color")
+    private String color;
 
-    @Column(name = "ngay_tao")
-    private long ngayTao;
+    @Column(name = "price")
+    private long price;
 
-    @Column(name = "ngay_cap_nhat")
-    private long ngayCapNhat;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private COrder order;
 
     public CProduct() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public CProduct(long id, String maProduct, String phanTramGiamGia, String ghiChu, long ngayTao, long ngayCapNhat) {
+    public CProduct(long id, String name, String type, String color, long price, COrder order) {
         super();
         this.id = id;
-        this.maProduct = maProduct;
-        this.phanTramGiamGia = phanTramGiamGia;
-        this.ghiChu = ghiChu;
-        this.ngayTao = ngayTao;
-        this.ngayCapNhat = ngayCapNhat;
+        this.name = name;
+        this.type = type;
+        this.color = color;
+        this.price = price;
+        this.order = order;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setMaProduct(String maProduct) {
-        this.maProduct = maProduct;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public String getPhanTramGiamGia() {
-        return phanTramGiamGia;
+    public void setOrder(COrder order) {
+        this.order = order;
     }
 
-    public void setPhanTramGiamGia(String phanTramGiamGia) {
-        this.phanTramGiamGia = phanTramGiamGia;
+    public void setPrice(long price) {
+        this.price = price;
     }
 
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setNgayTao(long ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
-    public void setNgayCapNhat(long ngayCapNhat) {
-        this.ngayCapNhat = ngayCapNhat;
+    public String getColor() {
+        return color;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getMaProduct() {
-        return maProduct;
+    public String getName() {
+        return name;
     }
 
-    public String getGhiChu() {
-        return ghiChu;
+    public COrder getOrder() {
+        return order;
     }
 
-    public long getNgayTao() {
-        return ngayTao;
+    public long getPrice() {
+        return price;
     }
 
-    public long getNgayCapNhat() {
-        return ngayCapNhat;
+    public String getType() {
+        return type;
     }
-
 }
