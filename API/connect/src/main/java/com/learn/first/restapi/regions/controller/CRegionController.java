@@ -2,7 +2,6 @@ package com.learn.first.restapi.regions.controller;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,14 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.first.restapi.countries.model.CCountry;
 import com.learn.first.restapi.countries.repository.ICountryRepository;
-import com.learn.first.restapi.regions.model.CDistrict;
-import com.learn.first.restapi.regions.model.CProvince;
 import com.learn.first.restapi.regions.model.CRegion;
-import com.learn.first.restapi.regions.model.CWard;
-import com.learn.first.restapi.regions.repository.IDistrictRepository;
-import com.learn.first.restapi.regions.repository.IProvinceRepository;
 import com.learn.first.restapi.regions.repository.IRegionRepository;
-import com.learn.first.restapi.regions.repository.IWardRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,12 +29,12 @@ public class CRegionController {
     IRegionRepository pIRegionRepository;
     @Autowired
     ICountryRepository pICountryRepository;
-    @Autowired
-    IProvinceRepository pIProvinceRepository;
-    @Autowired
-    IDistrictRepository pDistrictRepository;
-    @Autowired
-    IWardRepository pWardRepository;
+    // @Autowired
+    // IProvinceRepository pIProvinceRepository;
+    // @Autowired
+    // IDistrictRepository pDistrictRepository;
+    // @Autowired
+    // IWardRepository pWardRepository;
 
     /*
      * ResponseEntity: Là một lớp trong Spring Framework được sử dụng để đóng gói
@@ -83,81 +76,83 @@ public class CRegionController {
         }
     }
 
-    @GetMapping("/provinces")
-    public ResponseEntity<List<CProvince>> getAllProvinces() {
+    // @GetMapping("/provinces")
+    // public ResponseEntity<List<CProvince>> getAllProvinces() {
 
-        try {
-            List<CProvince> pProvinces = new ArrayList<CProvince>();
+    // try {
+    // List<CProvince> pProvinces = new ArrayList<CProvince>();
 
-            pIProvinceRepository.findAll().forEach(pProvinces::add);
+    // pIProvinceRepository.findAll().forEach(pProvinces::add);
 
-            return new ResponseEntity<>(pProvinces, HttpStatus.OK);
-        } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    // return new ResponseEntity<>(pProvinces, HttpStatus.OK);
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
 
-    @GetMapping(value = "/districts")
-    public ResponseEntity<Set<CDistrict>> getDistrictByCode(
-            @RequestParam(value = "provinceCode", required = false) String provinceCode) {
-        try {
-            if (provinceCode != null) {
-                // find Province base on provinceCode
-                CProvince vProvince = pIProvinceRepository.findByCode(provinceCode);
-                // Return province list
-                return new ResponseEntity<>(vProvince.getDistricts(), HttpStatus.OK);
-            } else {
-                {
-                    // find all province
-                    Set<CDistrict> allDistricts = new HashSet<>();
-                    List<CProvince> provinces = pIProvinceRepository.findAll();
+    // @GetMapping(value = "/districts")
+    // public ResponseEntity<Set<CDistrict>> getDistrictByCode(
+    // @RequestParam(value = "provinceCode", required = false) String provinceCode)
+    // {
+    // try {
+    // if (provinceCode != null) {
+    // // find Province base on provinceCode
+    // CProvince vProvince = pIProvinceRepository.findByCode(provinceCode);
+    // // Return province list
+    // return new ResponseEntity<>(vProvince.getDistricts(), HttpStatus.OK);
+    // } else {
+    // {
+    // // find all province
+    // Set<CDistrict> allDistricts = new HashSet<>();
+    // List<CProvince> provinces = pIProvinceRepository.findAll();
 
-                    // create list
-                    for (CProvince province : provinces) {
-                        allDistricts.addAll(province.getDistricts());
-                    }
-                    // Return province list
-                    return new ResponseEntity<>(allDistricts, HttpStatus.OK);
-                }
-            }
+    // // create list
+    // for (CProvince province : provinces) {
+    // allDistricts.addAll(province.getDistricts());
+    // }
+    // // Return province list
+    // return new ResponseEntity<>(allDistricts, HttpStatus.OK);
+    // }
+    // }
 
-        } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
 
-    @GetMapping(value = "/wards")
-    public ResponseEntity<Set<CWard>> getWardByName(
-            @RequestParam(value = "districtName", required = false) String districtName) {
-        try {
-            if (districtName != null) {
-                // find District base on districtName
-                CDistrict vDistrict = pDistrictRepository.findByName(districtName);
-                System.out.println("=======================================");
-                System.out.println("vDistrict : " + vDistrict);
-                // Return wards list
-                return new ResponseEntity<>(vDistrict.getWards(), HttpStatus.OK);
-            } else {
-                {
-                    // find all wards
-                    Set<CWard> allWards = new HashSet<>();
-                    List<CDistrict> districts = pDistrictRepository.findAll();
+    // @GetMapping(value = "/wards")
+    // public ResponseEntity<Set<CWard>> getWardByName(
+    // @RequestParam(value = "districtName", required = false) String districtName)
+    // {
+    // try {
+    // if (districtName != null) {
+    // // find District base on districtName - name 1 time
+    // CDistrict vDistrict = pDistrictRepository.findByName(districtName);
+    // System.out.println("=======================================");
+    // System.out.println("vDistrict : " + vDistrict);
+    // // Return wards list
+    // return new ResponseEntity<>(vDistrict.getWards(), HttpStatus.OK);
+    // } else {
+    // {
+    // // find all wards
+    // Set<CWard> allWards = new HashSet<>();
+    // List<CDistrict> districts = pDistrictRepository.findAll();
 
-                    // create list
-                    for (CDistrict district : districts) {
-                        allWards.addAll(district.getWards());
-                    }
-                    // Return wards list
-                    return new ResponseEntity<>(allWards, HttpStatus.OK);
-                }
-            }
+    // // create list
+    // for (CDistrict district : districts) {
+    // allWards.addAll(district.getWards());
+    // }
+    // // Return wards list
+    // return new ResponseEntity<>(allWards, HttpStatus.OK);
+    // }
+    // }
 
-        } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
 
 }
