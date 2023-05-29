@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Select - Tỉnh, Quận, Huyện</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/mui/dist/css/mui.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/mui/dist/mui.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      //
+      document.addEventListener("DOMContentLoaded", onPageLoading);
+
+      function loadDistricts() {
+        var selectedProvince = document.getElementById("province").value;
+
+        var districtSelect = document.getElementById("district");
+        districtSelect.innerHTML = '<option value="">Chọn Quận/huyện</option>';
+        fetch("districts?provinceCode=" + selectedProvince)
+          .then((response) => response.json())
+          .then((data) => {
+            data.forEach((district) => {
+              var option = document.createElement("option");
+              option.value = district.name;
+              option.innerHTML = district.name;
+              districtSelect.appendChild(option);
+            });
+          });
+      }
+
+      function loadWards() {
+        var selectedDistrict = document.getElementById("district").value;
+
+        var wardSelect = document.getElementById("ward");
+        wardSelect.innerHTML = '<option value="">Chọn xã/phường</option>';
+        fetch("wards?districtName=" + selectedDistrict)
+          .then((response) => response.json())
+          .then((data) => {
+            data.forEach((ward) => {
+              var option = document.createElement("option");
+              option.value = ward.wardName;
+              option.innerHTML = ward.wardName;
+              wardSelect.appendChild(option);
+            });
+          });
+      }
+
+      function onPageLoading() {
+        var provinceSelect = document.getElementById("province");
+        fetch("/provinces")
+          .then((response) => response.json())
+          .then((data) => {
+            data.forEach((province) => {
+              var option = document.createElement("option");
+              option.value = province.provinceCode;
+              option.innerHTML = province.provinceName;
+              provinceSelect.appendChild(option);
+            });
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="mui-container">
+        <h2>Form Select - Tỉnh, Quận, Huyện</h2>
+        <div class="mui-select">
+          <label>Tỉnh/Thành phố:</label>
+          <select id="province" onchange="loadDistricts()">
+            <option value="">Chọn tỉnh/thành phố</option>
+            <!-- Danh sách các tỉnh/thành phố -->
+          </select>
+        </div>
+        <div class="mui-select">
+          <label>Quận/Huyện:</label>
+          <select id="district" onchange="loadWards()">
+            <option value="">Chọn quận/huyện</option>
+            <!-- Danh sách các quận/huyện sẽ được tải sau khi chọn tỉnh/thành phố -->
+          </select>
+        </div>
+        <div class="mui-select">
+          <label>Xã/Phường:</label>
+          <select id="ward">
+            <option value="">Chọn xã/phường</option>
+            <!-- Danh sách các xã/phường sẽ được tải sau khi chọn quận/huyện -->
+          </select>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

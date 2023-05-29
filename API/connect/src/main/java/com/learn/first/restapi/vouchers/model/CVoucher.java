@@ -1,13 +1,20 @@
 package com.learn.first.restapi.vouchers.model;
 
+import java.util.Date;
+
 import javax.persistence.*;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "vouchers")
 public class CVoucher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Date id;
 
     @Column(name = "ma_voucher")
     private String maVoucher;
@@ -18,18 +25,30 @@ public class CVoucher {
     @Column(name = "ghi_chu")
     private String ghiChu;
 
-    @Column(name = "ngay_tao")
-    private long ngayTao;
+    // @Column(name = "ngay_tao")
+    // private Date ngayTao;
 
-    @Column(name = "ngay_cap_nhat")
-    private long ngayCapNhat;
+    // @Column(name = "ngay_cap_nhat")
+    // private Date ngayCapNhat;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_tao", nullable = true, updatable = false)
+    @CreatedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date ngayTao;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_cap_nhat", nullable = true)
+    @LastModifiedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date ngayCapNhat;
 
     public CVoucher() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public CVoucher(long id, String maVoucher, String phanTramGiamGia, String ghiChu, long ngayTao, long ngayCapNhat) {
+    public CVoucher(Date id, String maVoucher, String phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
         super();
         this.id = id;
         this.maVoucher = maVoucher;
@@ -39,7 +58,7 @@ public class CVoucher {
         this.ngayCapNhat = ngayCapNhat;
     }
 
-    public void setId(long id) {
+    public void setId(Date id) {
         this.id = id;
     }
 
@@ -59,15 +78,15 @@ public class CVoucher {
         this.ghiChu = ghiChu;
     }
 
-    public void setNgayTao(long ngayTao) {
+    public void setNgayTao(Date ngayTao) {
         this.ngayTao = ngayTao;
     }
 
-    public void setNgayCapNhat(long ngayCapNhat) {
+    public void setNgayCapNhat(Date ngayCapNhat) {
         this.ngayCapNhat = ngayCapNhat;
     }
 
-    public long getId() {
+    public Date getId() {
         return id;
     }
 
@@ -79,11 +98,11 @@ public class CVoucher {
         return ghiChu;
     }
 
-    public long getNgayTao() {
+    public Date getNgayTao() {
         return ngayTao;
     }
 
-    public long getNgayCapNhat() {
+    public Date getNgayCapNhat() {
         return ngayCapNhat;
     }
 
