@@ -2,6 +2,7 @@ package com.learn.first.restapi.products.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learn.first.restapi.orders.model.COrder;
 
 @Entity
@@ -26,6 +27,7 @@ public class CProduct {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private COrder order;
 
     public CProduct() {
