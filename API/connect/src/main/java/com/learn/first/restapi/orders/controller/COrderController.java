@@ -18,22 +18,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RequestMapping("/")
 public class COrderController {
-    // @Autowired
-    // IOrderRepository pOrderRepository;
+    @Autowired
+    IOrderRepository pOrderRepository;
 
-    // @GetMapping("/orders")
-    // public ResponseEntity<List<COrder>> getAllOrders() {
+    @GetMapping("/orders")
+    public ResponseEntity<List<COrder>> getAllOrders() {
 
-    // try {
-    // List<COrder> pOrders = new ArrayList<COrder>();
+        try {
+            List<COrder> pOrders = new ArrayList<COrder>();
 
-    // pOrderRepository.findAll().forEach(pOrders::add);
+            pOrderRepository.findAll().forEach(pOrders::add);
 
-    // return new ResponseEntity<>(pOrders, HttpStatus.OK);
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
+            return new ResponseEntity<>(pOrders, HttpStatus.OK);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

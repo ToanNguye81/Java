@@ -2,7 +2,10 @@ package com.learn.first.restapi.orders.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.learn.first.restapi.customers.model.CCustomer;
 import com.learn.first.restapi.products.model.CProduct;
 
 import java.util.Set;
@@ -35,6 +38,11 @@ public class COrder {
 
     @Column(name = "paid")
     private String paid;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "customer_id")
+    private CCustomer customer;
 
     @Column(name = "products")
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -117,6 +125,10 @@ public class COrder {
 
     public String getVoucherCode() {
         return voucherCode;
+    }
+
+    public CCustomer getCustomer() {
+        return customer;
     }
 
 }
