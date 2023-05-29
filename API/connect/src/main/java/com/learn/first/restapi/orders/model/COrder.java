@@ -3,7 +3,6 @@ package com.learn.first.restapi.orders.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.learn.first.restapi.customers.model.CCustomer;
 import com.learn.first.restapi.products.model.CProduct;
@@ -40,7 +39,7 @@ public class COrder {
     private String paid;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "customer_id")
     private CCustomer customer;
 
