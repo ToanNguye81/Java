@@ -30,10 +30,6 @@ public class CVoucher {
         // TODO Auto-generated constructor stub
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setMaVoucher(String maVoucher) {
         this.maVoucher = maVoucher;
     }
@@ -74,9 +70,8 @@ public class CVoucher {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date ngayCapNhat;
 
-    public CVoucher(Long id, String maVoucher, String phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
+    public CVoucher(String maVoucher, String phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
         super();
-        this.id = id;
         this.maVoucher = maVoucher;
         this.phanTramGiamGia = phanTramGiamGia;
         this.ghiChu = ghiChu;

@@ -2,14 +2,15 @@ package com.learn.first.restapi.vouchers.controller;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,10 @@ import com.learn.first.restapi.vouchers.model.CVoucher;
 import com.learn.first.restapi.vouchers.repository.IVoucherRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @CrossOrigin
 @RestController
@@ -26,34 +31,90 @@ public class CVoucherController {
     @Autowired
     IVoucherRepository pIVoucherRepository;
 
+    // @GetMapping("/vouchers")
+    // public ResponseEntity<List<CVoucher>> getAllVouchers(
+    // @RequestParam(value = "page", defaultValue = "0") int page,
+    // @RequestParam(value = "size", defaultValue = "10") int size) {
+
+    // try {
+    // Pageable pageWithFiveElements = PageRequest.of(page, size);
+    // List<CVoucher> pVouchers = new ArrayList<CVoucher>();
+    // pIVoucherRepository.findAll(pageWithFiveElements).forEach(pVouchers::add);
+    // return new ResponseEntity<>(pVouchers, HttpStatus.OK);
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
+
     @GetMapping("/vouchers")
-    public ResponseEntity<List<CVoucher>> getAllVouchers() {
-
+    public ResponseEntity<List<CVoucher>> getAllVouchers(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
         try {
-            List<CVoucher> pVouchers = new ArrayList<CVoucher>();
+            // tạo ra một đối tượng Pageable để đại diện cho thông tin về phân trang.
+            Pageable pageable = PageRequest.of(page, size);
+            // truy vấn CSDL và trả về một trang của đối tượng CVoucher với thông tin trang
+            Page<CVoucher> voucherPage = pIVoucherRepository.findAll(pageable);
+            // để lấy danh sách các đối tượng
+            List<CVoucher> vouchers = voucherPage.getContent();
+            // Đếm tổng phần tử
+            long totalElements = voucherPage.getTotalElements();
 
-            pIVoucherRepository.findAll().forEach(pVouchers::add);
-
-            return new ResponseEntity<>(pVouchers, HttpStatus.OK);
+            return ResponseEntity.ok()
+                    .header("totalCount", String.valueOf(totalElements))
+                    .body(vouchers);
         } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
         }
     }
 
-    @GetMapping("/voucher5")
-    public ResponseEntity<List<CVoucher>> getVouchers(
-            @RequestParam(value = "page", defaultValue = "1") String page,
-            @RequestParam(value = "size", defaultValue = "5") String size) {
+    @GetMapping("/vouchers/{id}")
+    public ResponseEntity<CVoucher> getCVoucherById(@PathVariable("id") long id) {
+        // Todo: viết code lấy voucher theo id tại đây
+        CVoucher voucherData = pIVoucherRepository.findById(id);
+        if (voucherData != null) {
+            return new ResponseEntity<>(voucherData, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
+    // @PostMapping("/vouchers")
+    // public ResponseEntity<CVoucher> createCVoucher(@RequestBody CVoucher
+    // pVouchers) {
+    // try {
+    // // TODO: Hãy viết code tạo voucher đưa lên DB
+    // return new ResponseEntity<>(_vouchers, HttpStatus.CREATED);
+    // } catch (Exception e) {
+    // System.out.println(e);
+    // return new ResponseEntity<>(null,
+    // HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
+
+    // @PutMapping("/vouchers/{id}")
+    // public ResponseEntity<CVoucher> updateCVoucherById(@PathVariable("id")
+    // long id, @RequestBody CVoucher pVouchers) {
+    // //TODO: Hãy viết code lấy voucher từ DB để UPDATE
+    // if (voucherData.isPresent()) {
+    // return new
+    // ResponseEntity<>(pVoucherRepository.save(pVouchers), HttpStatus.OK);
+    // } else {
+    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // }
+
+    @DeleteMapping("/vouchers/{id}")
+    public ResponseEntity<CVoucher> deleteCVoucherById(@PathVariable("id") long id) {
         try {
-            Pageable pageWithFiveElements = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size));
-            List<CVoucher> pVouchers = new ArrayList<CVoucher>();
-            pIVoucherRepository.findAll(pageWithFiveElements).forEach(pVouchers::add);
-            return new ResponseEntity<>(pVouchers, HttpStatus.OK);
+            // TODO: Hãy viết code xóa 1 voucher từ DB
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println(e);
+            return new ResponseEntity<>(null,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
