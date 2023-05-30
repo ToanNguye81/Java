@@ -60,7 +60,7 @@ public class CVoucherController {
             List<CVoucher> vouchers = voucherPage.getContent();
             // Đếm tổng phần tử
             long totalElements = voucherPage.getTotalElements();
-
+            // Trả về thành công
             return ResponseEntity.ok()
                     .header("totalCount", String.valueOf(totalElements))
                     .body(vouchers);
@@ -73,7 +73,7 @@ public class CVoucherController {
 
     @GetMapping("/vouchers/{id}")
     public ResponseEntity<CVoucher> getCVoucherById(@PathVariable("id") long id) {
-        // Todo: viết code lấy voucher theo id tại đây
+        // Todo: lấy voucher theo id
         CVoucher voucherData = pIVoucherRepository.findById(id);
         if (voucherData != null) {
             return new ResponseEntity<>(voucherData, HttpStatus.OK);
@@ -87,6 +87,7 @@ public class CVoucherController {
     // pVouchers) {
     // try {
     // // TODO: Hãy viết code tạo voucher đưa lên DB
+
     // return new ResponseEntity<>(_vouchers, HttpStatus.CREATED);
     // } catch (Exception e) {
     // System.out.println(e);
@@ -106,10 +107,12 @@ public class CVoucherController {
     // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     // }
 
+    // Delete voucher by Id
     @DeleteMapping("/vouchers/{id}")
     public ResponseEntity<CVoucher> deleteCVoucherById(@PathVariable("id") long id) {
         try {
             // TODO: Hãy viết code xóa 1 voucher từ DB
+            pIVoucherRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             System.out.println(e);
