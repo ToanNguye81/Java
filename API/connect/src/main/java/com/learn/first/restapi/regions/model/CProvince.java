@@ -36,15 +36,15 @@ public class CProvince {
         this.name = name;
     }
 
-    public void setProvinceName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setProvinceCode(String code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public void setProvinceId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -56,15 +56,15 @@ public class CProvince {
         return districts;
     }
 
-    public String getProvinceName() {
+    public String getName() {
         return name;
     }
 
-    public int getProvinceId() {
+    public int getId() {
         return id;
     }
 
-    public String getProvinceCode() {
+    public String getCode() {
         return code;
     }
 

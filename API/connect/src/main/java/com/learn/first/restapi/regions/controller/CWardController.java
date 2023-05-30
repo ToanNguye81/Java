@@ -30,23 +30,13 @@ public class CWardController {
     @Autowired
     IWardRepository pWardRepository;
 
-    /*
-     * ResponseEntity: Là một lớp trong Spring Framework được sử dụng để đóng gói
-     * kết quả trả về từ một API endpoint. Cho phép thiết lập các thông tin
-     * phản hồi như body, headers và mã trạng thái HTTP
-     * Set được sử dụng thay vì List hoặc ArrayList vì yêu cầu
-     * đặc biệt của một tập hợp các đối tượng duy nhất (không có phần tử trùng lặp).
-     * Body được đóng gói là một tập hợp (Set) các đối tượng kiểu CRegion. Set đảm
-     * bảo rằng không có phần tử trùng lặp trong tập hợp.
-     */
-
     @GetMapping(value = "/wards")
-    public ResponseEntity<Set<CWard>> getWardByName(
-            @RequestParam(value = "districtName", required = false) String districtName) {
+    public ResponseEntity<Set<CWard>> getWardByDistrictId(
+            @RequestParam(value = "districtId", required = false) int districtId) {
         try {
-            if (districtName != null) {
-                // find District base on districtName - name 1 time
-                CDistrict vDistrict = pDistrictRepository.findByName(districtName);
+            if (districtId != 0) {
+                // find District base on districtId - name 1 time
+                CDistrict vDistrict = pDistrictRepository.findById(districtId);
                 System.out.println("=======================================");
                 System.out.println("vDistrict : " + vDistrict);
                 // Return wards list

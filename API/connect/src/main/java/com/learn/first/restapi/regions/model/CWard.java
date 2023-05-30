@@ -5,7 +5,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "ward")
+@Table(name = "wards")
 public class CWard {
 
     @Id
@@ -32,19 +32,19 @@ public class CWard {
         this.prefix = prefix;
     }
 
-    public String getWardName() {
+    public String getName() {
         return name;
     }
 
-    public String getWardPrefix() {
+    public String getPrefix() {
         return prefix;
     }
 
-    public int getWardId() {
+    public int getId() {
         return id;
     }
 
-    public void setWardId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class CWard {
         this.district = district;
     }
 
-    public void setWardName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setWardPrefix(String prefix) {
+    public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
 
@@ -67,7 +67,7 @@ public class CWard {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "{" + getWardId() + "," + getWardPrefix().toString() + "," + getWardName().toString() + "}";
+        return "{" + getId() + "," + getPrefix().toString() + "," + getName().toString() + "}";
     }
 
 }

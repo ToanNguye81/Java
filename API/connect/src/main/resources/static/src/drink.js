@@ -1,27 +1,27 @@
-'use strict';
+"use strict";
 let gDrinkId = 0;
 let drink = {
   newDrink: {
-    drinkCode: '',
-    drinkName: '',
-    price: '',
-    note: '',
+    drinkCode: "",
+    drinkName: "",
+    price: "",
+    note: "",
   },
   onCreateNewDrinkClick() {
     this.newDrink = {
-      drinkCode: $('#input-drink-code').val().trim(),
-      drinkName: $('#input-drink-name').val(),
-      price: $('#input-drink-price').val().trim(),
-      note: $('#input-note').val().trim(),
+      drinkCode: $("#input-drink-code").val().trim(),
+      drinkName: $("#input-drink-name").val(),
+      price: $("#input-drink-price").val().trim(),
+      note: $("#input-note").val().trim(),
     };
     if (validateDrink(this.newDrink)) {
       $.ajax({
-        url: 'http://127.0.0.1:8080/api/drinks',
-        method: 'POST',
+        url: "http://127.0.0.1:8080/api/drinks",
+        method: "POST",
         data: JSON.stringify(this.newDrink),
-        contentType: 'application/json',
+        contentType: "application/json",
         success: (data) => {
-          alert('Drink created successfully');
+          alert("Drink created successfully");
           getDrinkFromDb();
           resetDrinkInput();
         },
@@ -30,26 +30,26 @@ let drink = {
     }
   },
   onUpdateDrinkClick() {
-    let vSelectedRow = $(this).parents('tr');
+    let vSelectedRow = $(this).parents("tr");
     let vSelectedData = drinkTable.row(vSelectedRow).data();
     gDrinkId = vSelectedData.drinkId;
     $.get(`http://127.0.0.1:8080/api/drinks/${gDrinkId}`, loadDrinkToInput);
   },
   onSaveDrinkClick() {
     this.newDrink = {
-      drinkCode: $('#input-drink-code').val().trim(),
-      drinkName: $('#input-drink-name').val().trim(),
-      price: $('#input-drink-price').val().trim(),
-      note: $('#input-note').val().trim(),
+      drinkCode: $("#input-drink-code").val().trim(),
+      drinkName: $("#input-drink-name").val().trim(),
+      price: $("#input-drink-price").val().trim(),
+      note: $("#input-note").val().trim(),
     };
     if (validateDrink(this.newDrink)) {
       $.ajax({
         url: `http://127.0.0.1:8080/api/drinks/${gDrinkId}`,
-        method: 'PUT',
+        method: "PUT",
         data: JSON.stringify(this.newDrink),
-        contentType: 'application/json',
+        contentType: "application/json",
         success: (data) => {
-          alert('Drink updated successfully');
+          alert("Drink updated successfully");
           getDrinkFromDb();
           gDrinkId = 0;
           resetDrinkInput();
@@ -59,35 +59,35 @@ let drink = {
     }
   },
   onDeleteDrinkByIdClick() {
-    $('#modal-delete-drink').modal('show');
-    let vSelectedRow = $(this).parents('tr');
+    $("#modal-delete-drink").modal("show");
+    let vSelectedRow = $(this).parents("tr");
     let vSelectedData = drinkTable.row(vSelectedRow).data();
     gDrinkId = vSelectedData.drinkId;
   },
   onDeleteAllDrinkClick() {
-    $('#modal-delete-drink').modal('show');
+    $("#modal-delete-drink").modal("show");
     gDrinkId = 0;
   },
   onDeleteConfirmClick() {
     if (gDrinkId == 0) {
       $.ajax({
-        url: 'http://localhost:8080/api/drinks',
-        method: 'DELETE',
+        url: "http://localhost:8080/api/drinks",
+        method: "DELETE",
         success: () => {
-          alert('All drink were successfully deleted');
+          alert("All drink were successfully deleted");
           getDrinkFromDb();
-          $('#modal-delete-drink').modal('hide');
+          $("#modal-delete-drink").modal("hide");
         },
         error: (err) => alert(err.responseText),
       });
     } else {
       $.ajax({
         url: `http://localhost:8080/api/drinks/${gDrinkId}`,
-        method: 'DELETE',
+        method: "DELETE",
         success: () => {
           alert(`Drink with id: ${gDrinkId} was successfully deleted`);
           getDrinkFromDb();
-          $('#modal-delete-drink').modal('hide');
+          $("#modal-delete-drink").modal("hide");
         },
         error: (err) => alert(err.responseText),
       });
@@ -95,16 +95,16 @@ let drink = {
   },
 };
 
-let drinkTable = $('#drink-table').DataTable({
+let drinkTable = $("#drink-table").DataTable({
   columns: [
-    { data: 'drinkId' },
-    { data: 'drinkCode' },
-    { data: 'drinkName' },
-    { data: 'price' },
-    { data: 'note' },
-    { data: 'dayCreated' },
-    { data: 'dayUpDated' },
-    { data: 'action' },
+    { data: "drinkId" },
+    { data: "drinkCode" },
+    { data: "drinkName" },
+    { data: "price" },
+    { data: "note" },
+    { data: "dayCreated" },
+    { data: "dayUpDated" },
+    { data: "action" },
   ],
   columnDefs: [
     {
@@ -116,58 +116,58 @@ let drinkTable = $('#drink-table').DataTable({
 });
 
 function loadDrinkOnTable(paramDrinks) {
-  'use strict';
+  "use strict";
   drinkTable.clear();
   drinkTable.rows.add(paramDrinks);
   drinkTable.draw();
 }
 
 function getDrinkFromDb() {
-  'use strict';
-  $.get('http://localhost:8080/api/drinks', (drink) => loadDrinkOnTable(drink));
+  "use strict";
+  $.get("http://localhost:8080/api/drinks", (drink) => loadDrinkOnTable(drink));
 }
 getDrinkFromDb();
 
-$('#create-drink').click(drink.onCreateNewDrinkClick);
-$('#drink-table').on('click', '.fa-edit', drink.onUpdateDrinkClick);
-$('#drink-table').on('click', '.fa-trash', drink.onDeleteDrinkByIdClick);
-$('#update-drink').click(drink.onSaveDrinkClick);
-$('#delete-all-drink').click(drink.onDeleteAllDrinkClick);
-$('#delete-drink').click(drink.onDeleteConfirmClick);
+$("#create-drink").click(drink.onCreateNewDrinkClick);
+$("#drink-table").on("click", ".fa-edit", drink.onUpdateDrinkClick);
+$("#drink-table").on("click", ".fa-trash", drink.onDeleteDrinkByIdClick);
+$("#update-drink").click(drink.onSaveDrinkClick);
+$("#delete-all-drink").click(drink.onDeleteAllDrinkClick);
+$("#delete-drink").click(drink.onDeleteConfirmClick);
 
 function loadDrinkToInput(paramDrinks) {
-  $('#input-drink-code').val(paramDrinks.drinkCode);
-  $('#input-drink-name').val(paramDrinks.drinkName);
-  $('#input-drink-price').val(paramDrinks.price);
-  $('#input-note').val(paramDrinks.note);
+  $("#input-drink-code").val(paramDrinks.drinkCode);
+  $("#input-drink-name").val(paramDrinks.drinkName);
+  $("#input-drink-price").val(paramDrinks.price);
+  $("#input-note").val(paramDrinks.note);
 }
 
 function resetDrinkInput() {
-  $('#input-drink-code').val('');
-  $('#input-drink-name').val('');
-  $('#input-drink-price').val('');
-  $('#input-note').val('');
+  $("#input-drink-code").val("");
+  $("#input-drink-name").val("");
+  $("#input-drink-price").val("");
+  $("#input-note").val("");
 }
 
 function validateDrink(paramDrinks) {
-  'use strict';
+  "use strict";
   let vResult = true;
   try {
-    if (paramDrinks.drinkCode == '') {
+    if (paramDrinks.drinkCode == "") {
       vResult = false;
-      throw '100.cần nhập mã nước uống';
+      throw "100.cần nhập mã nước uống";
     }
-    if (paramDrinks.drinkName == '') {
+    if (paramDrinks.drinkName == "") {
       vResult = false;
-      throw '200.cần nhập tên nước uống';
+      throw "200.cần nhập tên nước uống";
     }
     if (
       isNaN(paramDrinks.price) ||
       paramDrinks.price < 0 ||
-      paramDrinks.price == ''
+      paramDrinks.price == ""
     ) {
       vResult = false;
-      throw 'cần nhập giá nước uống';
+      throw "cần nhập giá nước uống";
     }
   } catch (e) {
     alert(e);
