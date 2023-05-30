@@ -31,7 +31,9 @@ public class CVoucherController {
 
         try {
             List<CVoucher> pVouchers = new ArrayList<CVoucher>();
+
             pIVoucherRepository.findAll().forEach(pVouchers::add);
+
             return new ResponseEntity<>(pVouchers, HttpStatus.OK);
         } catch (Exception e) {
             // TODO: handle exception
