@@ -3,6 +3,7 @@ package com.learn.first.restapi.vouchers.controller;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -71,16 +72,45 @@ public class CVoucherController {
         }
     }
 
+    // Get voucher by Id
     @GetMapping("/vouchers/{id}")
     public ResponseEntity<CVoucher> getCVoucherById(@PathVariable("id") long id) {
-        // Todo: lấy voucher theo id
-        CVoucher voucherData = pIVoucherRepository.findById(id);
-        if (voucherData != null) {
-            return new ResponseEntity<>(voucherData, HttpStatus.OK);
+        Optional<CVoucher> voucherData = pIVoucherRepository.findById(id);
+        if (voucherData.isPresent()) {
+            return new ResponseEntity<>(voucherData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    // // Create new Voucher
+    // @PostMapping("/vouchers")
+    // public ResponseEntity<CVoucher> createCVoucher(@RequestBody CVoucher
+    // pVouchers) {
+    // try {
+    // CVoucher _vouchers = pIVoucherRepository.createVoucher(pVouchers);
+    // // TODO: Hãy viết code tạo voucher đưa lên DB
+    // return new ResponseEntity<>(_vouchers, HttpStatus.CREATED);
+    // } catch (Exception e) {
+    // System.out.println(e);
+    // return new ResponseEntity<>(null,
+    // HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
+
+    // // Create new Voucher
+    // @PostMapping("/vouchers")
+    // public ResponseEntity<CVoucher> createCVoucher(@RequestBody CVoucher
+    // pVoucher) {
+    // try {
+    // CVoucher createdVoucher = pIVoucherRepository.save(pVoucher);
+    // // TODO: Viết code để tạo voucher và lưu vào cơ sở dữ liệu
+    // return ResponseEntity.status(HttpStatus.CREATED).body(createdVoucher);
+    // } catch (Exception e) {
+    // System.out.println(e);
+    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    // }
+    // }
 
     // @PostMapping("/vouchers")
     // public ResponseEntity<CVoucher> createCVoucher(@RequestBody CVoucher
@@ -95,6 +125,19 @@ public class CVoucherController {
     // HttpStatus.INTERNAL_SERVER_ERROR);
     // }
     // }
+
+    @PostMapping("/vouchers")
+    public ResponseEntity<CVoucher> createCVoucher(@RequestBody CVoucher pVoucher) {
+        try {
+            // TODO: Viết code để tạo voucher và lưu vào cơ sở dữ liệu
+            CVoucher createdVoucher = pIVoucherRepository.save(pVoucher);
+
+            return new ResponseEntity<>(createdVoucher, HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // @PutMapping("/vouchers/{id}")
     // public ResponseEntity<CVoucher> updateCVoucherById(@PathVariable("id")
@@ -111,7 +154,7 @@ public class CVoucherController {
     @DeleteMapping("/vouchers/{id}")
     public ResponseEntity<CVoucher> deleteCVoucherById(@PathVariable("id") long id) {
         try {
-            // TODO: Hãy viết code xóa 1 voucher từ DB
+            // TODO: Delete voucher in DB
             pIVoucherRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
