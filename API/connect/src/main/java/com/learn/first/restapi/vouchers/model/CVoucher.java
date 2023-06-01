@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "vouchers")
 public class CVoucher {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -26,8 +27,6 @@ public class CVoucher {
     private String ghiChu;
 
     public CVoucher() {
-        super();
-        // TODO Auto-generated constructor stub
     }
 
     public void setMaVoucher(String maVoucher) {
@@ -50,6 +49,10 @@ public class CVoucher {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getMaVoucher() {
         return maVoucher;
     }
@@ -70,8 +73,7 @@ public class CVoucher {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date ngayCapNhat;
 
-    public CVoucher(String maVoucher, String phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
-        super();
+    public CVoucher(Long id, String maVoucher, String phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
         this.maVoucher = maVoucher;
         this.phanTramGiamGia = phanTramGiamGia;
         this.ghiChu = ghiChu;
@@ -95,6 +97,16 @@ public class CVoucher {
         this.ngayCapNhat = ngayCapNhat;
     }
 
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return getGhiChu() + "\n" +
+                "\n" + getMaVoucher() +
+                "\n" + getNgayCapNhat() +
+                "\n" + getNgayTao() +
+                "\n" + getPhanTramGiamGia() +
+                "\n" + "id: " + getId();
+    }
     // public CVoucher(Long id, String maVoucher, String phanTramGiamGia, String
     // ghiChu, Long ngayTao, Long ngayCapNhat) {
     // super();
