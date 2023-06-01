@@ -3,7 +3,11 @@ package com.learn.first.restapi.vouchers.model;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,13 +17,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class CVoucher {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "ma_voucher")
+    @NotNull(message = "Nhập mã giảm giá")
+    @Size(min = 2, message = "Mã voucher phải có ít nhất 2 ký tự ")
+    @Column(name = "ma_voucher", unique = true)
     private String maVoucher;
 
+    @NotEmpty(message = "Nhập giá trị giảm giá")
+    @Range(min = 1, max = 99, message = "Nhập giá trị từ 1 đến 99")
     @Column(name = "phan_tram_giam_gia")
     private String phanTramGiamGia;
 
@@ -49,10 +57,6 @@ public class CVoucher {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getMaVoucher() {
         return maVoucher;
     }
@@ -73,7 +77,7 @@ public class CVoucher {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date ngayCapNhat;
 
-    public CVoucher(Long id, String maVoucher, String phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
+    public CVoucher(String maVoucher, String phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
         this.maVoucher = maVoucher;
         this.phanTramGiamGia = phanTramGiamGia;
         this.ghiChu = ghiChu;
@@ -100,43 +104,12 @@ public class CVoucher {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return getGhiChu() + "\n" +
-                "\n" + getMaVoucher() +
-                "\n" + getNgayCapNhat() +
-                "\n" + getNgayTao() +
-                "\n" + getPhanTramGiamGia() +
-                "\n" + "id: " + getId();
+        return "id: " + getId() +
+                "\n" + "ma voucher :" + getMaVoucher() +
+                "\n" + "ngay cap nhat :" + getNgayCapNhat() +
+                "\n" + "ngay tao :" + getNgayTao() +
+                "\n" + "phan tram giam gia :" + getPhanTramGiamGia() +
+                "\n" + "ghi chu :" + getGhiChu();
     }
-    // public CVoucher(Long id, String maVoucher, String phanTramGiamGia, String
-    // ghiChu, Long ngayTao, Long ngayCapNhat) {
-    // super();
-    // this.id = id;
-    // this.maVoucher = maVoucher;
-    // this.phanTramGiamGia = phanTramGiamGia;
-    // this.ghiChu = ghiChu;
-    // this.ngayTao = ngayTao;
-    // this.ngayCapNhat = ngayCapNhat;
-    // }
 
-    // @Column(name = "ngay_tao")
-    // private Long ngayTao;
-
-    // @Column(name = "ngay_cap_nhat")
-    // private Long ngayCapNhat;
-
-    // public Long getNgayTao() {
-    // return ngayTao;
-    // }
-
-    // public Long getNgayCapNhat() {
-    // return ngayCapNhat;
-    // }
-
-    // public void setNgayTao(Long ngayTao) {
-    // this.ngayTao = ngayTao;
-    // }
-
-    // public void setNgayCapNhat(Long ngayCapNhat) {
-    // this.ngayCapNhat = ngayCapNhat;
-    // }
 }

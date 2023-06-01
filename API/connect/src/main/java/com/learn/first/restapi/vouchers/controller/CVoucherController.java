@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,16 +74,16 @@ public class CVoucherController {
     }
 
     // POST METHOD ====================
-
     // Create new Voucher
     @PostMapping("/vouchers")
-    public ResponseEntity<Object> createNewVoucher(@RequestBody CVoucher pVouchers) {
+    public ResponseEntity<Object> createVoucher(@Valid @RequestBody CVoucher pVouchers) {
         try {
             // Set the creation date and nullify the update date
             pVouchers.setNgayTao(new Date());
             pVouchers.setNgayCapNhat(null);
             System.out.println("+++++++++++++++++++++++++++++++");
             System.out.println(pVouchers);
+            System.out.println("+++++++++++++++++++++++++++++++");
             // Save the voucher to the database
             CVoucher _voucher = pIVoucherRepository.save(pVouchers);
 
@@ -90,64 +92,40 @@ public class CVoucherController {
 
         } catch (Exception e) {
             System.out.println("==================================");
-            System.out.println(e.getCause().getCause().getMessage());
-            return ResponseEntity.unprocessableEntity()
-                    .body("Fail to create voucher " + e.getCause().getCause().getMessage());
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // // Create new Voucher
-    // @PostMapping("/vouchers")
-    // public ResponseEntity<CVoucher> createCVoucher(@RequestBody CVoucher
-    // pVoucher) {
-    // try {
-    // CVoucher createdVoucher = pIVoucherRepository.save(pVoucher);
-    // // TODO: Viết code để tạo voucher và lưu vào cơ sở dữ liệu
-    // return ResponseEntity.status(HttpStatus.CREATED).body(createdVoucher);
-    // } catch (Exception e) {
-    // System.out.println(e);
-    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    // }
-    // }
+    // PUT METHOD ==================
 
-    // @PostMapping("/vouchers")
-    // public ResponseEntity<CVoucher> createCVoucher(@RequestBody CVoucher
-    // pVouchers) {
-    // try {
-    // // TODO: Hãy viết code tạo voucher đưa lên DB
+    @PutMapping("vouchers/{id}")
+    public ResponseEntity<CVoucher> updateVoucher(@PathVariable long id, @RequestBody CVoucher entity) {
+        try {
+            // Get the voucher from the database by its ID
+            Optional<CVoucher> optionalVoucher = pIVoucherRepository.findById(id);
+            if (optionalVoucher.isPresent()) {
+                CVoucher voucher = optionalVoucher.get();
 
-    // return new ResponseEntity<>(_vouchers, HttpStatus.CREATED);
-    // } catch (Exception e) {
-    // System.out.println(e);
-    // return new ResponseEntity<>(null,
-    // HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
+                // Update the voucher properties with the provided entity data
+                voucher.setMaVoucher(entity.getMaVoucher());
+                voucher.setPhanTramGiamGia(entity.getPhanTramGiamGia());
+                voucher.setGhiChu(entity.getGhiChu());
+                voucher.setNgayCapNhat(new Date());
+                // Update other properties as needed
 
-    // @PostMapping("/vouchers")
-    // public ResponseEntity<CVoucher> createCVoucher(@RequestBody CVoucher
-    // pVoucher) {
-    // try {
-    // // TODO: Viết code để tạo voucher và lưu vào cơ sở dữ liệu
-    // CVoucher createdVoucher = pIVoucherRepository.save(pVoucher);
+                // Save the updated voucher back to the database
+                pIVoucherRepository.save(voucher);
 
-    // return new ResponseEntity<>(createdVoucher, HttpStatus.CREATED);
-    // } catch (Exception e) {
-    // System.out.println(e);
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
-
-    // @PutMapping("/vouchers/{id}")
-    // public ResponseEntity<CVoucher> updateCVoucherById(@PathVariable("id")
-    // long id, @RequestBody CVoucher pVouchers) {
-    // //TODO: Hãy viết code lấy voucher từ DB để UPDATE
-    // if (voucherData.isPresent()) {
-    // return new
-    // ResponseEntity<>(pVoucherRepository.save(pVouchers), HttpStatus.OK);
-    // } else {
-    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    // }
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // DELETE METHOD ===============
     // Delete voucher by Id
