@@ -9,7 +9,7 @@ import com.learn.first.restapi.orders.model.COrder;
 @Table(name = "products")
 public class CProduct {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private long id;
 

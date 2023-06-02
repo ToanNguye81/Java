@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name = "countries")
 public class CCountry {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // tự động sinh ra giá trị cho trường country_id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // tự động sinh ra giá trị cho trường country_id
     private int country_id;
 
     @Column(name = "country_code", unique = true)

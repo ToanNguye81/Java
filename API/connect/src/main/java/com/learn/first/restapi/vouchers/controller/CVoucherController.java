@@ -85,10 +85,10 @@ public class CVoucherController {
             System.out.println(pVouchers);
             System.out.println("+++++++++++++++++++++++++++++++");
             // Save the voucher to the database
-            CVoucher _voucher = pIVoucherRepository.save(pVouchers);
+            CVoucher voucher = pIVoucherRepository.save(pVouchers);
 
             // Return the created voucher in the response with HTTP status 201 (Created)
-            return new ResponseEntity<>(_voucher, HttpStatus.CREATED);
+            return new ResponseEntity<>(voucher, HttpStatus.CREATED);
 
         } catch (Exception e) {
             System.out.println("==================================");
@@ -98,22 +98,19 @@ public class CVoucherController {
     }
 
     // PUT METHOD ==================
-
     @PutMapping("vouchers/{id}")
-    public ResponseEntity<CVoucher> updateVoucher(@PathVariable long id, @RequestBody CVoucher entity) {
+    public ResponseEntity<CVoucher> updateVoucherById(@PathVariable("id") long id, @RequestBody CVoucher pVoucher) {
         try {
             // Get the voucher from the database by its ID
             Optional<CVoucher> optionalVoucher = pIVoucherRepository.findById(id);
             if (optionalVoucher.isPresent()) {
                 CVoucher voucher = optionalVoucher.get();
 
-                // Update the voucher properties with the provided entity data
-                voucher.setMaVoucher(entity.getMaVoucher());
-                voucher.setPhanTramGiamGia(entity.getPhanTramGiamGia());
-                voucher.setGhiChu(entity.getGhiChu());
+                // Update the voucher properties with the provided pVoucher data
+                voucher.setMaVoucher(pVoucher.getMaVoucher());
+                voucher.setPhanTramGiamGia(pVoucher.getPhanTramGiamGia());
+                voucher.setGhiChu(pVoucher.getGhiChu());
                 voucher.setNgayCapNhat(new Date());
-                // Update other properties as needed
-
                 // Save the updated voucher back to the database
                 pIVoucherRepository.save(voucher);
 

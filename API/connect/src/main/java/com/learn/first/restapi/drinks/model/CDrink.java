@@ -1,6 +1,16 @@
 package com.learn.first.restapi.drinks.model;
 
+import java.util.Date;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /*  Annotation @Entity được sử dụng để đánh dấu lớp này là
 một "entity" trong ngữ cảnh của Java Persistence API (JPA) */
@@ -10,32 +20,40 @@ public class CDrink {
 
     /* Định nghĩa các cột tương ứng với các thuộc tính */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "ma_nuoc_uong")
+    @NotNull(message = "Nhập mã giảm giá")
+    @Size(min = 2, message = "Mã nước uống phải có ít nhất 2 ký tự ")
+    @Column(name = "ma_nuoc_uong", unique = true)
     private String maNuocUong;
 
-    @Column(name = "ten_nuoc_uong")
+    @NotEmpty(message = "Nhập giá trị giảm giá")
+    @Size(min = 2, message = "Tên nước uống phải có ít nhất 2 ký tự ")
+    @Column(name = "ten_nuoc_uong", unique = true)
     private String tenNuocUong;
 
     @Column(name = "gia_nuoc_uong")
     private long price;
 
-    @Column(name = "ngay_tao")
-    private long ngayTao;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_tao", nullable = true, updatable = false)
+    @CreatedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date ngayTao;
 
-    @Column(name = "ngay_cap_nhat")
-    private long ngayCapNhat;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_cap_nhat", nullable = true)
+    @LastModifiedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date ngayCapNhat;
 
     public CDrink() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public CDrink(long id, String maNuocUong, String tenNuocUong, long price, long ngayTao, long ngayCapNhat) {
-        super();
-        this.id = id;
+    public CDrink(String maNuocUong, String tenNuocUong, long price, Date ngayTao, Date ngayCapNhat) {
         this.maNuocUong = maNuocUong;
         this.tenNuocUong = tenNuocUong;
         this.price = price;
@@ -51,11 +69,11 @@ public class CDrink {
         return maNuocUong;
     }
 
-    public long getNgayCapNhat() {
+    public Date getNgayCapNhat() {
         return ngayCapNhat;
     }
 
-    public long getNgayTao() {
+    public Date getNgayTao() {
         return ngayTao;
     }
 
@@ -67,19 +85,15 @@ public class CDrink {
         return tenNuocUong;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public void setMaNuocUong(String maNuocUong) {
         this.maNuocUong = maNuocUong;
     }
 
-    public void setNgayCapNhat(long ngayCapNhat) {
+    public void setNgayCapNhat(Date ngayCapNhat) {
         this.ngayCapNhat = ngayCapNhat;
     }
 
-    public void setNgayTao(long ngayTao) {
+    public void setNgayTao(Date ngayTao) {
         this.ngayTao = ngayTao;
     }
 

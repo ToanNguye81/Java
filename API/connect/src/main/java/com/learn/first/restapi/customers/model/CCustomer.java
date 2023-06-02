@@ -11,7 +11,7 @@ import com.learn.first.restapi.orders.model.COrder;
 @Table(name = "customers")
 public class CCustomer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private long id;
 

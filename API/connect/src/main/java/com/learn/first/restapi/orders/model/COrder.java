@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name = "orders")
 public class COrder {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // tự động sinh ra giá trị cho trường id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // tự động sinh ra giá trị cho trường id
     @Column(name = "id", unique = true)
     private int id;
 

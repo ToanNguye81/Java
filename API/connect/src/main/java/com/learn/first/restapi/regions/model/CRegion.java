@@ -8,7 +8,7 @@ import com.learn.first.restapi.countries.model.CCountry;
 @Table(name = "regions")
 public class CRegion {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "region_id", unique = true)
     private int id;
 

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class CWard {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private int id;
 
