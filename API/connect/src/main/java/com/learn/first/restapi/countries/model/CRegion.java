@@ -1,11 +1,11 @@
-package com.learn.first.restapi.regions.model;
+package com.learn.first.restapi.countries.model;
 
 import javax.persistence.*;
 
-import com.learn.first.restapi.countries.model.CCountry;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "regions")
+@Table(name = "region")
 public class CRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,34 +13,34 @@ public class CRegion {
     private int id;
 
     @Column(name = "region_code", unique = true)
-    private String code;
+    private String regionCode;
 
     @Column(name = "region_name")
-    private String name;
+    private String regionName;
 
     @ManyToOne // mỗi CRegion thuộc về một CCountry duy nhất.
     @JoinColumn(name = "country_id") // quan hệ giữa CRegion và CCountry là một quan hệ quản lý bỏ trên 1 trong 2
+    @JsonIgnore
     private CCountry country;// CRegion sẽ được liên kết với CCountry dựa trên khóa chính country
 
     public CRegion() {
         // TODO Auto-generated constructor stub
     }
 
-    public CRegion(String code, String name) {
-        this.code = code;
-        this.name = name;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setRegionCode(String code) {
-        this.code = code;
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
     }
 
-    public void setRegionName(String name) {
-        this.name = name;
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public void setCountry(CCountry country) {
+        this.country = country;
     }
 
     public long getId() {
@@ -48,10 +48,15 @@ public class CRegion {
     }
 
     public String getRegionCode() {
-        return code;
+        return regionCode;
     }
 
     public String getRegionName() {
-        return name;
+        return regionName;
     }
+
+    public CCountry getCountry() {
+        return country;
+    }
+
 }
