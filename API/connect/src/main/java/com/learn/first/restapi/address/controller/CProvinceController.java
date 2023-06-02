@@ -1,4 +1,4 @@
-package com.learn.first.restapi.regions.controller;
+package com.learn.first.restapi.address.controller;
 
 import org.springframework.http.HttpStatus;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.learn.first.restapi.regions.model.CProvince;
-import com.learn.first.restapi.regions.repository.IProvinceRepository;
+import com.learn.first.restapi.address.model.CProvince;
+import com.learn.first.restapi.address.repository.IProvinceRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 

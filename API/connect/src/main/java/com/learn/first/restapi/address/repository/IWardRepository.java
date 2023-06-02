@@ -1,8 +1,8 @@
-package com.learn.first.restapi.regions.repository;
+package com.learn.first.restapi.address.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.learn.first.restapi.regions.model.CWard;
+import com.learn.first.restapi.address.model.CWard;
 
 public interface IWardRepository extends JpaRepository<CWard, Long> {
 

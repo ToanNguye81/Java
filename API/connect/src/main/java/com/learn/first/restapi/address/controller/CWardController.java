@@ -1,4 +1,4 @@
-package com.learn.first.restapi.regions.controller;
+package com.learn.first.restapi.address.controller;
 
 import org.springframework.http.HttpStatus;
 
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.learn.first.restapi.regions.model.CDistrict;
-import com.learn.first.restapi.regions.model.CWard;
-import com.learn.first.restapi.regions.repository.IDistrictRepository;
-import com.learn.first.restapi.regions.repository.IWardRepository;
+import com.learn.first.restapi.address.model.CDistrict;
+import com.learn.first.restapi.address.model.CWard;
+import com.learn.first.restapi.address.repository.IDistrictRepository;
+import com.learn.first.restapi.address.repository.IWardRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

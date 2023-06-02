@@ -1,4 +1,4 @@
-package com.learn.first.restapi.regions.model;
+package com.learn.first.restapi.address.model;
 
 import java.util.Set;
 
