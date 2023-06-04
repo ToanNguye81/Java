@@ -48,8 +48,8 @@ public class CProvinceController {
     // create new province
     @PostMapping(value = "/province/create")
     public ResponseEntity<Object> createProvince(@RequestBody CProvince pProvince) {
-        // TODO: process POST request
         try {
+            // create new province
             CProvince newProvince = new CProvince();
             newProvince.setName(pProvince.getName());
             newProvince.setCode(pProvince.getCode());
@@ -58,27 +58,30 @@ public class CProvinceController {
             return new ResponseEntity<>(savedProvince, HttpStatus.CREATED);
         } catch (Exception e) {
             // TODO: handle exception
-            return ResponseEntity.unprocessableEntity()
-                    .body("Failed to Create specified Ward: " + e.getCause().getCause().getMessage());
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     // Update province by id
     @PutMapping(value = "/province/update/{id}")
     public ResponseEntity<Object> updateProvince(@PathVariable Integer id, @RequestBody CProvince pProvince) {
-        // TODO: process POST request
+        // find province by id
         Optional<CProvince> provinceData = pIProvinceRepository.findById(id);
         if (provinceData.isPresent()) {
+            // get province
             CProvince newProvince = provinceData.get();
+            // update province
             newProvince.setName(pProvince.getName());
             newProvince.setCode(pProvince.getCode());
+            newProvince.setDistricts(pProvince.getDistricts());
             CProvince savedProvince = pIProvinceRepository.save(newProvince);
             return new ResponseEntity<>(savedProvince, HttpStatus.OK);
         } else {
             // TODO: handle exception
             System.out.println("not find province by id");
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
         }
     }
 
