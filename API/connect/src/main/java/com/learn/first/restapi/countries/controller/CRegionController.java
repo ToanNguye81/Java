@@ -65,15 +65,14 @@ public class CRegionController {
         try {
             // Find country by id
             Optional<CCountry> countryData = pICountryRepository.findById(countryId);
-            System.out.println(countryData);
+            // create
             if (countryData.isPresent()) {
-                CRegion newRole = new CRegion();
-                // TODO here
                 CCountry country = countryData.get();
-                newRole.setCountry(country);
-                newRole.setRegionName(pRegion.getRegionName());
-                newRole.setRegionCode(pRegion.getRegionCode());
-                CRegion savedRole = pIRegionRepository.save(newRole);
+                CRegion newRegion = new CRegion();
+                newRegion.setCountry(country);
+                newRegion.setRegionName(pRegion.getRegionName());
+                newRegion.setRegionCode(pRegion.getRegionCode());
+                CRegion savedRole = pIRegionRepository.save(newRegion);
                 return new ResponseEntity<>(savedRole, HttpStatus.CREATED);
             }
         } catch (Exception e) {
@@ -87,8 +86,9 @@ public class CRegionController {
     // Update region by id
     @PutMapping(value = "/region/update/{id}")
     public ResponseEntity<Object> updateRegion(@PathVariable Integer id, @RequestBody CRegion pRegion) {
-        // TODO: process POST request
+        // find region by id
         Optional<CRegion> regionData = pIRegionRepository.findById(id);
+        // update new region
         if (regionData.isPresent()) {
             CRegion newRegion = regionData.get();
             newRegion.setRegionName(pRegion.getRegionName());
@@ -97,9 +97,7 @@ public class CRegionController {
             return new ResponseEntity<>(savedRegion, HttpStatus.OK);
         } else {
             // TODO: handle exception
-            System.out.println("not find region by id");
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
         }
     }
 
@@ -110,7 +108,6 @@ public class CRegionController {
             pIRegionRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            System.out.println(e);
             return new ResponseEntity<>(null,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
