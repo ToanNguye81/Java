@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -23,13 +22,12 @@ public class CDistrict {
     private String prefix;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnore
     @JoinColumn(name = "province_id")
     private CProvince province;
 
     @Column(name = "wards")
     @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
-    // @JsonManagedReference
     @JsonIgnore
     private Set<CWard> wards;
 
@@ -58,10 +56,6 @@ public class CDistrict {
     }
 
     public void setWards(Set<CWard> wards) {
-        this.wards = wards;
-    }
-
-    public void setWard(Set<CWard> wards) {
         this.wards = wards;
     }
 

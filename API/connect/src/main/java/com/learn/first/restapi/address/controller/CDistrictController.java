@@ -1,13 +1,13 @@
 package com.learn.first.restapi.address.controller;
 
 import org.springframework.http.HttpStatus;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +17,10 @@ import com.learn.first.restapi.address.repository.IDistrictRepository;
 import com.learn.first.restapi.address.repository.IProvinceRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @CrossOrigin
 @RestController
@@ -29,33 +32,71 @@ public class CDistrictController {
     @Autowired
     IProvinceRepository pIProvinceRepository;
 
-    @GetMapping(value = "/districts")
-    public ResponseEntity<Set<CDistrict>> getDistrictByCode(
-            @RequestParam(value = "provinceCode", required = false) String provinceCode) {
+    // get all district
+    @GetMapping(value = "/district/all")
+    public List<CDistrict> getAllDistrict() {
+        return pIDistrictRepository.findAll();
+    }
+
+    // get district by id
+    @GetMapping(value = "/district/details/{id}")
+    public CDistrict getDistrictById(@PathVariable Integer id) {
+        if (pIDistrictRepository.findById(id).isPresent()) {
+            return pIDistrictRepository.findById(id).get();
+        } else {
+            return null;
+        }
+    }
+
+    // create new district
+    @PostMapping(value = "/district/create/{provinceId}")
+    public ResponseEntity<Object> createDistrict(@PathVariable Integer provinceId,
+            @RequestBody CDistrict pDistrict) {
+        // TODO: process POST request
         try {
-            if (provinceCode != null) {
-                // find Province base on provinceCode
-                CProvince vProvince = pIProvinceRepository.findByCode(provinceCode);
-                // Return province list
-                return new ResponseEntity<>(vProvince.getDistricts(), HttpStatus.OK);
-            } else {
-                {
-                    // find all province
-                    Set<CDistrict> allDistricts = new HashSet<>();
-                    List<CProvince> provinces = pIProvinceRepository.findAll();
-
-                    // create district list
-                    for (CProvince province : provinces) {
-                        allDistricts.addAll(province.getDistricts());
-                    }
-                    // Return province list
-                    return new ResponseEntity<>(allDistricts, HttpStatus.OK);
-                }
+            Optional<CProvince> provinceData = pIProvinceRepository.findById(provinceId);
+            if (provinceData.isPresent()) {
+                CDistrict newDistrict = new CDistrict();
+                newDistrict.setName(pDistrict.getName());
+                newDistrict.setPrefix(pDistrict.getPrefix());
+                CDistrict savedDistrict = pIDistrictRepository.save(newDistrict);
+                return new ResponseEntity<>(savedDistrict, HttpStatus.CREATED);
             }
-
         } catch (Exception e) {
             // TODO: handle exception
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.unprocessableEntity()
+                    .body("Failed to Create specified Ward: " + e.getCause().getCause().getMessage());
+
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    // update distric
+    @PutMapping(value = "/district/update/{id}")
+    public ResponseEntity<Object> updateDistrictById(@PathVariable Integer id, @RequestBody CDistrict pDistrict) {
+        // TODO: process PUT request
+        Optional<CDistrict> districtData = pIDistrictRepository.findById(id);
+        if (districtData.isPresent()) {
+            CDistrict newDistrict = districtData.get();
+            newDistrict.setName(pDistrict.getName());
+            newDistrict.setPrefix(pDistrict.getPrefix());
+            CDistrict savedDistrict = pIDistrictRepository.save(newDistrict);
+            return new ResponseEntity<>(savedDistrict, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // delete District by id
+    @DeleteMapping("/district/delete/{id}")
+    public ResponseEntity<Object> deleteDistrictById(@PathVariable Integer id) {
+        try {
+            pIDistrictRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
