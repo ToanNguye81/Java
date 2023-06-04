@@ -29,7 +29,7 @@ public class CCountryController {
     // Get country by id
     @GetMapping("/country/details/{id}")
     public CCountry getCountryById(@PathVariable Long id) {
-        // find country with id success
+        // find country by id
         if (pICountryRepository.findById(id).isPresent())
             return pICountryRepository.findById(id).get();
         else
@@ -45,8 +45,6 @@ public class CCountryController {
     // Create new country
     @PostMapping(value = "/country/create")
     public ResponseEntity<Object> createCountry(@RequestBody CCountry pCountry) {
-        // TODO: process POST request
-
         try {
             CCountry newRole = new CCountry();
             newRole.setCountryName(pCountry.getCountryName());
@@ -56,8 +54,8 @@ public class CCountryController {
             return new ResponseEntity<>(savedCountry, HttpStatus.CREATED);
 
         } catch (Exception e) {
-            System.out.println(e);
             // TODO: handle exception
+            System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -65,18 +63,20 @@ public class CCountryController {
     // Update country by id
     @PutMapping(value = "/country/update/{id}")
     public ResponseEntity<Object> updateCountry(@PathVariable Long id, @RequestBody CCountry pCountry) {
-        // TODO: process POST request
+        // find country by id
         Optional<CCountry> countryData = pICountryRepository.findById(id);
         if (countryData.isPresent()) {
+            // get existed country
             CCountry newCountry = countryData.get();
+            // update country
             newCountry.setCountryName(pCountry.getCountryName());
             newCountry.setCountryCode(pCountry.getCountryCode());
             newCountry.setRegions(pCountry.getRegions());
             CCountry savedCountry = pICountryRepository.save(newCountry);
+            // return
             return new ResponseEntity<>(savedCountry, HttpStatus.OK);
         } else {
             // TODO: handle exception
-            System.out.println("not find country by id");
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
         }
@@ -89,7 +89,6 @@ public class CCountryController {
             pICountryRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            System.out.println(e);
             return new ResponseEntity<>(null,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
