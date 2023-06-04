@@ -2,10 +2,8 @@ package com.learn.first.restapi.countries.controller;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,6 @@ import com.learn.first.restapi.countries.repository.IRegionRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,12 +58,13 @@ public class CRegionController {
         return pIRegionRepository.findAll();
     }
 
-    // POST METHOD
-    @PostMapping(value = "/region/create/{id}")
-    public ResponseEntity<Object> createRegion(@PathVariable("id") Long id, @RequestBody CRegion pRegion) {
+    // Create new region
+    @PostMapping(value = "/region/create/{countryId}")
+    public ResponseEntity<Object> createRegion(@PathVariable("countryId") Long countryId,
+            @RequestBody CRegion pRegion) {
         try {
             // Find country by id
-            Optional<CCountry> countryData = pICountryRepository.findById(id);
+            Optional<CCountry> countryData = pICountryRepository.findById(countryId);
             System.out.println(countryData);
             if (countryData.isPresent()) {
                 CRegion newRole = new CRegion();
@@ -86,7 +84,7 @@ public class CRegionController {
 
     }
 
-    // PUT METHOD
+    // Update region by id
     @PutMapping(value = "/region/update/{id}")
     public ResponseEntity<Object> updateRegion(@PathVariable Long id, @RequestBody CRegion pRegion) {
         // TODO: process POST request
@@ -105,6 +103,7 @@ public class CRegionController {
         }
     }
 
+    // Delete region by Id
     @DeleteMapping("/region/delete/{id}")
     public ResponseEntity<Object> deleteRegionById(@PathVariable Long id) {
         try {
@@ -117,33 +116,4 @@ public class CRegionController {
         }
     }
 
-    // GET METHOD
-    // get Region by country code
-    // @GetMapping(value = "/regions")
-    // public ResponseEntity<Set<CRegion>> getRegionByCountryCode(
-    // @RequestParam(value = "countryCode", required = false) String countryCode) {
-    // try {
-    // if (countryCode != null) {
-    // // find Country base on countryCode
-    // CCountry vCountry = pICountryRepository.findByCountryCode(countryCode);
-    // // Return regions list
-    // } else {
-    // {
-    // // find all regions
-    // Set<CRegion> allRegions = new HashSet<>();
-    // List<CCountry> countries = pICountryRepository.findAll();
-
-    // // create list
-    // for (CCountry country : countries) {
-    // }
-    // // Return regions list
-    // return new ResponseEntity<>(allRegions, HttpStatus.OK);
-    // }
-    // }
-
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
 }
