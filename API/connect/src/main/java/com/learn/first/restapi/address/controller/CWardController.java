@@ -10,6 +10,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +38,7 @@ public class CWardController {
 
     // Get ward by id
     @GetMapping(value = "/ward/details/{id}")
-    public CWard getWardById(@PathVariable Long id) {
+    public CWard getWardById(@PathVariable Integer id) {
         if (pIWardRepository.findById(id).isPresent()) {
             return pIWardRepository.findById(id).get();
         } else {
@@ -78,24 +79,31 @@ public class CWardController {
     }
 
     // Update ward by id
-    @PutMapping(value = "ward/update/{id}")
+    @PutMapping(value = "/ward/update/{id}")
     public ResponseEntity<Object> updateWardById(@PathVariable Integer id,
             @RequestBody CWard pWard) {
+        Optional<CWard> wardData = pIWardRepository.findById(id);
+        if (wardData.isPresent()) {
+            CWard newWard = wardData.get();
+            newWard.setName(pWard.getName());
+            newWard.setPrefix(pWard.getPrefix());
+            CWard savedWard = pIWardRepository.save(newWard);
+            return new ResponseEntity<>(savedWard, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // delete ward by id
+    @DeleteMapping(value = "/ward/delete/{id}")
+    public ResponseEntity<Object> deleteWardById(@PathVariable Integer id) {
         try {
-            Optional<CWard> wardData = pIWardRepository.findById(id);
-            if (wardData.isPresent()) {
-                CWard newWard = wardData.get();
-                newWard.setName(pWard.getName());
-                newWard.setPrefix(pWard.getPrefix());
-                CWard savedWard = pIWardRepository.save(newWard);
-                return new ResponseEntity<>(savedWard, HttpStatus.OK);
-            }
+            pIWardRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             // TODO: handle exception
-            return ResponseEntity.unprocessableEntity()
-                    .body("Failed to Update specified Ward: " + e.getCause().getCause().getMessage());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
     }
 
     // @PutMapping(value = "/ward/update/{id}")
