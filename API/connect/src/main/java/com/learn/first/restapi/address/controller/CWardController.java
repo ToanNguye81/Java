@@ -37,6 +37,7 @@ public class CWardController {
     @GetMapping(value = "/ward/details/{id}")
     public CWard getWardById(@PathVariable Integer id) {
         if (pIWardRepository.findById(id).isPresent()) {
+            // find ward by id
             return pIWardRepository.findById(id).get();
         } else {
             return null;
@@ -56,20 +57,25 @@ public class CWardController {
         try {
             // Find district by id
             Optional<CDistrict> districtData = pIDistrictRepository.findById(districtId);
+            // create new ward if found out district
             if (districtData.isPresent()) {
-                CWard newRole = new CWard();
-                // TODO here
+                // get district data
                 CDistrict district = districtData.get();
+                // create new ward
+                CWard newRole = new CWard();
                 newRole.setDistrict(district);
                 newRole.setName(pWard.getName());
                 newRole.setPrefix(pWard.getPrefix());
                 CWard savedRole = pIWardRepository.save(newRole);
+                // return FE
                 return new ResponseEntity<>(savedRole, HttpStatus.CREATED);
             }
         } catch (Exception e) {
+            // error
             return ResponseEntity.unprocessableEntity()
                     .body("Failed to Create specified Ward: " + e.getCause().getCause().getMessage());
         }
+        // if not find district id
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
@@ -78,14 +84,18 @@ public class CWardController {
     @PutMapping(value = "/ward/update/{id}")
     public ResponseEntity<Object> updateWardById(@PathVariable Integer id,
             @RequestBody CWard pWard) {
+        // find ward by id
         Optional<CWard> wardData = pIWardRepository.findById(id);
         if (wardData.isPresent()) {
+            // update ward
             CWard newWard = wardData.get();
             newWard.setName(pWard.getName());
             newWard.setPrefix(pWard.getPrefix());
             CWard savedWard = pIWardRepository.save(newWard);
+            // return
             return new ResponseEntity<>(savedWard, HttpStatus.OK);
         } else {
+            // if not found ward by id
             return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
         }
     }

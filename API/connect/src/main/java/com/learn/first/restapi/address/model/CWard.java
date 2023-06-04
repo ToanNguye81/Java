@@ -27,11 +27,6 @@ public class CWard {
     public CWard() {
     }
 
-    public CWard(String name, String prefix) {
-        this.name = name;
-        this.prefix = prefix;
-    }
-
     public String getName() {
         return name;
     }
