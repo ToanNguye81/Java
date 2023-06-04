@@ -34,11 +34,6 @@ public class CDistrict {
     public CDistrict() {
     }
 
-    public CDistrict(int id, String name, String prefix) {
-        this.name = name;
-        this.prefix = prefix;
-    }
-
     public void setName(String name) {
         this.name = name;
     }

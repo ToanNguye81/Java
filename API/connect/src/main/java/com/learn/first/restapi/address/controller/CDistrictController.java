@@ -52,13 +52,17 @@ public class CDistrictController {
     @PostMapping(value = "/district/create/{provinceId}")
     public ResponseEntity<Object> createDistrict(@PathVariable Integer provinceId,
             @RequestBody CDistrict pDistrict) {
-        // TODO: process POST request
         try {
+            // find province by id
             Optional<CProvince> provinceData = pIProvinceRepository.findById(provinceId);
+            // if existed province
             if (provinceData.isPresent()) {
+                CProvince province = provinceData.get();
                 CDistrict newDistrict = new CDistrict();
+                newDistrict.setProvince(province);
                 newDistrict.setName(pDistrict.getName());
                 newDistrict.setPrefix(pDistrict.getPrefix());
+                newDistrict.setWards(pDistrict.getWards());
                 CDistrict savedDistrict = pIDistrictRepository.save(newDistrict);
                 return new ResponseEntity<>(savedDistrict, HttpStatus.CREATED);
             }
@@ -68,21 +72,26 @@ public class CDistrictController {
                     .body("Failed to Create specified Ward: " + e.getCause().getCause().getMessage());
 
         }
+        // not found province
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // update distric
+    // update district
     @PutMapping(value = "/district/update/{id}")
     public ResponseEntity<Object> updateDistrictById(@PathVariable Integer id, @RequestBody CDistrict pDistrict) {
-        // TODO: process PUT request
+        // find district by id
         Optional<CDistrict> districtData = pIDistrictRepository.findById(id);
         if (districtData.isPresent()) {
+            // if existed district
             CDistrict newDistrict = districtData.get();
             newDistrict.setName(pDistrict.getName());
             newDistrict.setPrefix(pDistrict.getPrefix());
+            newDistrict.setWards(pDistrict.getWards());
+            newDistrict.setProvince(pDistrict.getProvince());
             CDistrict savedDistrict = pIDistrictRepository.save(newDistrict);
             return new ResponseEntity<>(savedDistrict, HttpStatus.OK);
         } else {
+            // if not found district by id
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -94,7 +103,6 @@ public class CDistrictController {
             pIDistrictRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            System.out.println(e);
             return new ResponseEntity<>(null,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
