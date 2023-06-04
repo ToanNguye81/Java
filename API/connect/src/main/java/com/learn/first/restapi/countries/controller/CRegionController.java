@@ -86,7 +86,7 @@ public class CRegionController {
 
     // Update region by id
     @PutMapping(value = "/region/update/{id}")
-    public ResponseEntity<Object> updateRegion(@PathVariable Long id, @RequestBody CRegion pRegion) {
+    public ResponseEntity<Object> updateRegion(@PathVariable Integer id, @RequestBody CRegion pRegion) {
         // TODO: process POST request
         Optional<CRegion> regionData = pIRegionRepository.findById(id);
         if (regionData.isPresent()) {

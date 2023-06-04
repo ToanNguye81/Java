@@ -53,7 +53,7 @@ public class CWardController {
 
     // Create new ward
     @PostMapping(value = "/ward/create/{districtId}")
-    public ResponseEntity<Object> createWard(@PathVariable("districtId") Long districtId,
+    public ResponseEntity<Object> createWard(@PathVariable("districtId") Integer districtId,
             @RequestBody CWard pWard) {
         try {
             // Find district by id
@@ -77,27 +77,26 @@ public class CWardController {
 
     }
 
-    // // Update ward by id
-    // @PutMapping(value = "ward/update/{id}")
-    // public ResponseEntity<Object> updateWardById(@PathVariable Integer id,
-    // @RequestBody CWard pWard) {
-    // try {
-    // // TODO: process PUT request
-    // //find ward by Id
-    // Optional<CDistrict> districtData = (Optional<CDistrict>)
-    // pIDistrictRepository.findById(id);
-
-    // Optional<CWard> wardData =(Optional<CWard>)pIWardRepository.findById(id);
-    // if(wardData.isPresent()){
-
-    // return ResponseEntity<>()
-    // }
-
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // }
-    // return new ResponseEntity<>(HttpStatus.NOT_FOUND)
-    // }
+    // Update ward by id
+    @PutMapping(value = "ward/update/{id}")
+    public ResponseEntity<Object> updateWardById(@PathVariable Integer id,
+            @RequestBody CWard pWard) {
+        try {
+            Optional<CWard> wardData = pIWardRepository.findById(id);
+            if (wardData.isPresent()) {
+                CWard newWard = wardData.get();
+                newWard.setName(pWard.getName());
+                newWard.setPrefix(pWard.getPrefix());
+                CWard savedWard = pIWardRepository.save(newWard);
+                return new ResponseEntity<>(savedWard, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.unprocessableEntity()
+                    .body("Failed to Update specified Ward: " + e.getCause().getCause().getMessage());
+        }
+        return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
+    }
 
     // @PutMapping(value = "/ward/update/{id}")
     // public ResponseEntity updateWardById(@PathVariable Long id, @RequestBody
