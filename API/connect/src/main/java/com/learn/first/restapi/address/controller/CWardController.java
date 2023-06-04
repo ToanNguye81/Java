@@ -106,45 +106,4 @@ public class CWardController {
         }
     }
 
-    // @PutMapping(value = "/ward/update/{id}")
-    // public ResponseEntity updateWardById(@PathVariable Long id, @RequestBody
-    // SomeEnityData entity) {
-    // // TODO: process PUT request
-
-    // return entity;
-    // }
-    // @GetMapping(value = "/wards")
-    // public ResponseEntity<Set<CWard>> getWardByDistrictId(
-    // @RequestParam(value = "districtId", required = false) int districtId) {
-    // System.out.println("=============================================");
-
-    // try {
-    // if (districtId != 0) {
-    // // find District base on districtId - name 1 time
-    // CDistrict vDistrict = pIDistrictRepository.findById(districtId);
-    // System.out.println("=======================================");
-    // System.out.println("vDistrict : " + vDistrict);
-    // // Return wards list
-    // return new ResponseEntity<>(vDistrict.getWards(), HttpStatus.OK);
-    // } else {
-    // {
-    // // find all wards
-    // Set<CWard> allWards = new HashSet<>();
-    // List<CDistrict> districts = pIDistrictRepository.findAll();
-
-    // // create list
-    // for (CDistrict district : districts) {
-    // allWards.addAll(district.getWards());
-    // }
-    // // Return wards list
-    // return new ResponseEntity<>(allWards, HttpStatus.OK);
-    // }
-    // }
-
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
-
 }
