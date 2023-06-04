@@ -29,7 +29,7 @@ public class CVoucher {
     @NotEmpty(message = "Nhập giá trị giảm giá")
     @Range(min = 1, max = 99, message = "Nhập giá trị từ 1 đến 99")
     @Column(name = "phan_tram_giam_gia")
-    private String phanTramGiamGia;
+    private Long phanTramGiamGia;
 
     @Column(name = "ghi_chu")
     private String ghiChu;
@@ -41,11 +41,11 @@ public class CVoucher {
         this.maVoucher = maVoucher;
     }
 
-    public String getPhanTramGiamGia() {
+    public Long getPhanTramGiamGia() {
         return phanTramGiamGia;
     }
 
-    public void setPhanTramGiamGia(String phanTramGiamGia) {
+    public void setPhanTramGiamGia(Long phanTramGiamGia) {
         this.phanTramGiamGia = phanTramGiamGia;
     }
 
@@ -77,7 +77,7 @@ public class CVoucher {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date ngayCapNhat;
 
-    public CVoucher(String maVoucher, String phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
+    public CVoucher(String maVoucher, Long phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
         this.maVoucher = maVoucher;
         this.phanTramGiamGia = phanTramGiamGia;
         this.ghiChu = ghiChu;
