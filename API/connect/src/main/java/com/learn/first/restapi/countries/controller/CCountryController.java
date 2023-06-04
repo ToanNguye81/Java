@@ -1,7 +1,6 @@
 package com.learn.first.restapi.countries.controller;
 
 import org.springframework.http.HttpStatus;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,12 +36,13 @@ public class CCountryController {
             return null;
     }
 
+    // Get all country
     @GetMapping("/country/all")
     public List<CCountry> getAllCountry() {
         return pICountryRepository.findAll();
     }
 
-    // POST METHOD
+    // Create new country
     @PostMapping(value = "/country/create")
     public ResponseEntity<Object> createCountry(@RequestBody CCountry pCountry) {
         // TODO: process POST request
@@ -62,6 +62,7 @@ public class CCountryController {
         }
     }
 
+    // Update country by id
     @PutMapping(value = "/country/update/{id}")
     public ResponseEntity<Object> updateCountry(@PathVariable Long id, @RequestBody CCountry pCountry) {
         // TODO: process POST request
@@ -81,6 +82,7 @@ public class CCountryController {
         }
     }
 
+    // Delete Country by Id
     @DeleteMapping("/country/delete/{id}")
     public ResponseEntity<Object> deleteCountryById(@PathVariable Long id) {
         try {
@@ -92,21 +94,5 @@ public class CCountryController {
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    // // GET METHOD Ver 1
-    // @GetMapping("/countries")
-    // public ResponseEntity<List<CCountry>> getAllCountries() {
-
-    // try {
-    // List<CCountry> pCountries = new ArrayList<CCountry>();
-
-    // pICountryRepository.findAll().forEach(pCountries::add);
-
-    // return new ResponseEntity<>(pCountries, HttpStatus.OK);
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
 
 }
