@@ -3,12 +3,14 @@ package com.learn.first.restapi.address.controller;
 import org.springframework.http.HttpStatus;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.first.restapi.address.model.CDistrict;
@@ -48,6 +50,19 @@ public class CDistrictController {
         }
     }
 
+    // get district by province code
+    @GetMapping(value = "/district")
+    public Set<CDistrict> getDistrictByProvinceCode(
+            @RequestParam(value = "provinceCode", required = false) String provinceCode) {
+        Optional<CProvince> provinceData = pIProvinceRepository.findByCode(provinceCode);
+        if (provinceData.isPresent()) {
+            CProvince province = provinceData.get();
+            return province.getDistricts();
+        } else {
+            return null;
+        }
+    }
+
     // create new district
     @PostMapping(value = "/district/create/{provinceId}")
     public ResponseEntity<Object> createDistrict(@PathVariable Integer provinceId,
@@ -62,7 +77,6 @@ public class CDistrictController {
                 newDistrict.setProvince(province);
                 newDistrict.setName(pDistrict.getName());
                 newDistrict.setPrefix(pDistrict.getPrefix());
-                newDistrict.setWards(pDistrict.getWards());
                 CDistrict savedDistrict = pIDistrictRepository.save(newDistrict);
                 return new ResponseEntity<>(savedDistrict, HttpStatus.CREATED);
             }
@@ -70,7 +84,6 @@ public class CDistrictController {
             // TODO: handle exception
             return ResponseEntity.unprocessableEntity()
                     .body("Failed to Create specified Ward: " + e.getCause().getCause().getMessage());
-
         }
         // not found province
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -86,7 +99,6 @@ public class CDistrictController {
             CDistrict newDistrict = districtData.get();
             newDistrict.setName(pDistrict.getName());
             newDistrict.setPrefix(pDistrict.getPrefix());
-            newDistrict.setWards(pDistrict.getWards());
             newDistrict.setProvince(pDistrict.getProvince());
             CDistrict savedDistrict = pIDistrictRepository.save(newDistrict);
             return new ResponseEntity<>(savedDistrict, HttpStatus.OK);
