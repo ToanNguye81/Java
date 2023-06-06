@@ -4,12 +4,14 @@ import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.first.restapi.address.model.CDistrict;
@@ -50,6 +52,19 @@ public class CWardController {
         return pIWardRepository.findAll();
     }
 
+    // get ward by district id
+    @GetMapping(value = "/ward")
+    public Set<CWard> getDistrictByDistrictId(
+            @RequestParam(value = "districtId", required = false) Integer districtId) {
+        Optional<CDistrict> districtData = pIDistrictRepository.findById(districtId);
+        if (districtData.isPresent()) {
+            CDistrict district = districtData.get();
+            return district.getWards();
+        } else {
+            return null;
+        }
+    }
+
     // Create new ward
     @PostMapping(value = "/ward/create/{districtId}")
     public ResponseEntity<Object> createWard(@PathVariable("districtId") Integer districtId,
@@ -62,11 +77,11 @@ public class CWardController {
                 // get district data
                 CDistrict district = districtData.get();
                 // create new ward
-                CWard newRole = new CWard();
-                newRole.setDistrict(district);
-                newRole.setName(pWard.getName());
-                newRole.setPrefix(pWard.getPrefix());
-                CWard savedRole = pIWardRepository.save(newRole);
+                CWard newDistrict = new CWard();
+                newDistrict.setDistrict(district);
+                newDistrict.setName(pWard.getName());
+                newDistrict.setPrefix(pWard.getPrefix());
+                CWard savedRole = pIWardRepository.save(newDistrict);
                 // return FE
                 return new ResponseEntity<>(savedRole, HttpStatus.CREATED);
             }
@@ -90,6 +105,7 @@ public class CWardController {
             // update ward
             CWard newWard = wardData.get();
             newWard.setName(pWard.getName());
+            newWard.setPrefix(pWard.getPrefix());
             newWard.setPrefix(pWard.getPrefix());
             CWard savedWard = pIWardRepository.save(newWard);
             // return
