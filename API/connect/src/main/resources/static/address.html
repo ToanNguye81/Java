@@ -2,21 +2,21 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin</title>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
-    href="/https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+    href="/https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"/>
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css"/>
   <!-- DataTables -->
-  <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" />
-  <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" />
-  <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css" />
+  <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"/>
+  <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"/>
+  <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"/>
   <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css" />
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css"/>
   <style>
     i {
       cursor: pointer;
@@ -28,7 +28,7 @@
   <div class="wrapper">
     <!-- Preloader -->
     <!-- <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60" />
+      <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60"/>
     </div> -->
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -56,7 +56,7 @@
             <form class="form-inline">
               <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                  aria-label="Search" />
+                  aria-label="Search"/>
                 <div class="input-group-append">
                   <button class="btn btn-navbar" type="submit">
                     <i class="fas fa-search"></i>
@@ -80,7 +80,7 @@
             <a href="/#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
-                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle" />
+                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle"/>
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     Brad Diesel
@@ -98,7 +98,7 @@
             <a href="/#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
-                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3" />
+                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3"/>
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     John Pierce
@@ -116,7 +116,7 @@
             <a href="/#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
-                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3" />
+                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3"/>
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     Nora Silvester
@@ -168,7 +168,7 @@
         </li>
       </ul>
     </nav>
-    <!-- /.navbar -->
+    <!--/.navbar -->
     <!-- Main Sidebar Container -->
     <aside style="min-height: 100vh;" class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Sidebar -->
@@ -235,9 +235,9 @@
           <!--  -->
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
+      <!--/.sidebar-menu -->
   </div>
-  <!-- /.sidebar -->
+  <!--/.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -248,17 +248,17 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Address</h1>
-          </div><!-- /.col -->
+          </div><!--/.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/#">Home</a></li>
               <li class="breadcrumb-item active">Address</li>
             </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+          </div><!--/.col -->
+        </div><!--/.row -->
+      </div><!--/.container-fluid -->
     </div>
-    <!-- /.content-header -->
+    <!--/.content-header -->
 
     <!-- CRUD -->
 
@@ -279,7 +279,7 @@
                   <label for="">Tên</label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="create-province-name">
                 </div>
               </div>
               <div class="row form-group">
@@ -287,11 +287,11 @@
                   <label for="">Mã </label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="create-province-code">
                 </div>
               </div>
               <div class="row form-group justify-content-end mr-4">
-               <button class="btn btn-success ">Thêm tỉnh /thành</button>
+               <button class="btn btn-success ">Thêm tỉnh/thành</button>
               </div>
             </div>
            
@@ -304,7 +304,7 @@
                   <label for="">Tên</label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="create-district-name">
                 </div>
               </div>
               <div class="row form-group">
@@ -312,7 +312,7 @@
                   <label for="">Tiền tố </label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="create-district-prefix">
                 </div>
               </div>
               <div class="row form-group">
@@ -320,13 +320,13 @@
                   <label for="">Tỉnh/ Thành </label>
                 </div>
                 <div class="col-sm-9">
-                  <select class="form-control" >
+                  <select class="form-control" id="create-province-for-district" >
                     <option value="0">Thuộc tỉnh/thành phố</option>
                   </select>
                 </div>
               </div>
               <div class="row justify-content-end mr-4">
-                <button class="btn btn-success ">Thêm Quận /huyện</button>
+                <button class="btn btn-success ">Thêm Quận/huyện</button>
                </div>
             </div>
 
@@ -339,7 +339,7 @@
                   <label for="">Tên</label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="create-ward-name">
                 </div>
               </div>
               <div class="row form-group">
@@ -347,7 +347,7 @@
                   <label for="">Tiền tố </label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="create-ward-prefix">
                 </div>
               </div>
               <div class="row form-group">
@@ -355,7 +355,7 @@
                   <label for="">Quận/ Huyện </label>
                 </div>
                 <div class="col-sm-9">
-                  <select class="form-control" >
+                  <select class="form-control" id="create-district-for-ward" >
                     <option value="0">Thuộc quận/huyện</option>
                   </select>
                 </div>
@@ -373,7 +373,7 @@
               <label for="">Tỉnh/Thành phố:</label>
             </div>
             <div class="col-sm-9">
-              <select class="form-control" id="province" onchange="loadDistricts()">
+              <select class="form-control" id="province" onchange="loadDistrictByProvinceCode()">
                 <option value="0">Chọn tỉnh/thành phố</option>
                 <!-- Danh sách các tỉnh/thành phố -->
               </select>
@@ -384,7 +384,7 @@
               <label for="">Quận/Huyện:</label>
             </div>
             <div class="col-sm-9">
-              <select class="form-control" id="district" onchange="loadWards()">
+              <select class="form-control" id="district" onchange="loadWardByDistrictId()">
                 <option value="0">Chọn quận/huyện</option>
                 <!-- Danh sách các quận/huyện sẽ được tải sau khi chọn tỉnh/thành phố -->
               </select>
@@ -460,7 +460,7 @@
                   <label for="">Full Name</label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" id="input-fullname" placeholder="Full Name" class="form-control" />
+                  <input type="text" id="input-fullname" placeholder="Full Name" class="form-control"/>
                 </div>
               </div>
               <div class="row form-group">
@@ -468,7 +468,7 @@
                   <label for="email">Email</label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" id="input-email" placeholder="Email" class="form-control" />
+                  <input type="text" id="input-email" placeholder="Email" class="form-control"/>
                 </div>
               </div>
               <div class="row form-group">
@@ -476,7 +476,7 @@
                   <label for="phone">Phone</label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="number" id="input-phone" placeholder="Phone" class="form-control" />
+                  <input type="number" id="input-phone" placeholder="Phone" class="form-control"/>
                 </div>
               </div>
               <div class="row form-group">
@@ -484,7 +484,7 @@
                   <label for="address">Address</label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" id="input-address" placeholder="Address" class="form-control" />
+                  <input type="text" id="input-address" placeholder="Address" class="form-control"/>
                 </div>
               </div>
             </div>
@@ -523,10 +523,10 @@
           </div>
         </div>
       </div>
-  </div><!-- /.container-fluid -->
+  </div><!--/.container-fluid -->
   </section>
-  <!-- /.content -->
-  <!-- /.content-wrapper -->
+  <!--/.content -->
+  <!--/.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="/https://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
