@@ -53,7 +53,6 @@ public class CProvinceController {
             CProvince newProvince = new CProvince();
             newProvince.setName(pProvince.getName());
             newProvince.setCode(pProvince.getCode());
-            newProvince.setDistricts(pProvince.getDistricts());
             CProvince savedProvince = pIProvinceRepository.save(newProvince);
             return new ResponseEntity<>(savedProvince, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -75,7 +74,6 @@ public class CProvinceController {
             // update province
             newProvince.setName(pProvince.getName());
             newProvince.setCode(pProvince.getCode());
-            newProvince.setDistricts(pProvince.getDistricts());
             CProvince savedProvince = pIProvinceRepository.save(newProvince);
             return new ResponseEntity<>(savedProvince, HttpStatus.OK);
         } else {
