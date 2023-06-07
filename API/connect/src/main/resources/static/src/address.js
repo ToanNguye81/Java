@@ -1,6 +1,62 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", onPageLoading);
 
+// Sự kiện click nút "All province"
+$("#btn-all-province").click(function () {
+  console.log("click all province");
+  loadProvinceToTable();
+});
+$("#btn-all-district").click(function () {
+  console.log("click all district");
+  loadDistrictToTable();
+});
+$("#btn-all-ward").click(function () {
+  loadWardToTable();
+});
+
+//Load all province to Table
+function loadProvinceToTable() {
+  console.log("click all province");
+  $.ajax({
+    url: "/province/all",
+    method: "GET",
+    success: function (response) {
+      displayDataToTable(response, ["id", "name", "code"]);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+//Load all district to Table
+function loadDistrictToTable() {
+  $.ajax({
+    url: "/district/all",
+    method: "GET",
+    success: function (response) {
+      displayDataToTable(response, ["id", "name", "prefix"]);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+//Load all ward to Table
+function loadWardToTable() {
+  $.ajax({
+    url: "/ward/all",
+    method: "GET",
+    success: function (response) {
+      displayDataToTable(response, ["id", "name", "prefix"]);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
 // refresh - on page loading
 function onPageLoading() {
   loadAllProvince();
@@ -77,4 +133,45 @@ function loadAllDistrict() {
         districtSelect.appendChild(option1);
       });
     });
+}
+
+// Hàm hiển thị dữ liệu lên bảng
+function displayDataToTable(data, columns) {
+  var tableBody = $("#data-table tbody");
+  tableBody.empty();
+  var tableBody = $("#data-table thead");
+  tableBody.empty();
+
+  var headerRow = $("<tr>");
+
+  $.each(columns, function (_, column) {
+    $("<td>").text(column).appendTo(headerRow);
+  });
+  $("<td>").text("Action").appendTo(headerRow);
+
+  headerRow.appendTo(tableBody);
+
+  $.each(data, function (index, item) {
+    var row = $("<tr>");
+
+    $.each(columns, function (_, column) {
+      $("<td>").text(item[column]).appendTo(row);
+    });
+
+    var actionCell = $("<td>");
+    $("<button>")
+      .addClass("delete-button")
+      .attr("data-id", item.id)
+      .text("Delete")
+      .appendTo(actionCell);
+
+    $("<button>")
+      .addClass("update-button")
+      .attr("data-id", item.id)
+      .text("Update")
+      .appendTo(actionCell);
+
+    actionCell.appendTo(row);
+    row.appendTo(tableBody);
+  });
 }
