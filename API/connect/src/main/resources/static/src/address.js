@@ -3,15 +3,22 @@ document.addEventListener("DOMContentLoaded", onPageLoading);
 
 // Sự kiện click nút "All province"
 $("#btn-all-province").click(function () {
-  console.log("click all province");
   loadProvinceToTable();
 });
 $("#btn-all-district").click(function () {
-  console.log("click all district");
   loadDistrictToTable();
 });
 $("#btn-all-ward").click(function () {
   loadWardToTable();
+});
+$("#btn-add-province").click(function () {
+  createNewProvince();
+});
+$("#btn-add-district").click(function () {
+  createNewDistrict();
+});
+$("#btn-add-ward").click(function () {
+  createNewWard();
 });
 
 //Load all province to Table
@@ -101,7 +108,7 @@ function loadWardByDistrictId() {
 function loadAllProvince() {
   var provinceSelect = document.getElementById("province");
   var provinceForDistrictSelect = document.getElementById(
-    "create-province-for-district"
+    "sel-province-for-district"
   );
   fetch("/province/all")
     .then((response) => response.json())
@@ -122,7 +129,7 @@ function loadAllProvince() {
 
 //load all district
 function loadAllDistrict() {
-  var districtSelect = document.getElementById("create-district-for-ward");
+  var districtSelect = document.getElementById("sel-district-for-ward");
   fetch("/district/all")
     .then((response) => response.json())
     .then((data) => {
@@ -137,41 +144,107 @@ function loadAllDistrict() {
 
 // Hàm hiển thị dữ liệu lên bảng
 function displayDataToTable(data, columns) {
-  var tableBody = $("#data-table tbody");
-  tableBody.empty();
-  var tableBody = $("#data-table thead");
-  tableBody.empty();
+  var $tableBody = $("#data-table tbody");
+  $tableBody.empty();
+  var $tableHead = $("#data-table thead");
+  $tableHead.empty();
 
-  var headerRow = $("<tr>");
+  var $headerRow = $("<tr>");
 
-  $.each(columns, function (_, column) {
-    $("<td>").text(column).appendTo(headerRow);
+  $.each(columns, function (index, column) {
+    $("<td>").text(column).appendTo($headerRow);
   });
-  $("<td>").text("Action").appendTo(headerRow);
+  $("<td>").text("Action").appendTo($headerRow);
 
-  headerRow.appendTo(tableBody);
+  $headerRow.appendTo($tableHead);
 
   $.each(data, function (index, item) {
-    var row = $("<tr>");
+    var $row = $("<tr>");
 
     $.each(columns, function (_, column) {
-      $("<td>").text(item[column]).appendTo(row);
+      $("<td>").text(item[column]).appendTo($row);
     });
 
-    var actionCell = $("<td>");
-    $("<button>")
-      .addClass("delete-button")
-      .attr("data-id", item.id)
-      .text("Delete")
-      .appendTo(actionCell);
-
-    $("<button>")
-      .addClass("update-button")
-      .attr("data-id", item.id)
-      .text("Update")
-      .appendTo(actionCell);
-
-    actionCell.appendTo(row);
-    row.appendTo(tableBody);
+    var $actionCell = $("<td>");
+    $("<i>", {
+      class: "far fa-edit mr-2 ",
+      style: "color: #04b418",
+      "data-id": item.id,
+    }).appendTo($actionCell);
+    $("<i>", {
+      class: "far fa-trash-alt ml-2 ",
+      style: "color: #a40404",
+    }).appendTo($actionCell);
+    $actionCell.appendTo($row);
+    $row.appendTo($tableBody);
   });
+}
+
+function createNewProvince() {
+  let province = getProvince();
+  console.log(province);
+  // validate province
+  $.ajax({
+    url: "/province/create",
+    data: JSON.stringify(province),
+    method: "POST",
+    contentType: "application/json",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+function createNewDistrict() {
+  let district = getDistrict();
+  //valid district
+  $.ajax({
+    url: "/district/create/provinceId",
+    method: "POST",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+function createNewWard() {
+  let ward = getWard();
+  //valid ward
+  $.ajax({
+    url: "/ward/create/districtId",
+    method: "POST",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+function getProvince() {
+  return {
+    name: $("#inp-province-name").val(),
+    code: $("#inp-province-code").val(),
+  };
+}
+
+function getDistrict() {
+  return {
+    name: $("#inp-district-name").val(),
+    code: $("#inp-district-prefix").val(),
+    provinceId: $("sel-province-for-district"),
+  };
+}
+
+function getWard() {
+  return {
+    name: $("#inp-ward-name").val(),
+    code: $("#inp-ward-prefix").val(),
+  };
 }
