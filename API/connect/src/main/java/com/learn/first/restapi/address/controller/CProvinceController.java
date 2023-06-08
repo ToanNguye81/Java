@@ -54,6 +54,7 @@ public class CProvinceController {
             newProvince.setName(pProvince.getName());
             newProvince.setCode(pProvince.getCode());
             CProvince savedProvince = pIProvinceRepository.save(newProvince);
+            System.out.println(savedProvince);
             return new ResponseEntity<>(savedProvince, HttpStatus.CREATED);
         } catch (Exception e) {
             // TODO: handle exception
