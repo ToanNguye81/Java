@@ -21,6 +21,7 @@ $("#btn-add-ward").click(function () {
   createNewWard();
 });
 
+
 //Load all province to Table
 function loadProvinceToTable() {
   console.log("click all province");
@@ -116,6 +117,7 @@ function loadAllProvince() {
       data.forEach((province) => {
         var option1 = document.createElement("option");
         option1.value = province.code;
+        option1.provinceId = province.id;
         option1.innerHTML = province.name;
         provinceSelect.appendChild(option1);
 
@@ -200,17 +202,18 @@ function createNewProvince() {
 
 function createNewDistrict() {
   let district = getDistrict();
+  console.log(district);
   //valid district
-  $.ajax({
-    url: "/district/create/provinceId",
-    method: "POST",
-    success: function (response) {
-      console.log(response);
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
+  // $.ajax({
+  //   url: "/district/create/provinceId",
+  //   method: "POST",
+  //   success: function (response) {
+  //     console.log(response);
+  //   },
+  //   error: function (error) {
+  //     console.log(error);
+  //   },
+  // });
 }
 function createNewWard() {
   let ward = getWard();
@@ -237,14 +240,15 @@ function getProvince() {
 function getDistrict() {
   return {
     name: $("#inp-district-name").val(),
-    code: $("#inp-district-prefix").val(),
-    provinceId: $("sel-province-for-district"),
+    prefix: $("#inp-district-prefix").val(),
+    provinceId: $("#sel-province-for-district").val(),
   };
 }
 
 function getWard() {
   return {
     name: $("#inp-ward-name").val(),
-    code: $("#inp-ward-prefix").val(),
+    prefix: $("#inp-ward-prefix").val(),
+    districtId: $("#sel-district-for-ward").val(),
   };
 }
