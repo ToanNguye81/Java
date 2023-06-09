@@ -21,7 +21,6 @@ $("#btn-add-ward").click(function () {
   createNewWard();
 });
 
-
 //Load all province to Table
 function loadProvinceToTable() {
   console.log("click all province");
@@ -117,12 +116,13 @@ function loadAllProvince() {
       data.forEach((province) => {
         var option1 = document.createElement("option");
         option1.value = province.code;
-        option1.provinceId = province.id;
+        option1.dataset.provinceId = province.id;
         option1.innerHTML = province.name;
         provinceSelect.appendChild(option1);
 
         var option2 = document.createElement("option");
         option2.value = province.code;
+        option2.dataset.provinceId = province.id;
         option2.innerHTML = province.name;
         provinceForDistrictSelect.appendChild(option2);
       });
@@ -138,6 +138,7 @@ function loadAllDistrict() {
       data.forEach((province) => {
         var option1 = document.createElement("option");
         option1.value = province.code;
+        option1.dataset.districtId = province.id;
         option1.innerHTML = province.name;
         districtSelect.appendChild(option1);
       });
@@ -202,25 +203,29 @@ function createNewProvince() {
 
 function createNewDistrict() {
   let district = getDistrict();
-  console.log(district);
-  //valid district
-  // $.ajax({
-  //   url: "/district/create/provinceId",
-  //   method: "POST",
-  //   success: function (response) {
-  //     console.log(response);
-  //   },
-  //   error: function (error) {
-  //     console.log(error);
-  //   },
-  // });
+  // valid district
+  $.ajax({
+    contentType: "application/json",
+    url: `/district/create/${district.provinceId}`,
+    data: JSON.stringify(district),
+    method: "POST",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
 }
+
 function createNewWard() {
   let ward = getWard();
   //valid ward
   $.ajax({
-    url: "/ward/create/districtId",
+    contentType: "application/json",
+    url: `/ward/create/${ward.districtId}`,
     method: "POST",
+    data: JSON.stringify(ward),
     success: function (response) {
       console.log(response);
     },
@@ -241,7 +246,9 @@ function getDistrict() {
   return {
     name: $("#inp-district-name").val(),
     prefix: $("#inp-district-prefix").val(),
-    provinceId: $("#sel-province-for-district").val(),
+    provinceId: $("#sel-province-for-district option:selected").data(
+      "provinceId"
+    ),
   };
 }
 
@@ -249,6 +256,6 @@ function getWard() {
   return {
     name: $("#inp-ward-name").val(),
     prefix: $("#inp-ward-prefix").val(),
-    districtId: $("#sel-district-for-ward").val(),
+    districtId: $("#sel-district-for-ward option:selected").data("districtId"),
   };
 }
