@@ -20,6 +20,24 @@ $("#btn-add-district").click(function () {
 $("#btn-add-ward").click(function () {
   createNewWard();
 });
+$("tbody").on("click", ".far.fa-edit.mr-2.province", function () {
+  updateProvince(this);
+});
+$("tbody").on("click", ".far.fa-edit.mr-2.district", function () {
+  updateDistrict(this);
+});
+$("tbody").on("click", ".far.fa-edit.mr-2.ward", function () {
+  updateWard(this);
+});
+$("tbody").on("click", ".far.fa-trash-alt.ml-2.province", function () {
+  deleteProvince(this);
+});
+$("tbody").on("click", ".far.fa-trash-alt.ml-2.district", function () {
+  deleteDistrict(this);
+});
+$("tbody").on("click", ".far.fa-trash-alt.ml-2.ward", function () {
+  deleteWard(this);
+});
 
 //Load all province to Table
 function loadProvinceToTable() {
@@ -28,7 +46,11 @@ function loadProvinceToTable() {
     url: "/province/all",
     method: "GET",
     success: function (response) {
-      displayDataToTable(response, ["id", "name", "code"]);
+      displayDataToTable(
+        response,
+        ["id", "name", "code", "province"],
+        "province"
+      );
     },
     error: function (error) {
       console.log(error);
@@ -42,7 +64,7 @@ function loadDistrictToTable() {
     url: "/district/all",
     method: "GET",
     success: function (response) {
-      displayDataToTable(response, ["id", "name", "prefix"]);
+      displayDataToTable(response, ["id", "name", "prefix"], "district");
     },
     error: function (error) {
       console.log(error);
@@ -56,7 +78,7 @@ function loadWardToTable() {
     url: "/ward/all",
     method: "GET",
     success: function (response) {
-      displayDataToTable(response, ["id", "name", "prefix"]);
+      displayDataToTable(response, ["id", "name", "prefix", "ward"], "ward");
     },
     error: function (error) {
       console.log(error);
@@ -146,7 +168,7 @@ function loadAllDistrict() {
 }
 
 // Hàm hiển thị dữ liệu lên bảng
-function displayDataToTable(data, columns) {
+function displayDataToTable(data, columns, field) {
   var $tableBody = $("#data-table tbody");
   $tableBody.empty();
   var $tableHead = $("#data-table thead");
@@ -170,19 +192,22 @@ function displayDataToTable(data, columns) {
 
     var $actionCell = $("<td>");
     $("<i>", {
-      class: "far fa-edit mr-2 ",
+      class: `far fa-edit mr-2 ${field}`,
       style: "color: #04b418",
       "data-id": item.id,
     }).appendTo($actionCell);
     $("<i>", {
-      class: "far fa-trash-alt ml-2 ",
+      class: `far fa-trash-alt ml-2 ${field}`,
       style: "color: #a40404",
+      "data-id": item.id,
     }).appendTo($actionCell);
+
     $actionCell.appendTo($row);
     $row.appendTo($tableBody);
   });
 }
 
+//sent data to create new province
 function createNewProvince() {
   let province = getProvince();
   console.log(province);
@@ -201,6 +226,7 @@ function createNewProvince() {
   });
 }
 
+//sent data to create new district
 function createNewDistrict() {
   let district = getDistrict();
   // valid district
@@ -218,6 +244,7 @@ function createNewDistrict() {
   });
 }
 
+//sent data to create new ward
 function createNewWard() {
   let ward = getWard();
   //valid ward
@@ -235,6 +262,7 @@ function createNewWard() {
   });
 }
 
+//Get data to create province
 function getProvince() {
   return {
     name: $("#inp-province-name").val(),
@@ -242,6 +270,7 @@ function getProvince() {
   };
 }
 
+//Get data to create district
 function getDistrict() {
   return {
     name: $("#inp-district-name").val(),
@@ -252,10 +281,107 @@ function getDistrict() {
   };
 }
 
+//Get data to create ward
 function getWard() {
   return {
     name: $("#inp-ward-name").val(),
     prefix: $("#inp-ward-prefix").val(),
     districtId: $("#sel-district-for-ward option:selected").data("districtId"),
   };
+}
+
+//update province to database
+function updateProvince(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    contentType: "application/json",
+    url: `/district/create/${district.provinceId}`,
+    data: JSON.stringify(district),
+    method: "POST",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+//update district to database
+function updateDistrict(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    contentType: "application/json",
+    url: `/district/create/${district.provinceId}`,
+    data: JSON.stringify(district),
+    method: "POST",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+//update ward to database
+function updateWard(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    contentType: "application/json",
+    url: `/district/create/${district.provinceId}`,
+    data: JSON.stringify(district),
+    method: "POST",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+//delete province to database
+function deleteProvince(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    url: `/province/delete/${id}`,
+    method: "DELETE",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+//delete district to database
+function deleteDistrict(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    url: `/district/delete/${id}`,
+    method: "DELETE",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+//delete ward to database
+function deleteWard(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    url: `/ward/delete/${id}`,
+    method: "DELETE",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
 }
