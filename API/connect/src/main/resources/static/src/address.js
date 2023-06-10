@@ -21,22 +21,28 @@ $("#btn-add-ward").click(function () {
   createNewWard();
 });
 $("tbody").on("click", ".far.fa-edit.mr-2.province", function () {
-  updateProvince(this);
+  $("#modal-update-province").modal("show"); // Hiển thị modal
+  // updateProvince(this);
 });
 $("tbody").on("click", ".far.fa-edit.mr-2.district", function () {
-  updateDistrict(this);
+  $("#modal-update-district").modal("show"); // Hiển thị modal
+  // updateDistrict(this);
 });
 $("tbody").on("click", ".far.fa-edit.mr-2.ward", function () {
-  updateWard(this);
+  $("#modal-update-ward").modal("show"); // Hiển thị modal
+  // updateWard(this);
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.province", function () {
-  deleteProvince(this);
+  // deleteProvince(this);
+  $("#modal-delete-province").modal("show"); // Hiển thị modal
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.district", function () {
-  deleteDistrict(this);
+  // deleteDistrict(this);
+  $("#modal-delete-district").modal("show"); // Hiển thị modal
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.ward", function () {
-  deleteWard(this);
+  // deleteWard(this);
+  $("#modal-delete-ward").modal("show"); // Hiển thị modal
 });
 
 //Load all province to Table
@@ -46,11 +52,7 @@ function loadProvinceToTable() {
     url: "/province/all",
     method: "GET",
     success: function (response) {
-      displayDataToTable(
-        response,
-        ["id", "name", "code", "province"],
-        "province"
-      );
+      displayDataToTable(response, ["id", "name", "code"], "province");
     },
     error: function (error) {
       console.log(error);
@@ -78,7 +80,7 @@ function loadWardToTable() {
     url: "/ward/all",
     method: "GET",
     success: function (response) {
-      displayDataToTable(response, ["id", "name", "prefix", "ward"], "ward");
+      displayDataToTable(response, ["id", "name", "prefix"], "ward");
     },
     error: function (error) {
       console.log(error);
@@ -194,11 +196,15 @@ function displayDataToTable(data, columns, field) {
     $("<i>", {
       class: `far fa-edit mr-2 ${field}`,
       style: "color: #04b418",
+      "data-toggle": "#modal",
+      "data-target": `#modal-update-${field}`,
       "data-id": item.id,
     }).appendTo($actionCell);
     $("<i>", {
       class: `far fa-trash-alt ml-2 ${field}`,
       style: "color: #a40404",
+      "data-toggle": "#modal",
+      "data-target": `#modal-delete-${field}`,
       "data-id": item.id,
     }).appendTo($actionCell);
 
@@ -290,6 +296,51 @@ function getWard() {
   };
 }
 
+//delete province to database
+function deleteProvince(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    url: `/province/delete/${id}`,
+    method: "DELETE",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+//delete district to database
+function deleteDistrict(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    url: `/district/delete/${id}`,
+    method: "DELETE",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+//delete ward to database
+function deleteWard(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    url: `/ward/delete/${id}`,
+    method: "DELETE",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
 //update province to database
 function updateProvince(element) {
   var id = $(element).data("id");
@@ -332,51 +383,6 @@ function updateWard(element) {
     url: `/district/create/${district.provinceId}`,
     data: JSON.stringify(district),
     method: "POST",
-    success: function (response) {
-      console.log(response);
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
-}
-
-//delete province to database
-function deleteProvince(element) {
-  var id = $(element).data("id");
-  $.ajax({
-    url: `/province/delete/${id}`,
-    method: "DELETE",
-    success: function (response) {
-      console.log(response);
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
-}
-
-//delete district to database
-function deleteDistrict(element) {
-  var id = $(element).data("id");
-  $.ajax({
-    url: `/district/delete/${id}`,
-    method: "DELETE",
-    success: function (response) {
-      console.log(response);
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
-}
-
-//delete ward to database
-function deleteWard(element) {
-  var id = $(element).data("id");
-  $.ajax({
-    url: `/ward/delete/${id}`,
-    method: "DELETE",
     success: function (response) {
       console.log(response);
     },
