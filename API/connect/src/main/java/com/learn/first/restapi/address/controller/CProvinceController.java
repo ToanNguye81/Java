@@ -6,10 +6,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.first.restapi.address.model.CProvince;
@@ -31,8 +35,21 @@ public class CProvinceController {
 
     // get all province
     @GetMapping(value = "/province/all")
-    public List<CProvince> getAllProvince() {
-        return pIProvinceRepository.findAll();
+    public ResponseEntity<List<CProvince>> getAllProvince(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        // tạo ra một đối tượng Pageable để đại diện cho thông tin về phân trang.
+        Pageable pageable = PageRequest.of(page, size);
+        // truy vấn CSDL và trả về một trang của đối tượng CProvince với thông tin trang
+        Page<CProvince> provincePage = pIProvinceRepository.findAll(pageable);
+        // để lấy danh sách các đối tượng
+        List<CProvince> provinceList = provincePage.getContent();
+        // Đếm tổng phần tử
+        Long totalElement = provincePage.getTotalElements();
+        // Trả về thành công
+        return ResponseEntity.ok()
+                .header("totalCount", String.valueOf(totalElement))
+                .body(provinceList);
     }
 
     // get province by id
