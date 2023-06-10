@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,8 +39,21 @@ public class CDistrictController {
 
     // get all district
     @GetMapping(value = "/district/all")
-    public List<CDistrict> getAllDistrict() {
-        return pIDistrictRepository.findAll();
+    public ResponseEntity<List<CDistrict>> getAllDistrict(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        // tạo ra một đối tượng Pageable để đại diện cho thông tin về phân trang.
+        Pageable pageable = PageRequest.of(page, size);
+        // truy vấn CSDL và trả về một trang của đối tượng CDistrict với thông tin trang
+        Page<CDistrict> districtPage = pIDistrictRepository.findAll(pageable);
+        // để lấy danh sách các đối tượng
+        List<CDistrict> districtList = districtPage.getContent();
+        // Đếm tổng phần tử
+        Long totalElement = districtPage.getTotalElements();
+        // Trả về thành công
+        return ResponseEntity.ok()
+                .header("totalCount", String.valueOf(totalElement))
+                .body(districtList);
     }
 
     // get district by id
