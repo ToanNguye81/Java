@@ -7,6 +7,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,21 +38,33 @@ public class CWardController {
     @Autowired
     IWardRepository pIWardRepository;
 
-    // Get ward by id
+    // get all ward
+    @GetMapping(value = "/ward/all")
+    public ResponseEntity<List<CWard>> getAllWard(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        // tạo ra một đối tượng Pageable để đại diện cho thông tin về phân trang.
+        Pageable pageable = PageRequest.of(page, size);
+        // truy vấn CSDL và trả về một trang của đối tượng CWard với thông tin trang
+        Page<CWard> wardPage = pIWardRepository.findAll(pageable);
+        // để lấy danh sách các đối tượng
+        List<CWard> wardList = wardPage.getContent();
+        // Đếm tổng phần tử
+        Long totalElement = wardPage.getTotalElements();
+        // Trả về thành công
+        return ResponseEntity.ok()
+                .header("totalCount", String.valueOf(totalElement))
+                .body(wardList);
+    }
+
+    // get ward by id
     @GetMapping(value = "/ward/details/{id}")
     public CWard getWardById(@PathVariable Integer id) {
         if (pIWardRepository.findById(id).isPresent()) {
-            // find ward by id
             return pIWardRepository.findById(id).get();
         } else {
             return null;
         }
-    }
-
-    // Get all wards
-    @GetMapping("/ward/all")
-    public List<CWard> getAllWard() {
-        return pIWardRepository.findAll();
     }
 
     // get ward by district id
