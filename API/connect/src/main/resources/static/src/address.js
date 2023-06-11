@@ -49,7 +49,7 @@ $("tbody").on("click", ".far.fa-trash-alt.ml-2.ward", function () {
 function loadProvinceToTable() {
   console.log("click all province");
   $.ajax({
-    url: "/province/all",
+    url: "/province/all?size=100",
     method: "GET",
     success: function (response) {
       displayDataToTable(response, ["id", "name", "code"], "province");
@@ -63,7 +63,7 @@ function loadProvinceToTable() {
 //Load all district to Table
 function loadDistrictToTable() {
   $.ajax({
-    url: "/district/all",
+    url: "/district/all?size=730",
     method: "GET",
     success: function (response) {
       displayDataToTable(response, ["id", "name", "prefix"], "district");
