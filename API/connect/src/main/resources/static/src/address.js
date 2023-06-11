@@ -49,7 +49,7 @@ $("tbody").on("click", ".far.fa-trash-alt.ml-2.ward", function () {
 function loadProvinceToTable() {
   console.log("click all province");
   $.ajax({
-    url: "/province/all?size=100",
+    url: "/province/all",
     method: "GET",
     success: function (response) {
       displayDataToTable(response, ["id", "name", "code"], "province");
@@ -63,7 +63,7 @@ function loadProvinceToTable() {
 //Load all district to Table
 function loadDistrictToTable() {
   $.ajax({
-    url: "/district/all?size=730",
+    url: "/district/all",
     method: "GET",
     success: function (response) {
       displayDataToTable(response, ["id", "name", "prefix"], "district");
@@ -90,8 +90,8 @@ function loadWardToTable() {
 
 // refresh - on page loading
 function onPageLoading() {
-  loadAllProvince();
-  loadAllDistrict();
+  loadAllProvinceToSelect();
+  loadAllDistrictToSelect();
 }
 
 // Load district by province code
@@ -129,12 +129,12 @@ function loadWardByDistrictId() {
 }
 
 //load all province
-function loadAllProvince() {
+function loadAllProvinceToSelect() {
   var provinceSelect = document.getElementById("province");
   var provinceForDistrictSelect = document.getElementById(
     "sel-province-for-district"
   );
-  fetch("/province/all")
+  fetch("/province/all?size=100")
     .then((response) => response.json())
     .then((data) => {
       data.forEach((province) => {
@@ -154,9 +154,9 @@ function loadAllProvince() {
 }
 
 //load all district
-function loadAllDistrict() {
+function loadAllDistrictToSelect() {
   var districtSelect = document.getElementById("sel-district-for-ward");
-  fetch("/district/all")
+  fetch("/district/all?size=730")
     .then((response) => response.json())
     .then((data) => {
       data.forEach((province) => {
