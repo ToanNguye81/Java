@@ -21,16 +21,13 @@ $("#btn-add-ward").click(function () {
   createNewWard();
 });
 $("tbody").on("click", ".far.fa-edit.mr-2.province", function () {
-  $("#modal-update-province").modal("show"); // Hiển thị modal
-  // updateProvince(this);
+  loadDataToProvinceModal(this);
 });
 $("tbody").on("click", ".far.fa-edit.mr-2.district", function () {
-  $("#modal-update-district").modal("show"); // Hiển thị modal
-  // updateDistrict(this);
+  loadDataToDistrictModal(this);
 });
 $("tbody").on("click", ".far.fa-edit.mr-2.ward", function () {
-  $("#modal-update-ward").modal("show"); // Hiển thị modal
-  // updateWard(this);
+  loadDataToWardModal(this);
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.province", function () {
   // deleteProvince(this);
@@ -199,6 +196,9 @@ function displayDataToTable(data, columns, field) {
       "data-toggle": "#modal",
       "data-target": `#modal-update-${field}`,
       "data-id": item.id,
+      "data-prefix": item.prefix,
+      "data-name": item.name,
+      "data-code": item.code,
     }).appendTo($actionCell);
     $("<i>", {
       class: `far fa-trash-alt ml-2 ${field}`,
@@ -390,4 +390,28 @@ function updateWard(element) {
       console.log(error);
     },
   });
+}
+// Load province tp update modal
+function loadDataToProvinceModal(element) {
+  console.log(element.dataset);
+  $("#inp-province-id.update").val(element.dataset.id);
+  $("#inp-province-name.update").val(element.dataset.name);
+  $("#inp-province-code.update").val(element.dataset.code);
+  $("#modal-update-province").modal("show"); // Hiển thị modal
+}
+// Load district tp update modal
+function loadDataToDistrictModal(element) {
+  console.log(element.dataset);
+  $("#inp-district-id.update").val(element.dataset.id);
+  $("#inp-district-name.update").val(element.dataset.name);
+  $("#inp-district-prefix.update").val(element.dataset.prefix);
+  $("#modal-update-district").modal("show"); // Hiển thị modal
+}
+// Load ward tp update modal
+function loadDataToWardModal(element) {
+  console.log(element.dataset);
+  $("#inp-ward-id.update").val(element.dataset.id);
+  $("#inp-ward-name.update").val(element.dataset.name);
+  $("#inp-ward-prefix.update").val(element.dataset.prefix);
+  $("#modal-update-ward").modal("show"); // Hiển thị modal
 }
