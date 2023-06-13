@@ -184,6 +184,7 @@ function displayDataToTable(data, columns, field) {
 
   var $headerRow = $("<tr>");
 
+  // Tạo các cột tiêu đề
   $.each(columns, function (index, column) {
     $("<td>").text(column).appendTo($headerRow);
   });
@@ -191,14 +192,18 @@ function displayDataToTable(data, columns, field) {
 
   $headerRow.appendTo($tableHead);
 
+  // Hiển thị dữ liệu từ mảng vào bảng
   $.each(data, function (index, item) {
     var $row = $("<tr>");
 
+    // Hiển thị các trường dữ liệu vào từng ô
     $.each(columns, function (_, column) {
       $("<td>").text(item[column]).appendTo($row);
     });
 
     var $actionCell = $("<td>");
+
+    // Tạo nút chỉnh sửa
     $("<i>", {
       class: `far fa-edit mr-2 ${field}`,
       style: "color: #04b418",
@@ -209,6 +214,8 @@ function displayDataToTable(data, columns, field) {
       "data-name": item.name,
       "data-code": item.code,
     }).appendTo($actionCell);
+
+    // Tạo nút xóa
     $("<i>", {
       class: `far fa-trash-alt ml-2 ${field}`,
       style: "color: #a40404",
