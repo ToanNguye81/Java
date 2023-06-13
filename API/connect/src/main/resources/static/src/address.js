@@ -30,30 +30,53 @@ $("tbody").on("click", ".far.fa-edit.mr-2.ward", function () {
   loadDataToWardModal(this);
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.province", function () {
-  $("#modal-delete-province").modal("show"); // Hiển thị modal
+  checkDeleteProvince(this);
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.district", function () {
-  $("#modal-delete-district").modal("show"); // Hiển thị modal
+  checkDeleteDistrict(this);
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.ward", function () {
-  $("#modal-delete-ward").modal("show"); // Hiển thị modal
+  checkDeleteWard(this);
 });
+
 $("#btn-confirm-update-province").click(function () {
-  console.log("btn update province");
   updateProvince();
 });
+
 $("#btn-confirm-update-district").click(function () {
-  console.log("btn update district");
   updateDistrict();
 });
 $("#btn-confirm-update-ward").click(function () {
-  console.log("btn update ward");
   updateWard();
 });
 
+$("#btn-confirm-delete-province").click(function () {
+  deleteProvince(this);
+});
+$("#btn-confirm-delete-district").click(function () {
+  deleteDistrict(this);
+});
+$("#btn-confirm-delete-ward").click(function () {
+  deleteWard(this);
+});
+
+//delete province to database
+function deleteProvince(element) {
+  var id = $(element).data("id");
+  $.ajax({
+    url: `/province/delete/${id}`,
+    method: "DELETE",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
 //Load all province to Table
 function loadProvinceToTable() {
-  console.log("click all province");
   $.ajax({
     url: "/province/all",
     method: "GET",
@@ -312,21 +335,6 @@ function getWard() {
   };
 }
 
-//delete province to database
-function deleteProvince(element) {
-  var id = $(element).data("id");
-  $.ajax({
-    url: `/province/delete/${id}`,
-    method: "DELETE",
-    success: function (response) {
-      console.log(response);
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
-}
-
 //delete district to database
 function deleteDistrict(element) {
   var id = $(element).data("id");
@@ -444,4 +452,29 @@ function loadDataToWardModal(element) {
   $("#inp-ward-prefix.update").val(element.dataset.prefix);
   // Hiển thị modal
   $("#modal-update-ward").modal("show");
+}
+//Hiển thị modal chứa id của province muốn xóa
+function checkDeleteProvince(element) {
+  var iconId = $(element).data("id");
+  var h6Element = $("#modal-delete-province").find("h6");
+  h6Element.text("Bạn có chắc muốn xóa province id= " + iconId);
+  $("#btn-confirm-delete-province").data("id", iconId);
+  $("#modal-delete-province").modal("show"); // Hiển thị modal
+}
+
+//Hiển thị modal chứa id của district muốn xóa
+function checkDeleteDistrict(element) {
+  var iconId = $(element).data("id");
+  var h6Element = $("#modal-delete-district").find("h6");
+  h6Element.text("Bạn có chắc muốn xóa district id= " + iconId);
+  $("#btn-confirm-delete-district").data("id", iconId);
+  $("#modal-delete-district").modal("show"); // Hiển thị modal
+}
+//Hiển thị modal chứa id của ward muốn xóa
+function checkDeleteWard(element) {
+  var iconId = $(element).data("id");
+  var h6Element = $("#modal-delete-ward").find("h6");
+  h6Element.text("Bạn có chắc muốn xóa ward id= " + iconId);
+  $("#btn-confirm-delete-ward").data("id", iconId);
+  $("#modal-delete-ward").modal("show"); // Hiển thị modal
 }
