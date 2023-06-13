@@ -30,16 +30,25 @@ $("tbody").on("click", ".far.fa-edit.mr-2.ward", function () {
   loadDataToWardModal(this);
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.province", function () {
-  // deleteProvince(this);
   $("#modal-delete-province").modal("show"); // Hiển thị modal
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.district", function () {
-  // deleteDistrict(this);
   $("#modal-delete-district").modal("show"); // Hiển thị modal
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.ward", function () {
-  // deleteWard(this);
   $("#modal-delete-ward").modal("show"); // Hiển thị modal
+});
+$("#btn-confirm-update-province").click(function () {
+  console.log("btn update province");
+  updateProvince();
+});
+$("#btn-confirm-update-district").click(function () {
+  console.log("btn update district");
+  updateDistrict();
+});
+$("#btn-confirm-update-ward").click(function () {
+  console.log("btn update ward");
+  updateWard();
 });
 
 //Load all province to Table
@@ -342,13 +351,17 @@ function deleteWard(element) {
 }
 
 //update province to database
-function updateProvince(element) {
-  var id = $(element).data("id");
+function updateProvince() {
+  let province = {
+    id: $("#inp-province-id.update").val(),
+    name: $("#inp-province-name.update").val(),
+    code: $("#inp-province-code.update").val(),
+  };
   $.ajax({
     contentType: "application/json",
-    url: `/district/create/${district.provinceId}`,
-    data: JSON.stringify(district),
-    method: "POST",
+    url: `/province/update/${province.id}`,
+    data: JSON.stringify(province),
+    method: "PUT",
     success: function (response) {
       console.log(response);
     },
@@ -359,13 +372,37 @@ function updateProvince(element) {
 }
 
 //update district to database
-function updateDistrict(element) {
-  var id = $(element).data("id");
+function updateDistrict() {
+  let district = {
+    id: $("#inp-district-id.update").val(),
+    name: $("#inp-district-name.update").val(),
+    prefix: $("#inp-district-prefix.update").val(),
+  };
   $.ajax({
     contentType: "application/json",
-    url: `/district/create/${district.provinceId}`,
+    url: `/district/update/${district.id}`,
     data: JSON.stringify(district),
-    method: "POST",
+    method: "PUT",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+//update ward to database
+function updateWard() {
+  let ward = {
+    id: $("#inp-ward-id.update").val(),
+    name: $("#inp-ward-name.update").val(),
+    prefix: $("#inp-ward-prefix.update").val(),
+  };
+  $.ajax({
+    contentType: "application/json",
+    url: `/ward/update/${ward.id}`,
+    data: JSON.stringify(ward),
+    method: "PUT",
     success: function (response) {
       console.log(response);
     },
@@ -375,43 +412,29 @@ function updateDistrict(element) {
   });
 }
 
-//update ward to database
-function updateWard(element) {
-  var id = $(element).data("id");
-  $.ajax({
-    contentType: "application/json",
-    url: `/district/create/${district.provinceId}`,
-    data: JSON.stringify(district),
-    method: "POST",
-    success: function (response) {
-      console.log(response);
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
-}
 // Load province tp update modal
 function loadDataToProvinceModal(element) {
-  console.log(element.dataset);
   $("#inp-province-id.update").val(element.dataset.id);
   $("#inp-province-name.update").val(element.dataset.name);
   $("#inp-province-code.update").val(element.dataset.code);
-  $("#modal-update-province").modal("show"); // Hiển thị modal
+  // Hiển thị modal
+  $("#modal-update-province").modal("show");
 }
+
 // Load district tp update modal
 function loadDataToDistrictModal(element) {
-  console.log(element.dataset);
   $("#inp-district-id.update").val(element.dataset.id);
   $("#inp-district-name.update").val(element.dataset.name);
   $("#inp-district-prefix.update").val(element.dataset.prefix);
-  $("#modal-update-district").modal("show"); // Hiển thị modal
+  // Hiển thị modal
+  $("#modal-update-district").modal("show");
 }
+
 // Load ward tp update modal
 function loadDataToWardModal(element) {
-  console.log(element.dataset);
   $("#inp-ward-id.update").val(element.dataset.id);
   $("#inp-ward-name.update").val(element.dataset.name);
   $("#inp-ward-prefix.update").val(element.dataset.prefix);
-  $("#modal-update-ward").modal("show"); // Hiển thị modal
+  // Hiển thị modal
+  $("#modal-update-ward").modal("show");
 }
