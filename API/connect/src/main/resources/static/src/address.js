@@ -419,7 +419,12 @@ function updateWard() {
     data: JSON.stringify(ward),
     method: "PUT",
     success: function (response) {
-      console.log(response);
+      $("#modal-update-ward").modal("hide");
+      $("#modal-warning")
+        .find(".text-warning")
+        .text("Cập nhật ward thành công  ");
+
+      $("#modal-warning").modal("show"); // Hiển thị modal
     },
     error: function (error) {
       console.log(error);
