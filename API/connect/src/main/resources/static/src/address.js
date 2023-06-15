@@ -67,7 +67,7 @@ function deleteProvince(element) {
     url: `/province/delete/${id}`,
     method: "DELETE",
     success: function (response) {
-      console.log(response);
+      handleWarning("Xóa Province thành công");
     },
     error: function (error) {
       console.log(error);
@@ -263,7 +263,7 @@ function createNewProvince() {
     method: "POST",
     contentType: "application/json",
     success: function (response) {
-      console.log(response);
+      handleWarning("Tạo Province thành công");
     },
     error: function (error) {
       console.log(error);
@@ -281,7 +281,7 @@ function createNewDistrict() {
     data: JSON.stringify(district),
     method: "POST",
     success: function (response) {
-      console.log(response);
+      handleWarning("Tạo District thành công");
     },
     error: function (error) {
       console.log(error);
@@ -299,7 +299,7 @@ function createNewWard() {
     method: "POST",
     data: JSON.stringify(ward),
     success: function (response) {
-      console.log(response);
+      handleWarning("Tạo Ward thành công");
     },
     error: function (error) {
       console.log(error);
@@ -342,7 +342,7 @@ function deleteDistrict(element) {
     url: `/district/delete/${id}`,
     method: "DELETE",
     success: function (response) {
-      console.log(response);
+      handleWarning("Xóa district thành công");
     },
     error: function (error) {
       console.log(error);
@@ -357,7 +357,7 @@ function deleteWard(element) {
     url: `/ward/delete/${id}`,
     method: "DELETE",
     success: function (response) {
-      console.log(response);
+      handleWarning("Xóa ward thành công");
     },
     error: function (error) {
       console.log(error);
@@ -378,7 +378,7 @@ function updateProvince() {
     data: JSON.stringify(province),
     method: "PUT",
     success: function (response) {
-      console.log(response);
+      handleWarning("Cập nhật province thành công");
     },
     error: function (error) {
       console.log(error);
@@ -399,7 +399,7 @@ function updateDistrict() {
     data: JSON.stringify(district),
     method: "PUT",
     success: function (response) {
-      console.log(response);
+      handleWarning("Cập nhật district thành công");
     },
     error: function (error) {
       console.log(error);
@@ -419,17 +419,18 @@ function updateWard() {
     data: JSON.stringify(ward),
     method: "PUT",
     success: function (response) {
-      $("#modal-update-ward").modal("hide");
-      $("#modal-warning")
-        .find(".text-warning")
-        .text("Cập nhật ward thành công  ");
-
-      $("#modal-warning").modal("show"); // Hiển thị modal
+      handleWarning("Cập nhật ward thành công");
     },
     error: function (error) {
       console.log(error);
     },
   });
+}
+
+function handleWarning(warningText) {
+  $("#modal-update-ward").modal("hide");
+  $("#modal-warning").find(".text-warning").text(warningText);
+  $("#modal-warning").modal("show"); // Hiển thị modal
 }
 
 // Load province tp update modal
