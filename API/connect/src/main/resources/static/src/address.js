@@ -427,10 +427,14 @@ function updateWard() {
   });
 }
 
-function handleWarning() {
+function handleWarning(warningText) {
   $(".modal").modal("hide");
   $("#modal-warning").find(".text-warning").text(warningText);
   $("#modal-warning").modal("show"); // Hiển thị modal
+}
+
+function reload() {
+  location.reload();
 }
 
 // Load province tp update modal
