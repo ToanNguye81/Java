@@ -378,7 +378,7 @@ function updateProvince() {
     data: JSON.stringify(province),
     method: "PUT",
     success: function (response) {
-      handleWarning("Cập nhật province thành công");
+      handleWarning("Cập nhật tỉnh thành công");
     },
     error: function (error) {
       console.log(error);
@@ -427,8 +427,8 @@ function updateWard() {
   });
 }
 
-function handleWarning(warningText) {
-  $("#modal-update-ward").modal("hide");
+function handleWarning() {
+  $(".modal").modal("hide");
   $("#modal-warning").find(".text-warning").text(warningText);
   $("#modal-warning").modal("show"); // Hiển thị modal
 }
