@@ -94,4 +94,16 @@ public class CCountryController {
         }
     }
 
+    // Check country in database
+    @GetMapping("/country/check/{id}")
+    public boolean checkCountryById(@PathVariable Long id) {
+        return pICountryRepository.existsById(id);
+    }
+
+    // Return the country containing the specified code
+    @GetMapping("/country/containing-code/{code}")
+    public CCountry getCountryByContainingCode(@PathVariable String code) {
+        return pICountryRepository.findByCountryCodeContaining(code);
+    }
+
 }

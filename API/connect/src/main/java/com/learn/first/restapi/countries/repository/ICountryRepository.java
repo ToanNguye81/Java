@@ -6,6 +6,8 @@ import com.learn.first.restapi.countries.model.CCountry;
 
 public interface ICountryRepository extends JpaRepository<CCountry, Long> {
     CCountry findByCountryCode(String country);
+
+    CCountry findByCountryCodeContaining(String code);
 }
 /*
  * Spring Data JPA là một phần của Spring Framework và cung cấp các tính năng và
