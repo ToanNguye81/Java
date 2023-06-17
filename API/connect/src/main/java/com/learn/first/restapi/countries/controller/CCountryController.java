@@ -106,4 +106,10 @@ public class CCountryController {
         return pICountryRepository.findByCountryCodeContaining(code);
     }
 
+    // get the count of record
+    @GetMapping("/country-count")
+    public Long countCountry() {
+        return pICountryRepository.count();
+    }
+
 }
