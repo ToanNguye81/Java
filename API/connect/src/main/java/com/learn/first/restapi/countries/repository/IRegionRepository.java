@@ -12,6 +12,6 @@ public interface IRegionRepository extends JpaRepository<CRegion, Long> {
 
     CRegion findByRegionCodeContaining(String code);
 
-    List<CRegion> findByCountry_Id(Long countryId);
+    List<CRegion> findByCountryId(Long countryId);
 
 }
