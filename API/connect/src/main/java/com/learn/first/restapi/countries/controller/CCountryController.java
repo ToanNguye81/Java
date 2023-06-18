@@ -137,7 +137,7 @@ public class CCountryController {
     // Get Regions by countryId
     @GetMapping("/country/{countryId}/region")
     public List<CRegion> getRegionsByCountryId(@PathVariable Long countryId) {
-        return pIRegionRepository.findByCountry_Id(countryId);
+        return pIRegionRepository.findByCountryId(countryId);
     }
 
 }
