@@ -43,18 +43,6 @@ public class CCustomer {
         // TODO Auto-generated constructor stub
     }
 
-    public CCustomer(long id, String fullName, String email, String phone, String address, long createAt,
-            long updateAt, Set<COrder> orders) {
-        super();
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.orders = orders;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
-    }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -103,10 +91,6 @@ public class CCustomer {
         return id;
     }
 
-    public Set<COrder> getOrders() {
-        return orders;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -114,4 +98,9 @@ public class CCustomer {
     public long getUpdateAt() {
         return updateAt;
     }
+
+    public Set<COrder> getOrders() {
+        return orders;
+    }
+
 }
