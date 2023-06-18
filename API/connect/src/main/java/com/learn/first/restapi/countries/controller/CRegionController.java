@@ -6,10 +6,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.first.restapi.countries.model.CCountry;
@@ -53,9 +57,23 @@ public class CRegionController {
             return null;
     }
 
-    @GetMapping("/region/all")
-    public List<CRegion> getAllRegion() {
-        return pIRegionRepository.findAll();
+    // Get all Region
+    @GetMapping(value = "/region/all")
+    public ResponseEntity<List<CRegion>> getAllRegion(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        // tạo ra một đối tượng Pageable để đại diện cho thông tin về phân trang.
+        Pageable pageable = PageRequest.of(page, size);
+        // truy vấn CSDL và trả về một trang của đối tượng CRegion với thông tin trang
+        Page<CRegion> regionPage = pIRegionRepository.findAll(pageable);
+        // để lấy danh sách các đối tượng
+        List<CRegion> regionList = regionPage.getContent();
+        // Đếm tổng phần tử
+        Long totalElement = regionPage.getTotalElements();
+        // Trả về thành công
+        return ResponseEntity.ok()
+                .header("totalCount", String.valueOf(totalElement))
+                .body(regionList);
     }
 
     // Create new region
@@ -111,6 +129,24 @@ public class CRegionController {
             return new ResponseEntity<>(null,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // get the count of record
+    @GetMapping("/region-count")
+    public Long countRegion() {
+        return pIRegionRepository.count();
+    }
+
+    // Check region in database
+    @GetMapping("/region/check/{id}")
+    public boolean checkRegionById(@PathVariable Long id) {
+        return pIRegionRepository.existsById(id);
+    }
+
+    // Return the region containing the specified code
+    @GetMapping("/region/containing-code/{code}")
+    public CRegion getRegionByContainingCode(@PathVariable String code) {
+        return pIRegionRepository.findByRegionCodeContaining(code);
     }
 
 }
