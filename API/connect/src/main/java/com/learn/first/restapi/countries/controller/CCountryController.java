@@ -5,13 +5,20 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.learn.first.restapi.countries.model.CCountry;
+import com.learn.first.restapi.countries.model.CRegion;
 import com.learn.first.restapi.countries.repository.ICountryRepository;
+import com.learn.first.restapi.countries.repository.IRegionRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +33,9 @@ public class CCountryController {
     @Autowired
     ICountryRepository pICountryRepository;
 
+    @Autowired
+    IRegionRepository pIRegionRepository;
+
     // Get country by id
     @GetMapping("/country/details/{id}")
     public CCountry getCountryById(@PathVariable Long id) {
@@ -36,10 +46,22 @@ public class CCountryController {
             return null;
     }
 
-    // Get all country
-    @GetMapping("/country/all")
-    public List<CCountry> getAllCountry() {
-        return pICountryRepository.findAll();
+    @GetMapping(value = "/country/all")
+    public ResponseEntity<List<CCountry>> getAllCountry(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        // tạo ra một đối tượng Pageable để đại diện cho thông tin về phân trang.
+        Pageable pageable = PageRequest.of(page, size);
+        // truy vấn CSDL và trả về một trang của đối tượng CCountry với thông tin trang
+        Page<CCountry> countryPage = pICountryRepository.findAll(pageable);
+        // để lấy danh sách các đối tượng
+        List<CCountry> countryList = countryPage.getContent();
+        // Đếm tổng phần tử
+        Long totalElement = countryPage.getTotalElements();
+        // Trả về thành công
+        return ResponseEntity.ok()
+                .header("totalCount", String.valueOf(totalElement))
+                .body(countryList);
     }
 
     // Create new country
@@ -94,6 +116,12 @@ public class CCountryController {
         }
     }
 
+    // get the count of record
+    @GetMapping("/country-count")
+    public Long countCountry() {
+        return pICountryRepository.count();
+    }
+
     // Check country in database
     @GetMapping("/country/check/{id}")
     public boolean checkCountryById(@PathVariable Long id) {
@@ -106,10 +134,10 @@ public class CCountryController {
         return pICountryRepository.findByCountryCodeContaining(code);
     }
 
-    // get the count of record
-    @GetMapping("/country-count")
-    public Long countCountry() {
-        return pICountryRepository.count();
+    // Get Regions by countryId
+    @GetMapping("/country/{countryId}/region")
+    public List<CRegion> getRegionsByCountryId(@PathVariable Long countryId) {
+        return pIRegionRepository.findByCountry_Id(countryId);
     }
 
 }
