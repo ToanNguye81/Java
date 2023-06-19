@@ -78,7 +78,7 @@ function deleteProvince(element) {
 //Load all province to Table
 function loadProvinceToTable() {
   $.ajax({
-    url: "/province/all",
+    url: "/province/all?size=100",
     method: "GET",
     success: function (response) {
       displayDataToTable(response, ["id", "name", "code"], "province");

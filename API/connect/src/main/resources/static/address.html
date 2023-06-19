@@ -417,11 +417,32 @@
         </div>
 
       </div>
+     
       <table class="table table-bordered table-striped table-hover text-center" id="data-table">
         <thead style="background-color:#343A40;color:white">
         </thead>
         <tbody>
         </tbody>
+        <div class="row">
+          <div class="row col-sm-6 form-group">
+            <label for="page-size">Show entries</label>
+            <select id="page-size" class="form-control col-sm-2 ml-2">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+          <div class=" row col-sm-6">
+            <label for="page-number">Page:</label>
+            <select id="page-number" class="form-control col-sm-2 ml-2" >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+        </div>
       </table>
       <!-- Modal delete province-->
       <div class="modal fade" id="modal-delete-province">
