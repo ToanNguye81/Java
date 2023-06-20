@@ -60,6 +60,17 @@ $("#btn-confirm-delete-ward").click(function () {
   deleteWard(this);
 });
 
+$("#table-page").change(function () {
+  var selectedPage = $(this).val(); // Lấy giá trị đã chọn
+  console.log(selectedPage);
+});
+
+$("#table-size").change(function () {
+  var selectedSize = $(this).val(); // Lấy giá trị đã chọn
+  console.log(selectedSize);
+});
+
+$("");
 //delete province to database
 function deleteProvince(element) {
   var id = $(element).data("id");
