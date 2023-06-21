@@ -1,15 +1,24 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", onPageLoading);
-
+let gPage = 1;
+let gSize = 5;
+let gField = "";
+let gDataField = [];
 // Sự kiện click nút "All province"
 $("#btn-all-province").click(function () {
-  loadProvinceToTable();
+  gField = "province";
+  gDataField = ["id", "name", "code"];
+  loadDataToTable();
 });
 $("#btn-all-district").click(function () {
-  loadDistrictToTable();
+  gField = "district";
+  gDataField = ["id", "name", "prefix"];
+  loadDataToTable();
 });
 $("#btn-all-ward").click(function () {
-  loadWardToTable();
+  gField = "ward";
+  gDataField = ["id", "name", "prefix"];
+  loadDataToTable();
 });
 $("#btn-add-province").click(function () {
   createNewProvince();
@@ -61,16 +70,15 @@ $("#btn-confirm-delete-ward").click(function () {
 });
 
 $("#table-page").change(function () {
-  var selectedPage = $(this).val(); // Lấy giá trị đã chọn
-  console.log(selectedPage);
+  gPage = $(this).val(); // Lấy giá trị đã chọn
+  loadDataToTable();
 });
 
 $("#table-size").change(function () {
-  var selectedSize = $(this).val(); // Lấy giá trị đã chọn
-  console.log(selectedSize);
+  gSize = $(this).val(); // Lấy giá trị đã chọn
+  loadDataToTable();
 });
 
-$("");
 //delete province to database
 function deleteProvince(element) {
   var id = $(element).data("id");
@@ -87,40 +95,12 @@ function deleteProvince(element) {
 }
 
 //Load all province to Table
-function loadProvinceToTable() {
+function loadDataToTable() {
   $.ajax({
-    url: "/province/all?size=100",
+    url: `/${gField}/all?size=${gSize}&page=${gPage - 1}`,
     method: "GET",
     success: function (response) {
-      displayDataToTable(response, ["id", "name", "code"], "province");
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
-}
-
-//Load all district to Table
-function loadDistrictToTable() {
-  $.ajax({
-    url: "/district/all",
-    method: "GET",
-    success: function (response) {
-      displayDataToTable(response, ["id", "name", "prefix"], "district");
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
-}
-
-//Load all ward to Table
-function loadWardToTable() {
-  $.ajax({
-    url: "/ward/all",
-    method: "GET",
-    success: function (response) {
-      displayDataToTable(response, ["id", "name", "prefix"], "ward");
+      displayDataToTable(response, gDataField, gField);
     },
     error: function (error) {
       console.log(error);
