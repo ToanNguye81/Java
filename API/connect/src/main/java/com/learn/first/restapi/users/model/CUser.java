@@ -33,7 +33,7 @@ public class CUser {
     private String lastName;
 
     @Column(name = "posts")
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<CPost> posts;
 

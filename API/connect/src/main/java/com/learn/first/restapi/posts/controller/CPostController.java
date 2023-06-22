@@ -23,7 +23,7 @@ public class CPostController {
     @Autowired
     IPostRepository pIPostRepository;
 
-    @GetMapping("/users")
+    @GetMapping("/post/all")
     public ResponseEntity<List<CPost>> getAllPosts() {
 
         try {

@@ -23,17 +23,17 @@ public class CUserController {
     @Autowired
     IUserRepository pIUserRepository;
 
-    @GetMapping("/users")
+    @GetMapping("/user/all")
     public ResponseEntity<List<CUser>> getAllUsers() {
 
-        try {
-            List<CUser> pUsers = new ArrayList<CUser>();
-            pIUserRepository.findAll().forEach(pUsers::add);
-            return new ResponseEntity<>(pUsers, HttpStatus.OK);
-        } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        // try {
+        // List<CUser> pUsers = new ArrayList<CUser>();
+        // pIUserRepository.findAll().forEach(pUsers::add);
+        // return new ResponseEntity<>(pUsers, HttpStatus.OK);
+        // } catch (Exception e) {
+        // // TODO: handle exception
+        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        // }
     }
 
 }
