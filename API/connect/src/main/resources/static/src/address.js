@@ -10,11 +10,13 @@ $("#btn-all-province").click(function () {
   gDataField = ["id", "name", "code"];
   loadDataToTable();
 });
+// Sự kiện click nút "All district"
 $("#btn-all-district").click(function () {
   gField = "district";
   gDataField = ["id", "name", "prefix"];
   loadDataToTable();
 });
+// Sự kiện click nút "All ward"
 $("#btn-all-ward").click(function () {
   gField = "ward";
   gDataField = ["id", "name", "prefix"];
@@ -39,13 +41,13 @@ $("tbody").on("click", ".far.fa-edit.mr-2.ward", function () {
   loadDataToWardModal(this);
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.province", function () {
-  checkDeleteProvince(this);
+  checkDeletedProvince(this);
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.district", function () {
-  checkDeleteDistrict(this);
+  checkDeletedDistrict(this);
 });
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.ward", function () {
-  checkDeleteWard(this);
+  checkDeletedWard(this);
 });
 
 $("#btn-confirm-update-province").click(function () {
@@ -455,7 +457,7 @@ function loadDataToWardModal(element) {
   $("#modal-update-ward").modal("show");
 }
 //Hiển thị modal chứa id của province muốn xóa
-function checkDeleteProvince(element) {
+function checkDeletedProvince(element) {
   var iconId = $(element).data("id");
   var h6Element = $("#modal-delete-province").find("h6");
   h6Element.text("Bạn có chắc muốn xóa province id= " + iconId);
@@ -464,7 +466,7 @@ function checkDeleteProvince(element) {
 }
 
 //Hiển thị modal chứa id của district muốn xóa
-function checkDeleteDistrict(element) {
+function checkDeletedDistrict(element) {
   var iconId = $(element).data("id");
   var h6Element = $("#modal-delete-district").find("h6");
   h6Element.text("Bạn có chắc muốn xóa district id= " + iconId);
@@ -472,7 +474,7 @@ function checkDeleteDistrict(element) {
   $("#modal-delete-district").modal("show"); // Hiển thị modal
 }
 //Hiển thị modal chứa id của ward muốn xóa
-function checkDeleteWard(element) {
+function checkDeletedWard(element) {
   var iconId = $(element).data("id");
   var h6Element = $("#modal-delete-ward").find("h6");
   h6Element.text("Bạn có chắc muốn xóa ward id= " + iconId);

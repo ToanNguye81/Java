@@ -31,6 +31,18 @@ public class CVoucher {
     @Column(name = "phan_tram_giam_gia")
     private Long phanTramGiamGia;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_tao", nullable = true, updatable = false)
+    @CreatedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date ngayTao;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_cap_nhat", nullable = true)
+    @LastModifiedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date ngayCapNhat;
+
     @Column(name = "ghi_chu")
     private String ghiChu;
 
@@ -64,18 +76,6 @@ public class CVoucher {
     public String getGhiChu() {
         return ghiChu;
     }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ngay_tao", nullable = true, updatable = false)
-    @CreatedDate
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date ngayTao;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ngay_cap_nhat", nullable = true)
-    @LastModifiedDate
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date ngayCapNhat;
 
     public CVoucher(String maVoucher, Long phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
         this.maVoucher = maVoucher;
