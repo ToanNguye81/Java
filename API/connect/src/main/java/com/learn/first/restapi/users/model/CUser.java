@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learn.first.restapi.posts.model.CPost;
+import com.learn.first.restapi.profiles.model.CProfile;
 
 @Entity
 @Table(name = "users")
@@ -32,10 +33,12 @@ public class CUser {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "posts")
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<CPost> posts;
+
+    @OneToOne(mappedBy = "user")
+    private CProfile profile;
 
     public CUser() {
         super();
