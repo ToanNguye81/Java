@@ -43,12 +43,13 @@ public class COrder {
     @JsonBackReference
     private CCustomer customer;
 
-    // Khai báo kiểu quan hệ n-n => orrder-product
+    // Khai báo kiểu quan hệ n-n => order-product
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "orders_products", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = {
             @JoinColumn(name = "product_id") })
     private Set<CProduct> products;
 
+    // Khai báo kiểu quan hệ n-n => order-payment
     // mappedBy = "orders" sẽ bị báo lỗi
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
     @JsonIgnore

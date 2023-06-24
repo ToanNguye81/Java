@@ -29,7 +29,7 @@ public class CPayment {
     @Size(min = 2, message = "Address phải có ít nhất 2 ký tự ")
     private String address;
 
-    // Khai báo kiểu quan hệ 1-1: user-profile
+    // Khai báo kiểu quan hệ 1-1: order-payment
     // data sẽ chỉ được tải khi nó được truy cập hoặc yêu cầu.
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
