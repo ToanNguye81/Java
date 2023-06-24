@@ -1,13 +1,13 @@
 package com.learn.first.restapi.orders.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learn.first.restapi.customers.model.CCustomer;
+import com.learn.first.restapi.payments.model.CPayment;
 import com.learn.first.restapi.products.model.CProduct;
-
-import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -38,28 +38,32 @@ public class COrder {
     @Column(name = "paid")
     private String paid;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "create_by", nullable = false)
     @JsonBackReference
-    @JoinColumn(name = "customer_id")
     private CCustomer customer;
 
-    @Column(name = "products")
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    // Khai báo kiểu quan hệ n-n => orrder-product
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "orders_products", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "product_id") })
     private Set<CProduct> products;
 
+    // mappedBy = "orders" sẽ bị báo lỗi
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
+    @JsonIgnore
+    private CPayment payment;
+
     public COrder() {
+        super();
     }
 
-    public COrder(String orderCode, String orderName, String pizzaSize, String pizzaType, String voucherCode,
-            Long price, String paid, Set<CProduct> products) {
-        this.orderCode = orderCode;
-        this.pizzaSize = pizzaSize;
-        this.pizzaType = pizzaType;
-        this.voucherCode = voucherCode;
-        this.price = price;
-        this.paid = paid;
-        this.products = products;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCustomer(CCustomer customer) {
+        this.customer = customer;
     }
 
     public void setOrderCode(String orderCode) {
@@ -80,6 +84,10 @@ public class COrder {
 
     public void setPizzaType(String pizzaType) {
         this.pizzaType = pizzaType;
+    }
+
+    public void setPayment(CPayment payment) {
+        this.payment = payment;
     }
 
     public void setPrice(Long price) {
@@ -116,6 +124,14 @@ public class COrder {
 
     public Long getPrice() {
         return price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public CPayment getPayment() {
+        return payment;
     }
 
     public Set<CProduct> getProducts() {

@@ -30,7 +30,8 @@ public class CPayment {
     private String address;
 
     // Khai báo kiểu quan hệ 1-1: user-profile
-    @OneToOne(fetch = FetchType.LAZY, optional = false) // data sẽ chỉ được tải khi nó được truy cập hoặc yêu cầu.
+    // data sẽ chỉ được tải khi nó được truy cập hoặc yêu cầu.
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
     @JsonIgnore
     private COrder order;
