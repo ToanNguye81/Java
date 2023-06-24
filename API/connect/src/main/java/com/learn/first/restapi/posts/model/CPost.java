@@ -1,9 +1,12 @@
 package com.learn.first.restapi.posts.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.learn.first.restapi.hashTags.model.CHashTag;
 import com.learn.first.restapi.users.model.CUser;
 
 @Entity
@@ -25,10 +28,16 @@ public class CPost {
     @Column(name = "content")
     private String content;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "user_id")
+    // Khai báo kiểu quan hệ n-1 => post-user
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", nullable = false)
     private CUser createdBy;
+
+    // Khai báo kiểu quan hệ n-n => Post-Tag
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "posts_tags", joinColumns = { @JoinColumn(name = "post_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "tag_id") })
+    private Set<CHashTag> tags;
 
     public CPost() {
         super();
@@ -51,6 +60,10 @@ public class CPost {
         return title;
     }
 
+    public Set<CHashTag> getTags() {
+        return tags;
+    }
+
     public void setContent(String content) {
         this.content = content;
     }
@@ -66,4 +79,9 @@ public class CPost {
     public void setCreatedBy(CUser createdBy) {
         this.createdBy = createdBy;
     }
+
+    public void setTags(Set<CHashTag> tags) {
+        this.tags = tags;
+    }
+
 }
