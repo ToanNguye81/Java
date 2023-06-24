@@ -1,5 +1,7 @@
 package com.learn.first.restapi.products.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,24 +27,18 @@ public class CProduct {
     @Column(name = "price")
     private long price;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
+    // Khai báo kiểu quan hệ n-n => order-product
     @JsonIgnore
-    private COrder order;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "products")
+    private Set<COrder> orders;
 
     public CProduct() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public CProduct(long id, String name, String type, String color, long price, COrder order) {
-        super();
+    public void setId(long id) {
         this.id = id;
-        this.name = name;
-        this.type = type;
-        this.color = color;
-        this.price = price;
-        this.order = order;
     }
 
     public void setName(String name) {
@@ -53,8 +49,8 @@ public class CProduct {
         this.color = color;
     }
 
-    public void setOrder(COrder order) {
-        this.order = order;
+    public void setOrder(Set<COrder> orders) {
+        this.orders = orders;
     }
 
     public void setPrice(long price) {
@@ -77,10 +73,6 @@ public class CProduct {
         return name;
     }
 
-    public COrder getOrder() {
-        return order;
-    }
-
     public long getPrice() {
         return price;
     }
@@ -88,4 +80,9 @@ public class CProduct {
     public String getType() {
         return type;
     }
+
+    public Set<COrder> getOrder() {
+        return orders;
+    }
+
 }
