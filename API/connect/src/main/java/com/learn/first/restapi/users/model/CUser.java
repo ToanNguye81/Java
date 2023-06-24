@@ -20,7 +20,7 @@ public class CUser {
 
     @NotNull(message = "Nhập userName")
     @Size(min = 2, message = "user name phải có ít nhất 2 ký tự ")
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     private String userName;
 
     @NotNull(message = "Nhập first Name")
@@ -33,11 +33,14 @@ public class CUser {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    // Khai báo kiểu quan hệ 1-n => user-post
     @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "createdBy")
     private Set<CPost> posts;
 
-    @OneToOne(mappedBy = "user")
+    // Khai báo kiểu quan hệ 1-1 => user-profile
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
     private CProfile profile;
 
     public CUser() {
@@ -59,6 +62,10 @@ public class CUser {
 
     public void setPosts(Set<CPost> posts) {
         this.posts = posts;
+    }
+
+    public void setProfile(CProfile profile) {
+        this.profile = profile;
     }
 
     public void setUserName(String userName) {
@@ -83,5 +90,9 @@ public class CUser {
 
     public String getUserName() {
         return userName;
+    }
+
+    public CProfile getProfile() {
+        return profile;
     }
 }
