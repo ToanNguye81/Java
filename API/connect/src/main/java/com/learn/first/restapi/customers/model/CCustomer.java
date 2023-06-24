@@ -1,9 +1,14 @@
 package com.learn.first.restapi.customers.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learn.first.restapi.orders.model.COrder;
 
@@ -27,14 +32,20 @@ public class CCustomer {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "create_at")
-    private long createAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_at", nullable = true, updatable = false)
+    @CreatedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date createAt;
 
-    @Column(name = "update_at")
-    private long updateAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_at", nullable = true)
+    @LastModifiedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date updateAt;
 
-    @Column(name = "orders")
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    // Khai báo kiểu quan hệ 1-n => user-order
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<COrder> orders;
 
@@ -47,7 +58,7 @@ public class CCustomer {
         this.address = address;
     }
 
-    public void setCreateAt(long createAt) {
+    public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
 
@@ -67,15 +78,11 @@ public class CCustomer {
         this.phone = phone;
     }
 
-    public void setUpdateAt(long updateAt) {
-        this.updateAt = updateAt;
-    }
-
     public String getAddress() {
         return address;
     }
 
-    public long getCreateAt() {
+    public Date getCreateAt() {
         return createAt;
     }
 
@@ -95,12 +102,20 @@ public class CCustomer {
         return phone;
     }
 
-    public long getUpdateAt() {
-        return updateAt;
-    }
-
     public Set<COrder> getOrders() {
         return orders;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
     }
 
 }
