@@ -27,7 +27,7 @@ public class CProvince {
     @Column(name = "code", unique = true)
     private String code;
 
-    @Column(name = "districts")
+    // @Column(name = "districts")
     @OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
     /* Có dòng này khi load province sẽ lấy tất cả thông tin quận huyện kèm theo */
     // @JsonManagedReference

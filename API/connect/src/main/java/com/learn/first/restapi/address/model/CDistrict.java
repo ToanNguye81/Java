@@ -32,7 +32,6 @@ public class CDistrict {
     @JoinColumn(name = "province_id")
     private CProvince province;
 
-    @Column(name = "wards")
     @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<CWard> wards;

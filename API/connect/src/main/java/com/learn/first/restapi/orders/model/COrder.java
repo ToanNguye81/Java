@@ -50,7 +50,6 @@ public class COrder {
     private Set<CProduct> products;
 
     // Khai báo kiểu quan hệ n-n => order-payment
-    // mappedBy = "orders" sẽ bị báo lỗi
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
     @JsonIgnore
     private CPayment payment;
