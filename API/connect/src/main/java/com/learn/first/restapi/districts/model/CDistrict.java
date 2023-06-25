@@ -1,4 +1,4 @@
-package com.learn.first.restapi.address.model;
+package com.learn.first.restapi.districts.model;
 
 import java.util.Set;
 
@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.learn.first.restapi.provinces.model.CProvince;
+import com.learn.first.restapi.wards.model.CWard;
 
 @Entity
 @Table(name = "district")
