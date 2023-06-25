@@ -1,8 +1,9 @@
-package com.learn.first.restapi.countries.model;
+package com.learn.first.restapi.regions.model;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.learn.first.restapi.countries.model.CCountry;
 
 @Entity
 @Table(name = "region")
