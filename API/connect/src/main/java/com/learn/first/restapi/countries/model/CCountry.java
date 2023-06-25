@@ -4,6 +4,7 @@ package com.learn.first.restapi.countries.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.learn.first.restapi.regions.model.CRegion;
 
 import java.util.Set;
 

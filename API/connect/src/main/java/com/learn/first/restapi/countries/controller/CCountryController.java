@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.first.restapi.countries.model.CCountry;
-import com.learn.first.restapi.countries.model.CRegion;
 import com.learn.first.restapi.countries.repository.ICountryRepository;
-import com.learn.first.restapi.countries.repository.IRegionRepository;
+import com.learn.first.restapi.regions.model.CRegion;
+import com.learn.first.restapi.regions.repository.IRegionRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,12 +69,13 @@ public class CCountryController {
     public ResponseEntity<Object> createCountry(@RequestBody CCountry pCountry) {
         try {
             CCountry newRole = new CCountry();
+            // get info from Frontend
             newRole.setCountryName(pCountry.getCountryName());
             newRole.setCountryCode(pCountry.getCountryCode());
             newRole.setRegions(pCountry.getRegions());
+            // save new country
             CCountry savedCountry = pICountryRepository.save(newRole);
             return new ResponseEntity<>(savedCountry, HttpStatus.CREATED);
-
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println(e);
