@@ -37,20 +37,10 @@ public class CRegionController {
     @Autowired
     ICountryRepository pICountryRepository;
 
-    /*
-     * ResponseEntity: Là một lớp trong Spring Framework được sử dụng để đóng gói
-     * kết quả trả về từ một API endpoint. Cho phép thiết lập các thông tin
-     * phản hồi như body, headers và mã trạng thái HTTP
-     * Set được sử dụng thay vì List hoặc ArrayList vì yêu cầu
-     * đặc biệt của một tập hợp các đối tượng duy nhất (không có phần tử trùng lặp).
-     * Body được đóng gói là một tập hợp (Set) các đối tượng kiểu CRegion. Set đảm
-     * bảo rằng không có phần tử trùng lặp trong tập hợp.
-     */
-
     // Get region by id
     @GetMapping("/region/details/{id}")
-    public CRegion getRegionById(@PathVariable Long id) {
-        // find region with id success
+    public CRegion getRegionById(@PathVariable Integer id) {
+        // find region by id
         if (pIRegionRepository.findById(id).isPresent())
             return pIRegionRepository.findById(id).get();
         else
@@ -83,14 +73,16 @@ public class CRegionController {
         try {
             // Find country by id
             Optional<CCountry> countryData = pICountryRepository.findById(countryId);
-            // create
+            // create new region
             if (countryData.isPresent()) {
                 CCountry country = countryData.get();
                 CRegion newRegion = new CRegion();
+                // get region info
                 newRegion.setCountry(country);
                 newRegion.setRegionName(pRegion.getRegionName());
                 newRegion.setRegionCode(pRegion.getRegionCode());
                 CRegion savedRole = pIRegionRepository.save(newRegion);
+                // return success
                 return new ResponseEntity<>(savedRole, HttpStatus.CREATED);
             }
         } catch (Exception e) {
@@ -121,7 +113,7 @@ public class CRegionController {
 
     // Delete region by Id
     @DeleteMapping("/region/delete/{id}")
-    public ResponseEntity<Object> deleteRegionById(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteRegionById(@PathVariable Integer id) {
         try {
             pIRegionRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
