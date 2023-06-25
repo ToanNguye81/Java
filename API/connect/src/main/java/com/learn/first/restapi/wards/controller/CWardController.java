@@ -1,4 +1,4 @@
-package com.learn.first.restapi.address.controller;
+package com.learn.first.restapi.wards.controller;
 
 import org.springframework.http.HttpStatus;
 
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.learn.first.restapi.address.model.CDistrict;
-import com.learn.first.restapi.address.model.CWard;
-import com.learn.first.restapi.address.repository.IDistrictRepository;
-import com.learn.first.restapi.address.repository.IWardRepository;
+import com.learn.first.restapi.districts.model.CDistrict;
+import com.learn.first.restapi.districts.repository.IDistrictRepository;
+import com.learn.first.restapi.wards.model.CWard;
+import com.learn.first.restapi.wards.repository.IWardRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
