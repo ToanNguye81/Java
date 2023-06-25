@@ -15,7 +15,7 @@ public class CPayment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
-    private long id;
+    private Long id;
 
     @Column(name = "totalPrice")
     @NotNull(message = "Total Price không được để trống")
