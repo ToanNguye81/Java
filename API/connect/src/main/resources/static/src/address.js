@@ -1,5 +1,5 @@
 "use strict";
-document.addEventListener("DOMContentLoaded", onPageLoading);
+onPageLoading();
 let gPage = 1;
 let gSize = 5;
 let gField = "";
@@ -49,18 +49,15 @@ $("tbody").on("click", ".far.fa-trash-alt.ml-2.district", function () {
 $("tbody").on("click", ".far.fa-trash-alt.ml-2.ward", function () {
   checkDeletedWard(this);
 });
-
 $("#btn-confirm-update-province").click(function () {
   updateProvince();
 });
-
 $("#btn-confirm-update-district").click(function () {
   updateDistrict();
 });
 $("#btn-confirm-update-ward").click(function () {
   updateWard();
 });
-
 $("#btn-confirm-delete-province").click(function () {
   deleteProvince(this);
 });
@@ -70,12 +67,10 @@ $("#btn-confirm-delete-district").click(function () {
 $("#btn-confirm-delete-ward").click(function () {
   deleteWard(this);
 });
-
 $("#table-page").change(function () {
   gPage = $(this).val(); // Lấy giá trị đã chọn
   loadDataToTable();
 });
-
 $("#table-size").change(function () {
   gSize = $(this).val(); // Lấy giá trị đã chọn
   loadDataToTable();
@@ -112,6 +107,7 @@ function loadDataToTable() {
 
 // refresh - on page loading
 function onPageLoading() {
+  "use strict";
   loadAllProvinceToSelect();
   loadAllDistrictToSelect();
 }
