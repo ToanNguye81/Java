@@ -2,6 +2,7 @@ package com.learn.first.restapi.regions.controller;
 
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class CRegionController {
     ICountryRepository pICountryRepository;
 
     // Get region by id
-    @GetMapping("/region/details/{id}")
+    @GetMapping("/regions/{id}")
     public CRegion getRegionById(@PathVariable Integer id) {
         // find region by id
         if (pIRegionRepository.findById(id).isPresent())
@@ -47,8 +48,8 @@ public class CRegionController {
             return null;
     }
 
-    // Get all Region
-    @GetMapping(value = "/region/all")
+    // Get all Regions
+    @GetMapping(value = "/regions")
     public ResponseEntity<List<CRegion>> getAllRegion(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -67,7 +68,7 @@ public class CRegionController {
     }
 
     // Create new region
-    @PostMapping(value = "/region/create/{countryId}")
+    @PostMapping(value = "countries/{countryId}/regions")
     public ResponseEntity<Object> createRegion(@PathVariable("countryId") Long countryId,
             @RequestBody CRegion pRegion) {
         try {
@@ -94,7 +95,7 @@ public class CRegionController {
     }
 
     // Update region by id
-    @PutMapping(value = "/region/update/{id}")
+    @PutMapping(value = "/regions/{id}")
     public ResponseEntity<Object> updateRegion(@PathVariable Integer id, @RequestBody CRegion pRegion) {
         // find region by id
         Optional<CRegion> regionData = pIRegionRepository.findById(id);
@@ -112,9 +113,11 @@ public class CRegionController {
     }
 
     // Delete region by Id
-    @DeleteMapping("/region/delete/{id}")
+    @DeleteMapping("/regions/{id}")
     public ResponseEntity<Object> deleteRegionById(@PathVariable Integer id) {
         try {
+            System.out.println(id);
+            System.out.println(id);
             pIRegionRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
@@ -124,21 +127,26 @@ public class CRegionController {
     }
 
     // get the count of record
-    @GetMapping("/region-count")
+    @GetMapping("/regions-count")
     public Long countRegion() {
         return pIRegionRepository.count();
     }
 
     // Check region in database
-    @GetMapping("/region/check/{id}")
-    public boolean checkRegionById(@PathVariable Long id) {
+    @GetMapping("/regions/check/{id}")
+    public boolean checkRegionById(@PathVariable Integer id) {
         return pIRegionRepository.existsById(id);
     }
 
     // Return the region containing the specified code
-    @GetMapping("/region/containing-code/{code}")
-    public CRegion getRegionByContainingCode(@PathVariable String code) {
-        return pIRegionRepository.findByRegionCodeContaining(code);
-    }
+    @GetMapping("/regions/containing-code/{code}")
+    public ResponseEntity<List<CRegion>> getRegionByContainingCode(@PathVariable String code) {
+        List<CRegion> regionList = new ArrayList<>();
+        CRegion region = pIRegionRepository.findByRegionCodeContaining(code);
+        if (region != null) {
+            regionList.add(region);
+        }
+        return new ResponseEntity<>(regionList, HttpStatus.OK);
 
+    }
 }

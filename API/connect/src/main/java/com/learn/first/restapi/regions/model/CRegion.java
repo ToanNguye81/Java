@@ -11,7 +11,7 @@ public class CRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "region_id", unique = true)
-    private int id;
+    private Integer id;
 
     @Column(name = "region_code", unique = true)
     private String regionCode;
@@ -28,7 +28,7 @@ public class CRegion {
         // TODO Auto-generated constructor stub
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,7 +44,7 @@ public class CRegion {
         this.country = country;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -60,4 +60,9 @@ public class CRegion {
         return country;
     }
 
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return getRegionName();
+    }
 }
