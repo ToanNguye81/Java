@@ -58,4 +58,9 @@ public class CCountry {
         this.regions = regions;
     }
 
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return getCountryName();
+    }
 }

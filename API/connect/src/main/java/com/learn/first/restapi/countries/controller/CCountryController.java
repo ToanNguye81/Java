@@ -37,7 +37,7 @@ public class CCountryController {
     IRegionRepository pIRegionRepository;
 
     // Get country by id
-    @GetMapping("/country/details/{id}")
+    @GetMapping("/countries/{id}")
     public CCountry getCountryById(@PathVariable Long id) {
         // find country by id
         if (pICountryRepository.findById(id).isPresent())
@@ -46,7 +46,8 @@ public class CCountryController {
             return null;
     }
 
-    @GetMapping(value = "/country/all")
+    // Get all countries
+    @GetMapping(value = "/countries")
     public ResponseEntity<List<CCountry>> getAllCountry(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -65,14 +66,14 @@ public class CCountryController {
     }
 
     // Create new country
-    @PostMapping(value = "/country/create")
+    @PostMapping(value = "/countries")
     public ResponseEntity<Object> createCountry(@RequestBody CCountry pCountry) {
         try {
             CCountry newRole = new CCountry();
             // get info from Frontend
             newRole.setCountryName(pCountry.getCountryName());
             newRole.setCountryCode(pCountry.getCountryCode());
-            newRole.setRegions(pCountry.getRegions());
+            // newRole.setRegions(pCountry.getRegions());
             // save new country
             CCountry savedCountry = pICountryRepository.save(newRole);
             return new ResponseEntity<>(savedCountry, HttpStatus.CREATED);
@@ -84,7 +85,7 @@ public class CCountryController {
     }
 
     // Update country by id
-    @PutMapping(value = "/country/update/{id}")
+    @PutMapping(value = "/countries/{id}")
     public ResponseEntity<Object> updateCountry(@PathVariable Long id, @RequestBody CCountry pCountry) {
         // find country by id
         Optional<CCountry> countryData = pICountryRepository.findById(id);
@@ -94,7 +95,7 @@ public class CCountryController {
             // update country
             newCountry.setCountryName(pCountry.getCountryName());
             newCountry.setCountryCode(pCountry.getCountryCode());
-            newCountry.setRegions(pCountry.getRegions());
+            // newCountry.setRegions(pCountry.getRegions());
             CCountry savedCountry = pICountryRepository.save(newCountry);
             // return
             return new ResponseEntity<>(savedCountry, HttpStatus.OK);
@@ -106,7 +107,7 @@ public class CCountryController {
     }
 
     // Delete Country by Id
-    @DeleteMapping("/country/delete/{id}")
+    @DeleteMapping("/countries/{id}")
     public ResponseEntity<Object> deleteCountryById(@PathVariable Long id) {
         try {
             pICountryRepository.deleteById(id);
@@ -118,25 +119,25 @@ public class CCountryController {
     }
 
     // get the count of record
-    @GetMapping("/country-count")
+    @GetMapping("/countries-count")
     public Long countCountry() {
         return pICountryRepository.count();
     }
 
     // Check country in database
-    @GetMapping("/country/check/{id}")
+    @GetMapping("/countries/check/{id}")
     public boolean checkCountryById(@PathVariable Long id) {
         return pICountryRepository.existsById(id);
     }
 
     // Return the country containing the specified code
-    @GetMapping("/country/containing-code/{code}")
+    @GetMapping("/countries/containing-code/{code}")
     public CCountry getCountryByContainingCode(@PathVariable String code) {
         return pICountryRepository.findByCountryCodeContaining(code);
     }
 
     // Get Regions by countryId
-    @GetMapping("/country/{countryId}/region")
+    @GetMapping("/countries/{countryId}/regions")
     public List<CRegion> getRegionsByCountryId(@PathVariable Long countryId) {
         return pIRegionRepository.findByCountryId(countryId);
     }
