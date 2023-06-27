@@ -1,6 +1,15 @@
 "use strict";
+//size of table
+let gSize = 100;
+//page of table
+let gPage = 0;
+// country
+let gCountryId = 0;
+// region
+let gRegionId = 0;
+
 $.get(`/countries`, getCountry);
-$.get(`/regions`, loadRegionToTable);
+$.get(`/regions?size=${gSize}&page=${gPage}`, loadRegionToTable);
 let vCountrySelectElement = $("#select-country");
 function getCountry(paramCountry) {
   paramCountry.forEach((country) => {
@@ -39,15 +48,11 @@ function onGetRegionChange(event) {
   gCountryId = event.target.value;
   console.log(gCountryId);
   if (gCountryId == 0) {
-    $.get(`/regions`, loadRegionToTable);
+    $.get(`regions?size=${gSize}&page=${gPage}`, loadRegionToTable);
   } else {
     $.get(`/countries/${gCountryId}/regions`, loadRegionToTable);
   }
 }
-
-// region
-let gCountryId = 0;
-let gRegionId = 0;
 
 let region = {
   newRegion: {
