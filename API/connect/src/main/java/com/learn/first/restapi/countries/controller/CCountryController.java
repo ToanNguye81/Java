@@ -118,6 +118,18 @@ public class CCountryController {
         }
     }
 
+    // Delete all countries
+    @DeleteMapping("/countries")
+    public ResponseEntity<Object> deleteAllCountries() {
+        try {
+            pICountryRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // get the count of record
     @GetMapping("/countries-count")
     public Long countCountry() {
