@@ -116,12 +116,24 @@ public class CRegionController {
     @DeleteMapping("/regions/{id}")
     public ResponseEntity<Object> deleteRegionById(@PathVariable Integer id) {
         try {
-            System.out.println(id);
-            System.out.println(id);
             pIRegionRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return new ResponseEntity<>(null,
+            return new ResponseEntity<>(e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Delete all region
+    @DeleteMapping("/regions")
+    public ResponseEntity<Object> deleteAllRegion() {
+        try {
+            pIRegionRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
