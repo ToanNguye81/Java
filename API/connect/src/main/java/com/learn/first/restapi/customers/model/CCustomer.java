@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -18,14 +21,20 @@ public class CCustomer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
-    private long id;
+    private Long id;
 
+    @NotNull(message = "Nhập Full Name")
+    @Size(min = 2, message = "Full Name phải có ít nhất 2 ký tự ")
     @Column(name = "full_name")
     private String fullName;
 
-    @Column(name = "email")
+    @NotNull(message = "Nhập email")
+    @Email(message = "Email không hợp lệ")
+    @Column(name = "email", unique = true)
     private String email;
 
+    @NotNull(message = "Nhập phone")
+    @Size(min = 10, max = 10, message = "Phone phải là chuỗi có đúng 10 chữ số")
     @Column(name = "phone")
     private String phone;
 
@@ -94,7 +103,7 @@ public class CCustomer {
         return fullName;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -106,7 +115,7 @@ public class CCustomer {
         return orders;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
