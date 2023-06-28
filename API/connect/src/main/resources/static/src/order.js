@@ -1,79 +1,76 @@
-let gUserId = 0;
+let gCustomerId = 0;
 let gOrderId = 0;
-// user
-$.get(`http://127.0.0.1:8080/api/users`, loadUserToSelect);
-$.get(`http://127.0.0.1:8080/api/users/orders`, loadOrderToTable);
-let userSelectElement = $('#select-user');
-function loadUserToSelect(paramUser) {
-  paramUser.forEach((user) => {
-    $('<option>', {
-      text: user.fullName,
-      value: user.userId,
-    }).appendTo(userSelectElement);
+// customer
+$.get(`/customers`, loadCustomerToSelect);
+$.get(`/customers/orders`, loadOrderToTable);
+let customerSelectElement = $("#select-customer");
+function loadCustomerToSelect(paramCustomer) {
+  paramCustomer.forEach((customer) => {
+    $("<option>", {
+      text: customer.fullName,
+      value: customer.customerId,
+    }).appendTo(customerSelectElement);
   });
 }
-userSelectElement.change(onGetUserChange);
-function onGetUserChange(event) {
-  gUserId = event.target.value;
-  if (gUserId == 0) {
-    $.get(`http://127.0.0.1:8080/api/users/orders`, loadOrderToTable);
+customerSelectElement.change(onGetCustomerChange);
+function onGetCustomerChange(event) {
+  gCustomerId = event.target.value;
+  if (gCustomerId == 0) {
+    $.get(`/customers/orders`, loadOrderToTable);
   } else {
-    $.get(
-      `http://127.0.0.1:8080/api/users/${gUserId}/orders`,
-      loadOrderToTable,
-    );
+    $.get(`/customers/${gCustomerId}/orders`, loadOrderToTable);
   }
 }
 
-let user = {
-  newUser: {
-    fullName: '',
-    email: '',
-    phone: '',
-    address: '',
+let customer = {
+  newCustomer: {
+    fullName: "",
+    email: "",
+    phone: "",
+    address: "",
   },
-  onCreateNewUserClick() {
-    $('#modal-create-user').modal('show');
-    console.log(gUserId);
+  onCreateNewCustomerClick() {
+    $("#modal-create-customer").modal("show");
+    console.log(gCustomerId);
   },
-  onUpdateUserClick() {
-    if (gUserId != 0) {
-      $('#modal-create-user').modal('show');
-      $.get(`http://127.0.0.1:8080/api/users/${gUserId}`, loadUserToInput);
+  onUpdateCustomerClick() {
+    if (gCustomerId != 0) {
+      $("#modal-create-customer").modal("show");
+      $.get(`/customers/${gCustomerId}`, loadCustomerToInput);
     } else {
-      alert('Please select a user to update');
+      alert("Please select a customer to update");
     }
   },
-  onSaveUserClick() {
-    this.newUser = {
-      fullName: $('#input-fullname').val().trim(),
-      email: $('#input-email').val().trim(),
-      phone: $('#input-phone').val().trim(),
-      address: $('#input-address').val().trim(),
+  onSaveCustomerClick() {
+    this.newCustomer = {
+      fullName: $("#input-fullname").val().trim(),
+      email: $("#input-email").val().trim(),
+      phone: $("#input-phone").val().trim(),
+      address: $("#input-address").val().trim(),
     };
-    if (gUserId == 0) {
-      if (validateUser(this.newUser)) {
+    if (gCustomerId == 0) {
+      if (validateCustomer(this.newCustomer)) {
         $.ajax({
-          url: `http://127.0.0.1:8080/api/users`,
-          method: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify(this.newUser),
+          url: `/customers`,
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(this.newCustomer),
           success: () => {
-            alert('successfully create new user');
+            alert("successfully create new customer");
             location.reload();
           },
           error: (err) => alert(err.responseText),
         });
       }
     } else {
-      if (validateUser(this.newUser)) {
+      if (validateCustomer(this.newCustomer)) {
         $.ajax({
-          url: `http://127.0.0.1:8080/api/users/${gUserId}`,
-          method: 'PUT',
-          contentType: 'application/json',
-          data: JSON.stringify(this.newUser),
+          url: `/customers/${gCustomerId}`,
+          method: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(this.newCustomer),
           success: () => {
-            alert('successfully update user with id: ' + gUserId);
+            alert("successfully update customer with id: " + gCustomerId);
             location.reload();
           },
           error: (err) => alert(err.responseText),
@@ -81,34 +78,34 @@ let user = {
       }
     }
   },
-  onDeleteUserClick() {
-    if (gUserId != 0) {
-      $('#modal-delete-user').modal('show');
+  onDeleteCustomerClick() {
+    if (gCustomerId != 0) {
+      $("#modal-delete-customer").modal("show");
     } else {
-      alert('Please select a user to delete');
+      alert("Please select a customer to delete");
     }
   },
-  onDeleteAllUserClick() {
-    gUserId = 0;
-    $('#modal-delete-user').modal('show');
+  onDeleteAllCustomerClick() {
+    gCustomerId = 0;
+    $("#modal-delete-customer").modal("show");
   },
-  onConfirmDeleteUserClick() {
-    if (gUserId != 0) {
+  onConfirmDeleteCustomerClick() {
+    if (gCustomerId != 0) {
       $.ajax({
-        url: `http://127.0.0.1:8080/api/users/${gUserId}`,
-        method: 'delete',
+        url: `/customers/${gCustomerId}`,
+        method: "delete",
         success: () => {
-          alert('successfully delete user with id:' + gUserId);
+          alert("successfully delete customer with id:" + gCustomerId);
           location.reload();
         },
         error: (err) => alert(err.responseText),
       });
     } else {
       $.ajax({
-        url: `http://127.0.0.1:8080/api/users`,
-        method: 'delete',
+        url: `/customers`,
+        method: "delete",
         success: () => {
-          alert('successfully delete all users');
+          alert("successfully delete all customers");
           location.reload();
         },
         error: (err) => alert(err.responseText),
@@ -117,45 +114,45 @@ let user = {
   },
 };
 
-$('#btn-create-user').click(user.onCreateNewUserClick);
-$('#btn-update-user').click(user.onUpdateUserClick);
-$('#btn-save-user').click(user.onSaveUserClick);
-$('#btn-delete-user').click(user.onDeleteUserClick);
-$('#btn-delete-all-User').click(user.onDeleteAllUserClick);
-$('#btn-confirm-delete-user').click(user.onConfirmDeleteUserClick);
+$("#btn-create-customer").click(customer.onCreateNewCustomerClick);
+$("#btn-update-customer").click(customer.onUpdateCustomerClick);
+$("#btn-save-customer").click(customer.onSaveCustomerClick);
+$("#btn-delete-customer").click(customer.onDeleteCustomerClick);
+$("#btn-delete-all-Customer").click(customer.onDeleteAllCustomerClick);
+$("#btn-confirm-delete-customer").click(customer.onConfirmDeleteCustomerClick);
 
-function loadUserToInput(paramUser) {
-  $('#input-fullname').val(paramUser.fullName);
-  $('#input-email').val(paramUser.email);
-  $('#input-phone').val(paramUser.phone);
-  $('#input-address').val(paramUser.address);
+function loadCustomerToInput(paramCustomer) {
+  $("#input-fullname").val(paramCustomer.fullName);
+  $("#input-email").val(paramCustomer.email);
+  $("#input-phone").val(paramCustomer.phone);
+  $("#input-address").val(paramCustomer.address);
 }
 
-function validateUser(paramUser) {
+function validateCustomer(paramCustomer) {
   let vResult = true;
   try {
-    if (paramUser.fullName == '') {
+    if (paramCustomer.fullName == "") {
       vResult = false;
       throw `full name can't be empty`;
     }
 
-    if (paramUser.email == '') {
+    if (paramCustomer.email == "") {
       vResult = false;
       throw ` email can't be empty`;
     }
-    if (!validateEmail(paramUser.email)) {
+    if (!validateEmail(paramCustomer.email)) {
       vResult = false;
       throw `must need right email`;
     }
-    if (paramUser.phone == '') {
+    if (paramCustomer.phone == "") {
       vResult = false;
       throw `phone can't be empty`;
     }
-    if (paramUser.phone.length < 10 || isNaN(paramUser.phone)) {
+    if (paramCustomer.phone.length < 10 || isNaN(paramCustomer.phone)) {
       vResult = false;
       throw `Cần nhập đúng kiểu số điện thoại phải không có chữ cái và đúng 10 số`;
     }
-    if (paramUser.address == '') {
+    if (paramCustomer.address == "") {
       vResult = false;
       throw `Address can't be empty`;
     }
@@ -171,15 +168,15 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 // order
-let orderTable = $('#order-table').DataTable({
+let orderTable = $("#order-table").DataTable({
   columns: [
-    { data: 'orderCode' },
-    { data: 'pizzaSize' },
-    { data: 'pizzaType' },
-    { data: 'voucherCode' },
-    { data: 'price' },
-    { data: 'paid' },
-    { data: 'Action' },
+    { data: "orderCode" },
+    { data: "pizzaSize" },
+    { data: "pizzaType" },
+    { data: "voucherCode" },
+    { data: "price" },
+    { data: "paid" },
+    { data: "Action" },
   ],
   columnDefs: [
     {
@@ -198,38 +195,35 @@ function loadOrderToTable(paramOrder) {
 
 let order = {
   newOrder: {
-    orderCode: '',
-    pizzaSize: '',
-    pizzaType: '',
-    voucherCode: '',
-    price: '',
-    paid: '',
+    orderCode: "",
+    pizzaSize: "",
+    pizzaType: "",
+    voucherCode: "",
+    price: "",
+    paid: "",
   },
   onNewOrderClick() {
     gOrderId = 0;
     this.newOrder = {
-      orderCode: $('#input-order-Code').val().trim(),
-      pizzaSize: $('#input-pizza-size').val().trim(),
-      pizzaType: $('#input-pizza-type').val().trim(),
-      voucherCode: $('#input-voucher').val().trim(),
-      price: $('#input-Price').val().trim(),
-      paid: $('#input-Paid').val().trim(),
+      orderCode: $("#input-order-Code").val().trim(),
+      pizzaSize: $("#input-pizza-size").val().trim(),
+      pizzaType: $("#input-pizza-type").val().trim(),
+      voucherCode: $("#input-voucher").val().trim(),
+      price: $("#input-Price").val().trim(),
+      paid: $("#input-Paid").val().trim(),
     };
     if (validateOrder(this.newOrder)) {
-      if (gUserId == 0) {
+      if (gCustomerId == 0) {
         alert(`Please select customer to create a new order`);
       } else {
         $.ajax({
-          url: `http://127.0.0.1:8080/api/users/${gUserId}/orders`,
-          method: 'POST',
+          url: `/customers/${gCustomerId}/orders`,
+          method: "POST",
           data: JSON.stringify(this.newOrder),
-          contentType: 'application/json',
+          contentType: "application/json",
           success: () => {
             alert(`Order created successfully`);
-            $.get(
-              `http://127.0.0.1:8080/api/users/${gUserId}/orders`,
-              loadOrderToTable,
-            );
+            $.get(`/customers/${gCustomerId}/orders`, loadOrderToTable);
             resetOrderInput();
           },
         });
@@ -237,74 +231,68 @@ let order = {
     }
   },
   onEditOrderClick() {
-    vSelectedRow = $(this).parents('tr');
+    vSelectedRow = $(this).parents("tr");
     vSelectedData = orderTable.row(vSelectedRow).data();
     gOrderId = vSelectedData.orderId;
-    $.get(
-      `http://127.0.0.1:8080/api/users/orders/${gOrderId}`,
-      loadOrderToInput,
-    );
+    $.get(`/customers/orders/${gOrderId}`, loadOrderToInput);
   },
   onUpdateOrderClick() {
     this.newOrder = {
-      orderCode: $('#input-order-Code').val().trim(),
-      pizzaSize: $('#input-pizza-size').val().trim(),
-      pizzaType: $('#input-pizza-type').val().trim(),
-      voucherCode: $('#input-voucher').val().trim(),
-      price: $('#input-Price').val().trim(),
-      paid: $('#input-Paid').val().trim(),
+      orderCode: $("#input-order-Code").val().trim(),
+      pizzaSize: $("#input-pizza-size").val().trim(),
+      pizzaType: $("#input-pizza-type").val().trim(),
+      voucherCode: $("#input-voucher").val().trim(),
+      price: $("#input-Price").val().trim(),
+      paid: $("#input-Paid").val().trim(),
     };
     if (validateOrder(this.newOrder)) {
-      if (gUserId == 0) {
+      if (gCustomerId == 0) {
         alert(`Please select customer to update a new order`);
       } else {
         $.ajax({
-          url: `http://127.0.0.1:8080/api/users/orders/${gOrderId}`,
-          method: 'PUT',
+          url: `/customers/orders/${gOrderId}`,
+          method: "PUT",
           data: JSON.stringify(this.newOrder),
-          contentType: 'application/json',
+          contentType: "application/json",
           success: () => {
             alert(`Order updated successfully`);
-            $.get(
-              `http://127.0.0.1:8080/api/users/${gUserId}/orders`,
-              loadOrderToTable,
-            );
+            $.get(`/customers/${gCustomerId}/orders`, loadOrderToTable);
             resetOrderInput();
           },
         });
       }
     }
   },
-  onDeleteUserByIdClick() {
-    $('#modal-delete-order').modal('show');
-    vSelectedRow = $(this).parents('tr');
+  onDeleteCustomerByIdClick() {
+    $("#modal-delete-order").modal("show");
+    vSelectedRow = $(this).parents("tr");
     vSelectedData = orderTable.row(vSelectedRow).data();
     gOrderId = vSelectedData.orderId;
   },
   onDeleteAllOrderClick() {
-    $('#modal-delete-order').modal('show');
+    $("#modal-delete-order").modal("show");
     gOrderId = 0;
   },
   onOrderConfirmDeleteClick() {
     if (gOrderId == 0) {
       $.ajax({
-        url: `http://127.0.0.1:8080/api/users/orders`,
-        method: 'delete',
+        url: `/customers/orders`,
+        method: "delete",
         success: () => {
-          alert('All Order was successfully deleted');
-          $.get(`http://127.0.0.1:8080/api/users/orders`, loadOrderToTable);
-          $('#modal-delete-order').modal('hide');
+          alert("All Order was successfully deleted");
+          $.get(`/customers/orders`, loadOrderToTable);
+          $("#modal-delete-order").modal("hide");
         },
         error: (err) => alert(err.responseText),
       });
     } else {
       $.ajax({
-        url: `http://127.0.0.1:8080/api/users/orders/${gOrderId}`,
-        method: 'delete',
+        url: `/customers/orders/${gOrderId}`,
+        method: "delete",
         success: () => {
           alert(`Order with id ${gOrderId} was successfully deleted`);
-          $.get(`http://127.0.0.1:8080/api/users/orders`, loadOrderToTable);
-          $('#modal-delete-order').modal('hide');
+          $.get(`/customers/orders`, loadOrderToTable);
+          $("#modal-delete-order").modal("hide");
         },
         error: (err) => alert(err.responseText),
       });
@@ -312,33 +300,33 @@ let order = {
   },
 };
 
-$('#create-order').click(order.onNewOrderClick);
-$('#update-order').click(order.onUpdateOrderClick);
-$('#delete-all-order').click(order.onDeleteAllOrderClick);
-$('#btn-confirm-delete-order').click(order.onOrderConfirmDeleteClick);
-$('#order-table').on('click', '.fa-edit', order.onEditOrderClick);
-$('#order-table').on('click', '.fa-trash', order.onDeleteUserByIdClick);
+$("#create-order").click(order.onNewOrderClick);
+$("#update-order").click(order.onUpdateOrderClick);
+$("#delete-all-order").click(order.onDeleteAllOrderClick);
+$("#btn-confirm-delete-order").click(order.onOrderConfirmDeleteClick);
+$("#order-table").on("click", ".fa-edit", order.onEditOrderClick);
+$("#order-table").on("click", ".fa-trash", order.onDeleteCustomerByIdClick);
 
 function validateOrder(paramOrder) {
   let vResult = true;
   try {
-    if (paramOrder.orderCode == '') {
+    if (paramOrder.orderCode == "") {
       vResult = false;
       throw `Order code can't empty`;
     }
-    if (paramOrder.pizzaSize == '') {
+    if (paramOrder.pizzaSize == "") {
       vResult = false;
       throw `Pizza Size can't empty`;
     }
-    if (paramOrder.pizzaType == '') {
+    if (paramOrder.pizzaType == "") {
       vResult = false;
       throw `Pizza Type can't empty`;
     }
-    if (paramOrder.price == '' || isNaN(paramOrder.price)) {
+    if (paramOrder.price == "" || isNaN(paramOrder.price)) {
       vResult = false;
       throw `Price cant' be empty or must is number`;
     }
-    if (paramOrder.paid == '' || isNaN(paramOrder.paid)) {
+    if (paramOrder.paid == "" || isNaN(paramOrder.paid)) {
       vResult = false;
       throw `Paid cant' be empty or must is number`;
     }
@@ -349,19 +337,19 @@ function validateOrder(paramOrder) {
 }
 
 function loadOrderToInput(paramOrder) {
-  $('#input-order-Code').val(paramOrder.orderCode);
-  $('#input-pizza-size').val(paramOrder.pizzaSize);
-  $('#input-pizza-type').val(paramOrder.pizzaType);
-  $('#input-voucher').val(paramOrder.voucherCode);
-  $('#input-Price').val(paramOrder.price);
-  $('#input-Paid').val(paramOrder.paid);
+  $("#input-order-Code").val(paramOrder.orderCode);
+  $("#input-pizza-size").val(paramOrder.pizzaSize);
+  $("#input-pizza-type").val(paramOrder.pizzaType);
+  $("#input-voucher").val(paramOrder.voucherCode);
+  $("#input-Price").val(paramOrder.price);
+  $("#input-Paid").val(paramOrder.paid);
 }
 
 function resetOrderInput() {
-  $('#input-order-Code').val('');
-  $('#input-pizza-size').val('');
-  $('#input-pizza-type').val('');
-  $('#input-voucher').val('');
-  $('#input-Price').val('');
-  $('#input-Paid').val('');
+  $("#input-order-Code").val("");
+  $("#input-pizza-size").val("");
+  $("#input-pizza-type").val("");
+  $("#input-voucher").val("");
+  $("#input-Price").val("");
+  $("#input-Paid").val("");
 }
