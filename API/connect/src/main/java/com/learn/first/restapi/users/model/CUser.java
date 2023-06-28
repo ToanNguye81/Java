@@ -33,6 +33,11 @@ public class CUser {
     @Column(name = "last_name")
     private String lastName;
 
+    @NotNull(message = "Nhập phone")
+    @Size(min = 10, message = "Phone phải la 10 ký tự ")
+    @Column(name = "phone")
+    private String phone;
+
     // Khai báo kiểu quan hệ 1-n => user-post
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "createdBy")
