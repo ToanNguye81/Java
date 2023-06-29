@@ -15,7 +15,7 @@ public class COrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // tự động sinh ra giá trị cho trường id
     @Column(name = "id", unique = true)
-    private int id;
+    private Long id;
 
     @Column(name = "order_code", unique = true)
     private String orderCode;
@@ -44,6 +44,7 @@ public class COrder {
     private CCustomer customer;
 
     // Khai báo kiểu quan hệ n-n => order-product
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "orders_products", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = {
             @JoinColumn(name = "product_id") })
@@ -58,7 +59,7 @@ public class COrder {
         super();
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -126,7 +127,7 @@ public class COrder {
         return price;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
