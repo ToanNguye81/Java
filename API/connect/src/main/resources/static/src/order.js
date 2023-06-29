@@ -2,13 +2,13 @@ let gCustomerId = 0;
 let gOrderId = 0;
 // customer
 $.get(`/customers`, loadCustomerToSelect);
-$.get(`/customers/orders`, loadOrderToTable);
+$.get(`/orders`, loadOrderToTable);
 let customerSelectElement = $("#select-customer");
 function loadCustomerToSelect(paramCustomer) {
   paramCustomer.forEach((customer) => {
     $("<option>", {
       text: customer.fullName,
-      value: customer.customerId,
+      value: customer.id,
     }).appendTo(customerSelectElement);
   });
 }
@@ -16,7 +16,7 @@ customerSelectElement.change(onGetCustomerChange);
 function onGetCustomerChange(event) {
   gCustomerId = event.target.value;
   if (gCustomerId == 0) {
-    $.get(`/customers/orders`, loadOrderToTable);
+    $.get(`/orders`, loadOrderToTable);
   } else {
     $.get(`/customers/${gCustomerId}/orders`, loadOrderToTable);
   }
@@ -43,7 +43,7 @@ let customer = {
   },
   onSaveCustomerClick() {
     this.newCustomer = {
-      fullName: $("#input-fullname").val().trim(),
+      fullName: $("#input-fullName").val().trim(),
       email: $("#input-email").val().trim(),
       phone: $("#input-phone").val().trim(),
       address: $("#input-address").val().trim(),
@@ -122,7 +122,7 @@ $("#btn-delete-all-Customer").click(customer.onDeleteAllCustomerClick);
 $("#btn-confirm-delete-customer").click(customer.onConfirmDeleteCustomerClick);
 
 function loadCustomerToInput(paramCustomer) {
-  $("#input-fullname").val(paramCustomer.fullName);
+  $("#input-fullName").val(paramCustomer.fullName);
   $("#input-email").val(paramCustomer.email);
   $("#input-phone").val(paramCustomer.phone);
   $("#input-address").val(paramCustomer.address);
@@ -233,8 +233,8 @@ let order = {
   onEditOrderClick() {
     vSelectedRow = $(this).parents("tr");
     vSelectedData = orderTable.row(vSelectedRow).data();
-    gOrderId = vSelectedData.orderId;
-    $.get(`/customers/orders/${gOrderId}`, loadOrderToInput);
+    gOrderId = vSelectedData.id;
+    $.get(`/orders/${gOrderId}`, loadOrderToInput);
   },
   onUpdateOrderClick() {
     this.newOrder = {
@@ -250,7 +250,7 @@ let order = {
         alert(`Please select customer to update a new order`);
       } else {
         $.ajax({
-          url: `/customers/orders/${gOrderId}`,
+          url: `/orders/${gOrderId}`,
           method: "PUT",
           data: JSON.stringify(this.newOrder),
           contentType: "application/json",
@@ -267,7 +267,7 @@ let order = {
     $("#modal-delete-order").modal("show");
     vSelectedRow = $(this).parents("tr");
     vSelectedData = orderTable.row(vSelectedRow).data();
-    gOrderId = vSelectedData.orderId;
+    gOrderId = vSelectedData.id;
   },
   onDeleteAllOrderClick() {
     $("#modal-delete-order").modal("show");
@@ -276,22 +276,22 @@ let order = {
   onOrderConfirmDeleteClick() {
     if (gOrderId == 0) {
       $.ajax({
-        url: `/customers/orders`,
+        url: `/orders`,
         method: "delete",
         success: () => {
           alert("All Order was successfully deleted");
-          $.get(`/customers/orders`, loadOrderToTable);
+          $.get(`/orders`, loadOrderToTable);
           $("#modal-delete-order").modal("hide");
         },
         error: (err) => alert(err.responseText),
       });
     } else {
       $.ajax({
-        url: `/customers/orders/${gOrderId}`,
+        url: `/orders/${gOrderId}`,
         method: "delete",
         success: () => {
           alert(`Order with id ${gOrderId} was successfully deleted`);
-          $.get(`/customers/orders`, loadOrderToTable);
+          $.get(`/orders`, loadOrderToTable);
           $("#modal-delete-order").modal("hide");
         },
         error: (err) => alert(err.responseText),
