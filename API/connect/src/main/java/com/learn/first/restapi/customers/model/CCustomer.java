@@ -35,7 +35,7 @@ public class CCustomer {
 
     @NotNull(message = "Nhập phone")
     @Size(min = 10, max = 10, message = "Phone phải là chuỗi có đúng 10 chữ số")
-    @Column(name = "phone")
+    @Column(name = "phone", unique = true)
     private String phone;
 
     @Column(name = "address")
