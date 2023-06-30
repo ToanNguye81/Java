@@ -65,8 +65,14 @@ public class COrderController {
                 .body(orderList);
     }
 
-    // Create new order
-    @PostMapping(value = "countries/{customerId}/orders")
+    // get all order of customer
+    @GetMapping("customers/{customerId}/orders")
+    public List<Object> getOrderByCustomerId(@PathVariable Long customerId) {
+        return pIOrderRepository.getAllOrderByCustomerId(customerId);
+    }
+
+    // Create new order of customer
+    @PostMapping(value = "customers/{customerId}/orders")
     public ResponseEntity<Object> createOrder(@PathVariable("customerId") Long customerId,
             @RequestBody COrder pOrder) {
         try {
@@ -79,7 +85,6 @@ public class COrderController {
                 // get order info
                 newOrder.setCustomer(customer);
                 newOrder.setOrderCode(pOrder.getOrderCode());
-                newOrder.setOrderName(pOrder.getOrderName());
                 newOrder.setPaid(pOrder.getPaid());
                 newOrder.setPizzaSize(pOrder.getPizzaSize());
                 newOrder.setPizzaType(pOrder.getPizzaType());
@@ -93,7 +98,7 @@ public class COrderController {
             }
         } catch (Exception e) {
             return ResponseEntity.unprocessableEntity()
-                    .body("Failed to Create specified Voucher: " + e.getCause().getCause().getMessage());
+                    .body("Failed to Create specified order: " + e.getCause().getCause().getMessage());
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -108,7 +113,6 @@ public class COrderController {
         if (orderData.isPresent()) {
             COrder newOrder = orderData.get();
             newOrder.setOrderCode(pOrder.getOrderCode());
-            newOrder.setOrderName(pOrder.getOrderName());
             newOrder.setPaid(pOrder.getPaid());
             newOrder.setPizzaSize(pOrder.getPizzaSize());
             newOrder.setPizzaType(pOrder.getPizzaType());

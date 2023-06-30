@@ -20,9 +20,6 @@ public class COrder {
     @Column(name = "order_code", unique = true)
     private String orderCode;
 
-    @Column(name = "order_name")
-    private String orderName;
-
     @Column(name = "pizza_size")
     private String pizzaSize;
 
@@ -71,10 +68,6 @@ public class COrder {
         this.orderCode = orderCode;
     }
 
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
-    }
-
     public void setPaid(String paid) {
         this.paid = paid;
     }
@@ -105,10 +98,6 @@ public class COrder {
 
     public String getOrderCode() {
         return orderCode;
-    }
-
-    public String getOrderName() {
-        return orderName;
     }
 
     public String getPaid() {

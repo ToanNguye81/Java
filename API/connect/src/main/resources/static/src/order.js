@@ -30,8 +30,8 @@ let customer = {
     address: "",
   },
   onCreateNewCustomerClick() {
+    gCustomerId = 0;
     $("#modal-create-customer").modal("show");
-    console.log(gCustomerId);
   },
   onUpdateCustomerClick() {
     if (gCustomerId != 0) {
@@ -118,7 +118,7 @@ $("#btn-create-customer").click(customer.onCreateNewCustomerClick);
 $("#btn-update-customer").click(customer.onUpdateCustomerClick);
 $("#btn-save-customer").click(customer.onSaveCustomerClick);
 $("#btn-delete-customer").click(customer.onDeleteCustomerClick);
-$("#btn-delete-all-Customer").click(customer.onDeleteAllCustomerClick);
+$("#btn-delete-all-customer").click(customer.onDeleteAllCustomerClick);
 $("#btn-confirm-delete-customer").click(customer.onConfirmDeleteCustomerClick);
 
 function loadCustomerToInput(paramCustomer) {
