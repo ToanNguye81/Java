@@ -76,8 +76,7 @@ public class CCustomerController {
             return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
         } catch (Exception e) {
             // TODO: handle exception
-            System.out.println(e);
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -124,7 +123,7 @@ public class CCustomerController {
             pICustomerRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return new ResponseEntity<>(null,
+            return new ResponseEntity<>(e.getCause().getCause().getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
