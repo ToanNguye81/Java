@@ -280,7 +280,10 @@ let order = {
         method: "delete",
         success: () => {
           alert("All Order was successfully deleted");
-          $.get(`/orders`, loadOrderToTable);
+          // $.get(`/orders`, loadOrderToTable);
+          gCustomerId == 0
+            ? $.get(`/orders`, loadOrderToTable)
+            : $.get(`customers/${gCustomerId}/orders`, loadOrderToTable);
           $("#modal-delete-order").modal("hide");
         },
         error: (err) => alert(err.responseText),
@@ -291,7 +294,10 @@ let order = {
         method: "delete",
         success: () => {
           alert(`Order with id ${gOrderId} was successfully deleted`);
-          $.get(`/orders`, loadOrderToTable);
+          gCustomerId == 0
+            ? $.get(`/orders`, loadOrderToTable)
+            : $.get(`customers/${gCustomerId}/orders`, loadOrderToTable);
+
           $("#modal-delete-order").modal("hide");
         },
         error: (err) => alert(err.responseText),
