@@ -1,15 +1,23 @@
 package com.learn.first.restapi.menus.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Range;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "menus")
@@ -22,7 +30,7 @@ public class CMenu {
 
     @Column(name = "size")
     @NotNull(message = "Hãy nhập kích cỡ piza")
-    private Long size;
+    private String size;
 
     @Column(name = "diameter")
     @NotNull(message = "Hãy nhập đường kính pizza")
@@ -49,8 +57,28 @@ public class CMenu {
     @NotNull(message = "Hãy nhập price")
     private Long price;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_tao", nullable = true, updatable = false)
+    @CreatedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date dayCreated;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_cap_nhat", nullable = true)
+    @LastModifiedDate
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date dayUpdated;
+
     public CMenu() {
         super();
+    }
+
+    public void setDayCreated(Date dayCreated) {
+        this.dayCreated = dayCreated;
+    }
+
+    public void setDayUpdated(Date dayUpdated) {
+        this.dayUpdated = dayUpdated;
     }
 
     public Long getDiameter() {
@@ -77,7 +105,7 @@ public class CMenu {
         return salad;
     }
 
-    public Long getSize() {
+    public String getSize() {
         return size;
     }
 
@@ -105,7 +133,15 @@ public class CMenu {
         this.salad = salad;
     }
 
-    public void setSize(Long size) {
+    public void setSize(String size) {
         this.size = size;
+    }
+
+    public Date getDayCreated() {
+        return dayCreated;
+    }
+
+    public Date getDayUpdated() {
+        return dayUpdated;
     }
 }
