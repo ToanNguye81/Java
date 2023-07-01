@@ -79,8 +79,8 @@ public class CVoucherController {
     public ResponseEntity<Object> createVoucher(@Valid @RequestBody CVoucher pVouchers) {
         try {
             // Set the creation date and nullify the update date
-            pVouchers.setNgayTao(new Date());
-            pVouchers.setNgayCapNhat(null);
+            pVouchers.setDayCreated(new Date());
+            pVouchers.setDayUpdated(null);
             System.out.println("+++++++++++++++++++++++++++++++");
             System.out.println(pVouchers);
             System.out.println("+++++++++++++++++++++++++++++++");
@@ -110,7 +110,7 @@ public class CVoucherController {
                 voucher.setMaVoucher(pVoucher.getMaVoucher());
                 voucher.setPhanTramGiamGia(pVoucher.getPhanTramGiamGia());
                 voucher.setGhiChu(pVoucher.getGhiChu());
-                voucher.setNgayCapNhat(new Date());
+                voucher.setDayUpdated(new Date());
                 // Save the updated voucher back to the database
                 pIVoucherRepository.save(voucher);
 
