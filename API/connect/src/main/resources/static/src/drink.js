@@ -16,7 +16,7 @@ let drink = {
     };
     if (validateDrink(this.newDrink)) {
       $.ajax({
-        url: "http://127.0.0.1:8080/api/drinks",
+        url: "drinks",
         method: "POST",
         data: JSON.stringify(this.newDrink),
         contentType: "application/json",
@@ -32,8 +32,8 @@ let drink = {
   onUpdateDrinkClick() {
     let vSelectedRow = $(this).parents("tr");
     let vSelectedData = drinkTable.row(vSelectedRow).data();
-    gDrinkId = vSelectedData.drinkId;
-    $.get(`http://127.0.0.1:8080/api/drinks/${gDrinkId}`, loadDrinkToInput);
+    gDrinkId = vSelectedData.id;
+    $.get(`drinks/${gDrinkId}`, loadDrinkToInput);
   },
   onSaveDrinkClick() {
     this.newDrink = {
@@ -44,7 +44,7 @@ let drink = {
     };
     if (validateDrink(this.newDrink)) {
       $.ajax({
-        url: `http://127.0.0.1:8080/api/drinks/${gDrinkId}`,
+        url: `drinks/${gDrinkId}`,
         method: "PUT",
         data: JSON.stringify(this.newDrink),
         contentType: "application/json",
@@ -62,7 +62,7 @@ let drink = {
     $("#modal-delete-drink").modal("show");
     let vSelectedRow = $(this).parents("tr");
     let vSelectedData = drinkTable.row(vSelectedRow).data();
-    gDrinkId = vSelectedData.drinkId;
+    gDrinkId = vSelectedData.id;
   },
   onDeleteAllDrinkClick() {
     $("#modal-delete-drink").modal("show");
@@ -71,7 +71,7 @@ let drink = {
   onDeleteConfirmClick() {
     if (gDrinkId == 0) {
       $.ajax({
-        url: "http://localhost:8080/api/drinks",
+        url: "/drinks",
         method: "DELETE",
         success: () => {
           alert("All drink were successfully deleted");
@@ -82,7 +82,7 @@ let drink = {
       });
     } else {
       $.ajax({
-        url: `http://localhost:8080/api/drinks/${gDrinkId}`,
+        url: `/drinks/${gDrinkId}`,
         method: "DELETE",
         success: () => {
           alert(`Drink with id: ${gDrinkId} was successfully deleted`);
@@ -97,13 +97,13 @@ let drink = {
 
 let drinkTable = $("#drink-table").DataTable({
   columns: [
-    { data: "drinkId" },
+    { data: "id" },
     { data: "drinkCode" },
     { data: "drinkName" },
     { data: "price" },
     { data: "note" },
     { data: "dayCreated" },
-    { data: "dayUpDated" },
+    { data: "dayUpdated" },
     { data: "action" },
   ],
   columnDefs: [
@@ -124,7 +124,7 @@ function loadDrinkOnTable(paramDrinks) {
 
 function getDrinkFromDb() {
   "use strict";
-  $.get("http://localhost:8080/api/drinks", (drink) => loadDrinkOnTable(drink));
+  $.get("/drinks", (drink) => loadDrinkOnTable(drink));
 }
 getDrinkFromDb();
 

@@ -127,8 +127,8 @@ let gVoucherTable = $("#user-table").DataTable({
     { data: "maVoucher" },
     { data: "phanTramGiamGia" },
     { data: "ghiChu" },
-    { data: "ngayTao" },
-    { data: "ngayCapNhat" },
+    { data: "dayCreated" },
+    { data: "dayUpdated" },
     { data: "action" },
   ],
   columnDefs: [
@@ -156,8 +156,8 @@ function showVoucherDetail(paramVoucher) {
   $("#input-voucher-code").val(paramVoucher.maVoucher);
   $("#input-discount").val(paramVoucher.phanTramGiamGia);
   $("#input-note").val(paramVoucher.ghiChu);
-  $("#input-createDate").val(formatDate(paramVoucher.ngayTao));
-  $("#input-updateDate").val(formatDate(paramVoucher.ngayCapNhat));
+  $("#input-createDate").val(formatDate(paramVoucher.dayCreated));
+  $("#input-updateDate").val(formatDate(paramVoucher.dayUpdated));
 }
 
 // hàm dùng để format ngày tháng
