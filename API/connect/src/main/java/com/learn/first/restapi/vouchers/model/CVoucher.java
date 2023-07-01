@@ -85,19 +85,19 @@ public class CVoucher {
         this.ngayCapNhat = ngayCapNhat;
     }
 
-    public Date getNgayTao() {
+    public Date getDayCreated() {
         return ngayTao;
     }
 
-    public Date getNgayCapNhat() {
+    public Date getDayUpdated() {
         return ngayCapNhat;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setDayCreated(Date ngayTao) {
         this.ngayTao = ngayTao;
     }
 
-    public void setNgayCapNhat(Date ngayCapNhat) {
+    public void setDayUpdated(Date ngayCapNhat) {
         this.ngayCapNhat = ngayCapNhat;
     }
 
@@ -106,8 +106,8 @@ public class CVoucher {
         // TODO Auto-generated method stub
         return "id: " + getId() +
                 "\n" + "ma voucher :" + getMaVoucher() +
-                "\n" + "ngay cap nhat :" + getNgayCapNhat() +
-                "\n" + "ngay tao :" + getNgayTao() +
+                "\n" + "ngay cap nhat :" + getDayUpdated() +
+                "\n" + "ngay tao :" + getDayCreated() +
                 "\n" + "phan tram giam gia :" + getPhanTramGiamGia() +
                 "\n" + "ghi chu :" + getGhiChu();
     }
