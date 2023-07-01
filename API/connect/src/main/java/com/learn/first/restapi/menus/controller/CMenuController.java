@@ -1,5 +1,6 @@
 package com.learn.first.restapi.menus.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,28 +60,30 @@ public class CMenuController {
     }
 
     // Create new menu
-    @PostMapping("/menus")
+    @PostMapping(value = "/menus")
     public ResponseEntity<Object> createNewMenu(@RequestBody CMenu pMenu) {
+        // TODO: process POST request
+
         try {
             CMenu newMenu = new CMenu();
-            // get menu info
+            newMenu.setDayCreated(new Date());
             newMenu.setDiameter(pMenu.getDiameter());
             newMenu.setDrinkQuantity(pMenu.getDrinkQuantity());
             newMenu.setMeat(pMenu.getMeat());
             newMenu.setPrice(pMenu.getPrice());
             newMenu.setSalad(pMenu.getSalad());
             newMenu.setSize(pMenu.getSize());
+
             CMenu savedMenu = pIMenuRepository.save(newMenu);
-            // return success
             return new ResponseEntity<>(savedMenu, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getCause().getCause().getMessage(),
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+            // TODO: handle exception
+            return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // Delete all menu
-    @DeleteMapping("/menus")
+    @DeleteMapping(value = "/menus")
     public ResponseEntity<Object> deleteAllMenu() {
         try {
             pIMenuRepository.deleteAll();
