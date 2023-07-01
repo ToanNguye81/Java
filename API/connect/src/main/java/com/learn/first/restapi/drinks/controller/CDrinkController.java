@@ -1,7 +1,5 @@
 package com.learn.first.restapi.drinks.controller;
 
-import org.springframework.http.HttpStatus;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -9,25 +7,24 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.learn.first.restapi.drinks.model.CDrink;
-import com.learn.first.restapi.drinks.repository.IDrinkRepository;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.learn.first.restapi.drinks.model.CDrink;
+import com.learn.first.restapi.drinks.repository.IDrinkRepository;
 
 @CrossOrigin
 @RestController
@@ -76,30 +73,28 @@ public class CDrinkController {
     // POST METHOD ====================
     // Create new Drink
     @PostMapping("/drinks")
-    public ResponseEntity<Object> createDrink(@Valid @RequestBody CDrink pDrinks) {
+    public ResponseEntity<Object> createDrink(@Valid @RequestBody CDrink pDrink) {
         try {
+            CDrink newDrink = new CDrink();
             // Set the creation date and nullify the update date
-            pDrinks.setNgayTao(new Date());
-            pDrinks.setNgayCapNhat(null);
-            System.out.println("+++++++++++++++++++++++++++++++");
-            System.out.println(pDrinks);
-            System.out.println("+++++++++++++++++++++++++++++++");
+            newDrink.setNote(pDrink.getNote());
+            newDrink.setDrinkCode(pDrink.getDrinkCode());
+            newDrink.setDayCreated(new Date());
+            newDrink.setPrice(pDrink.getPrice());
+            newDrink.setDrinkName(pDrink.getDrinkName());
             // Save the drink to the database
-            CDrink drink = pIDrinkRepository.save(pDrinks);
-
+            CDrink drink = pIDrinkRepository.save(newDrink);
             // Return the created drink in the response with HTTP status 201 (Created)
             return new ResponseEntity<>(drink, HttpStatus.CREATED);
-
         } catch (Exception e) {
-            System.out.println("==================================");
-            System.out.println(e);
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println(e.getCause().getCause().getMessage());
+            return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // PUT METHOD ==================
     @PutMapping("drinks/{id}")
-    public ResponseEntity<CDrink> updateDrinkById(@PathVariable("id") long id, @RequestBody CDrink pDrink) {
+    public ResponseEntity<Object> updateDrinkById(@PathVariable("id") long id, @RequestBody CDrink pDrink) {
         try {
             // Get the drink from the database by its ID
             Optional<CDrink> optionalDrink = pIDrinkRepository.findById(id);
@@ -107,20 +102,21 @@ public class CDrinkController {
                 CDrink drink = optionalDrink.get();
 
                 // Update the drink properties with the provided pDrink data
-                drink.setMaNuocUong(pDrink.getMaNuocUong());
-                drink.setTenNuocUong(pDrink.getTenNuocUong());
+                drink.setNote(pDrink.getNote());
+                drink.setDrinkCode(pDrink.getDrinkCode());
                 drink.setPrice(pDrink.getPrice());
-                drink.setNgayCapNhat(new Date());
+                drink.setDrinkName(pDrink.getDrinkName());
+                drink.setDayUpdated(new Date());
                 // Save the updated drink back to the database
                 pIDrinkRepository.save(drink);
 
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(drink, HttpStatus.NO_CONTENT);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
             System.out.println(e);
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

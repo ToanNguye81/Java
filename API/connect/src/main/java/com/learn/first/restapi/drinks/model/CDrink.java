@@ -3,8 +3,8 @@ package com.learn.first.restapi.drinks.model;
 import java.util.Date;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -23,86 +23,98 @@ public class CDrink {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull(message = "Nhập mã giảm giá")
+    @NotNull(message = "Nhập mã nước uống")
     @Size(min = 2, message = "Mã nước uống phải có ít nhất 2 ký tự ")
     @Column(name = "ma_nuoc_uong", unique = true)
-    private String maNuocUong;
+    private String drinkCode;
 
-    @NotEmpty(message = "Nhập giá trị giảm giá")
+    @NotNull(message = "Nhập tên nước uống")
     @Size(min = 2, message = "Tên nước uống phải có ít nhất 2 ký tự ")
     @Column(name = "ten_nuoc_uong", unique = true)
-    private String tenNuocUong;
+    private String drinkName;
 
+    @NotNull(message = "Nhập giá trị nước uống")
+    @Positive(message = "Giá trị nước uống phải lớn hơn 0")
     @Column(name = "gia_nuoc_uong")
     private long price;
+
+    @Column(name = "note")
+    private String note;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ngay_tao", nullable = true, updatable = false)
     @CreatedDate
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date ngayTao;
+    private Date dayCreated;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ngay_cap_nhat", nullable = true)
     @LastModifiedDate
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date ngayCapNhat;
+    private Date dayUpdated;
 
     public CDrink() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public CDrink(String maNuocUong, String tenNuocUong, long price, Date ngayTao, Date ngayCapNhat) {
-        this.maNuocUong = maNuocUong;
-        this.tenNuocUong = tenNuocUong;
-        this.price = price;
-        this.ngayTao = ngayTao;
-        this.ngayCapNhat = ngayCapNhat;
+    public CDrink(String drinkCode, String drinkName, long price, Date dayCreated, Date dayUpdated) {
     }
 
     public long getId() {
         return id;
     }
 
-    public String getMaNuocUong() {
-        return maNuocUong;
+    public String getNote() {
+        return note;
     }
 
-    public Date getNgayCapNhat() {
-        return ngayCapNhat;
+    public void setNote(String note) {
+        this.note = note;
     }
 
-    public Date getNgayTao() {
-        return ngayTao;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getDrinkCode() {
+        return drinkCode;
+    }
+
+    public Date getDayUpdated() {
+        return dayUpdated;
+    }
+
+    public Date getDayCreated() {
+        return dayCreated;
     }
 
     public long getPrice() {
         return price;
     }
 
-    public String getTenNuocUong() {
-        return tenNuocUong;
+    public String getDrinkName() {
+        return drinkName;
     }
 
-    public void setMaNuocUong(String maNuocUong) {
-        this.maNuocUong = maNuocUong;
+    public void setDrinkCode(String drinkCode) {
+        this.drinkCode = drinkCode;
     }
 
-    public void setNgayCapNhat(Date ngayCapNhat) {
-        this.ngayCapNhat = ngayCapNhat;
+    public void setDayUpdated(Date dayUpdated) {
+        this.dayUpdated = dayUpdated;
     }
 
-    public void setNgayTao(Date ngayTao) {
-        this.ngayTao = ngayTao;
+    public void setDayCreated(Date dayCreated) {
+        this.dayCreated = dayCreated;
     }
 
     public void setPrice(long price) {
         this.price = price;
     }
 
-    public void setTenNuocUong(String tenNuocUong) {
-        this.tenNuocUong = tenNuocUong;
+    public void setDrinkName(String drinkName) {
+        this.drinkName = drinkName;
     }
 
 }
