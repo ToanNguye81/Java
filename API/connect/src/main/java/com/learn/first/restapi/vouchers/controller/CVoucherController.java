@@ -81,9 +81,7 @@ public class CVoucherController {
             // Set the creation date and nullify the update date
             pVouchers.setDayCreated(new Date());
             pVouchers.setDayUpdated(null);
-            System.out.println("+++++++++++++++++++++++++++++++");
             System.out.println(pVouchers);
-            System.out.println("+++++++++++++++++++++++++++++++");
             // Save the voucher to the database
             CVoucher voucher = pIVoucherRepository.save(pVouchers);
 

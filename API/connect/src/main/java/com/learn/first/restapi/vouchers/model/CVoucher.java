@@ -35,13 +35,13 @@ public class CVoucher {
     @Column(name = "ngay_tao", nullable = true, updatable = false)
     @CreatedDate
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date ngayTao;
+    private Date dayCreated;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ngay_cap_nhat", nullable = true)
     @LastModifiedDate
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date ngayCapNhat;
+    private Date dayUpdated;
 
     @Column(name = "ghi_chu")
     private String ghiChu;
@@ -77,28 +77,28 @@ public class CVoucher {
         return ghiChu;
     }
 
-    public CVoucher(String maVoucher, Long phanTramGiamGia, String ghiChu, Date ngayTao, Date ngayCapNhat) {
+    public CVoucher(String maVoucher, Long phanTramGiamGia, String ghiChu, Date dayCreated, Date dayUpdated) {
         this.maVoucher = maVoucher;
         this.phanTramGiamGia = phanTramGiamGia;
         this.ghiChu = ghiChu;
-        this.ngayTao = ngayTao;
-        this.ngayCapNhat = ngayCapNhat;
+        this.dayCreated = dayCreated;
+        this.dayUpdated = dayUpdated;
     }
 
     public Date getDayCreated() {
-        return ngayTao;
+        return dayCreated;
     }
 
     public Date getDayUpdated() {
-        return ngayCapNhat;
+        return dayUpdated;
     }
 
-    public void setDayCreated(Date ngayTao) {
-        this.ngayTao = ngayTao;
+    public void setDayCreated(Date dayCreated) {
+        this.dayCreated = dayCreated;
     }
 
-    public void setDayUpdated(Date ngayCapNhat) {
-        this.ngayCapNhat = ngayCapNhat;
+    public void setDayUpdated(Date dayUpdated) {
+        this.dayUpdated = dayUpdated;
     }
 
     @Override
