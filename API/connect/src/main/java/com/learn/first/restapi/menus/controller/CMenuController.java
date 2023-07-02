@@ -2,6 +2,9 @@ package com.learn.first.restapi.menus.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.first.restapi.menus.model.CMenu;
 import com.learn.first.restapi.menus.repository.IMenuRepository;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @CrossOrigin
 @RestController
@@ -61,9 +65,8 @@ public class CMenuController {
 
     // Create new menu
     @PostMapping(value = "/menus")
-    public ResponseEntity<Object> createNewMenu(@RequestBody CMenu pMenu) {
+    public ResponseEntity<Object> createNewMenu(@Valid @RequestBody CMenu pMenu) {
         // TODO: process POST request
-
         try {
             CMenu newMenu = new CMenu();
             newMenu.setDayCreated(new Date());
@@ -78,7 +81,36 @@ public class CMenuController {
             return new ResponseEntity<>(savedMenu, HttpStatus.CREATED);
         } catch (Exception e) {
             // TODO: handle exception
+            System.out.println(e.getCause().getCause().getMessage());
             return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // update menu
+    @PutMapping(value = "menus/{menuId}")
+    public ResponseEntity<Object> updateMenuById(@Valid @PathVariable Long menuId, @RequestBody CMenu pMenu) {
+        // TODO: process PUT request
+        Optional<CMenu> existingMenuOptional = pIMenuRepository.findById(menuId);
+        if (existingMenuOptional.isPresent()) {
+            try {
+                CMenu existingMenu = existingMenuOptional.get();
+                existingMenu.setDayUpdated(new Date());
+                existingMenu.setDiameter(pMenu.getDiameter());
+                existingMenu.setDrinkQuantity(pMenu.getDrinkQuantity());
+                existingMenu.setMeat(pMenu.getMeat());
+                existingMenu.setPrice(pMenu.getPrice());
+                existingMenu.setSalad(pMenu.getSalad());
+                existingMenu.setSize(pMenu.getSize());
+
+                CMenu savedMenu = pIMenuRepository.save(existingMenu);
+                return new ResponseEntity<>(savedMenu, HttpStatus.NO_CONTENT);
+
+            } catch (Exception e) {
+                // TODO: handle exception
+                return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
